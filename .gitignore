@@ -1,0 +1,13 @@
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Node (if added later)
+node_modules/
+dist/
+.env
+.env.local

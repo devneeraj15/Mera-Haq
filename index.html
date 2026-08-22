@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Mera Haq on UMANG — React.js citizen opportunity discovery layer for government scholarships, free training, fee support, and subsidised loans."
+    />
+    <title>UMANG | Mera Haq — React.js Citizen Opportunity Discovery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- React 18 & ReactDOM 18 UMD (Fast CDN) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel Standalone for direct in-browser JSX transformation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body class="umang-dark">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div id="root"></div>
+    <div id="app"></div>
+
+    <!-- React Application Component Scripts -->
+    <script type="text/babel" src="app.jsx"></script>
+    <!-- Fallback pure JS for offline or unparsed environments -->
+    <script src="app.js" defer></script>
+  </body>
+</html>
