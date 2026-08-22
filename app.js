@@ -31,6 +31,7 @@ const minorityCommunities = [
 ];
 
 const identityTags = [
+  "Open / General (No quota needed)",
   "SC",
   "ST",
   "OBC",
@@ -232,6 +233,7 @@ const opportunities = [
   {
     id: "maharashtra-pmkuva",
     priority: 3,
+    openToAll: true,
     name: "Maharashtra PMKUVA (Pramod Mahajan Kaushalya Vikas Abhiyan)",
     shortDescription:
       "State-funded vocational and advanced technical skill training across Maharashtra districts.",
@@ -277,6 +279,7 @@ const opportunities = [
   {
     id: "pmkvy-future-tech",
     priority: 4,
+    openToAll: true,
     name: "PMKVY 4.0 — Future Skills & New-Age Tech Courses",
     shortDescription:
       "Skill India initiative offering courses in Artificial Intelligence, Cloud, Drone Tech, and IoT.",
@@ -320,6 +323,7 @@ const opportunities = [
   {
     id: "pm-vidyalaxmi",
     priority: 5,
+    openToAll: true,
     name: "PM-Vidyalaxmi Education Loan Support",
     shortDescription:
       "Collateral-free, guarantor-free education loan pathway for premier Quality Higher Education Institutions.",
@@ -363,6 +367,7 @@ const opportunities = [
   {
     id: "pm-vidyalaxmi-interest-subvention",
     priority: 6,
+    openToAll: true,
     name: "PM-Vidyalaxmi 3% Interest Subvention Scheme",
     shortDescription:
       "3% interest subsidy on education loans up to ₹10 Lakh for families with annual income up to ₹8 Lakh.",
@@ -452,6 +457,7 @@ const opportunities = [
   {
     id: "rajarshi-shahu-fee-scholarship",
     priority: 8,
+    openToAll: true,
     name: "Rajarshi Chhatrapati Shahu Maharaj EBC/EWS Fee Support",
     shortDescription:
       "Maharashtra state fee reimbursement for Economically Backward / EWS students in professional courses.",
@@ -498,6 +504,7 @@ const opportunities = [
   {
     id: "panjabrao-deshmukh-hostel",
     priority: 9,
+    openToAll: true,
     name: "Dr Panjabrao Deshmukh Vasatigruh Nirvah Bhatta",
     shortDescription:
       "Hostel and subsistence living allowance for Maharashtra students pursuing professional courses.",
@@ -545,6 +552,7 @@ const opportunities = [
   {
     id: "maharashtra-foreign-scholarship",
     priority: 10,
+    openToAll: true,
     name: "Maharashtra Foreign Scholarship for Higher Studies",
     shortDescription:
       "State financial assistance for Maharashtra students admitted to top 200 QS-ranked world universities.",
@@ -592,6 +600,7 @@ const opportunities = [
   {
     id: "nsp-csss",
     priority: 11,
+    openToAll: true,
     name: "PM-USP Central Sector Scholarship for College & University Students",
     shortDescription:
       "Merit-cum-means financial assistance for students scoring above 80th percentile in Class 12.",
@@ -635,6 +644,7 @@ const opportunities = [
   {
     id: "csis-interest-subsidy",
     priority: 12,
+    openToAll: true,
     name: "Central Sector Interest Subsidy Scheme (CSIS)",
     shortDescription:
       "Full interest subsidy during moratorium period on educational loans for economically weaker sections.",
@@ -803,6 +813,7 @@ const opportunities = [
   {
     id: "naps-tech-apprenticeship",
     priority: 16,
+    openToAll: true,
     name: "NAPS-2 Technology & IT Apprenticeship Pathway",
     shortDescription:
       "Industry on-the-job apprenticeship with direct government stipend support under NAPS.",
@@ -846,6 +857,7 @@ const opportunities = [
   {
     id: "pmegp-micro-enterprise",
     priority: 17,
+    openToAll: true,
     name: "PMEGP Prime Minister Employment Generation Programme",
     shortDescription:
       "Credit-linked capital subsidy for setting up new micro-enterprises and technology startups.",
@@ -1877,6 +1889,8 @@ function renderOpportunities() {
     filtered = filtered.filter((r) => r.status === "strong");
   } else if (ui.activeFilter === "verify") {
     filtered = filtered.filter((r) => r.status === "likely" || r.status === "check");
+  } else if (ui.activeFilter === "openToAll") {
+    filtered = filtered.filter((r) => r.opportunity.openToAll);
   } else if (ui.activeFilter === "future") {
     filtered = filtered.filter((r) => r.status === "future");
   } else if (ui.activeFilter === "scholarships") {
@@ -1900,6 +1914,7 @@ function renderOpportunities() {
   const strongCount = primaryResults.filter((r) => r.status === "strong").length;
   const verifyCount = primaryResults.filter((r) => r.status === "likely" || r.status === "check").length;
   const futureCount = primaryResults.filter((r) => r.status === "future").length;
+  const openToAllCount = displayResults.filter((r) => r.opportunity.openToAll).length;
   const valueSummary = calculatePotentialValue(primaryResults);
 
   return shell(`
@@ -1907,7 +1922,7 @@ function renderOpportunities() {
       <div class="results-header-banner">
         <span class="eyebrow-badge"><span class="dot"></span>Personalized Opportunity Map</span>
         <h1 class="page-title">We found ${primaryResults.length} opportunities for you</h1>
-        <p class="page-subtitle">Based on the information you shared, here is the government support you qualify to explore.</p>
+        <p className="page-subtitle">Based on the information you shared, here is the government support you qualify to explore.</p>
 
         <div class="metrics-summary-grid">
           <div class="metric-box">
@@ -1936,6 +1951,7 @@ function renderOpportunities() {
         <div class="filter-tabs">
           <button class="filter-tab-btn ${ui.activeFilter === "all" ? "active" : ""}" type="button" data-action="set-filter" data-value="all">All (${displayResults.length})</button>
           <button class="filter-tab-btn ${ui.activeFilter === "strong" ? "active" : ""}" type="button" data-action="set-filter" data-value="strong">Strong matches (${strongCount})</button>
+          <button class="filter-tab-btn ${ui.activeFilter === "openToAll" ? "active" : ""}" type="button" data-action="set-filter" data-value="openToAll">Open to All (${openToAllCount})</button>
           <button class="filter-tab-btn ${ui.activeFilter === "verify" ? "active" : ""}" type="button" data-action="set-filter" data-value="verify">Need verification (${verifyCount})</button>
           <button class="filter-tab-btn ${ui.activeFilter === "training" ? "active" : ""}" type="button" data-action="set-filter" data-value="training">Free Training</button>
           <button class="filter-tab-btn ${ui.activeFilter === "scholarships" ? "active" : ""}" type="button" data-action="set-filter" data-value="scholarships">Scholarships</button>
@@ -2015,11 +2031,13 @@ function renderOpportunityCard(result) {
             <span>${escapeHtml(opp.department)}</span>
             <span>•</span>
             <span>${escapeHtml(opp.type)}</span>
+            ${opp.openToAll ? `<span>•</span> <span class="universal-badge">🌐 Open to All</span>` : ""}
           </div>
           <h3 class="card-title">
             <a href="#/mera-haq/opportunities/${opp.id}">${escapeHtml(opp.name)}</a>
           </h3>
         </div>
+
 
         <span class="status-pill ${result.status}">
           ${statusLabel}
