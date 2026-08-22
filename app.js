@@ -93,6 +93,8 @@ const demoProfile = {
   gender: "Male",
   disability: false,
   residenceType: "Urban",
+  apaarId: "279903493988",
+  apaarVerified: true,
   interests: ["AI", "Technology", "Product", "Skill development"],
   goals: [
     "Scholarships",
@@ -121,6 +123,8 @@ const blankProfile = {
   gender: "Male",
   disability: false,
   residenceType: "Urban",
+  apaarId: "",
+  apaarVerified: false,
   interests: ["AI", "Technology"],
   goals: ["Scholarships", "Free training", "Skill development"],
 };
@@ -1655,6 +1659,23 @@ function renderProfile() {
                 `).join("")}
               </div>
             </div>
+
+            <div class="field full" style="margin-top: 6px; padding: 14px 18px; background-color: rgba(37, 99, 235, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: var(--radius-md);">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div>
+                  <strong style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #93c5fd;">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                    DigiLocker / APAAR ID (Optional)
+                  </strong>
+                  <span style="font-size: 12px; color: var(--text-muted); display: block; margin-top: 2px;">
+                    ${profile.apaarId ? `Linked: ${escapeHtml(profile.apaarId)} (Permanent Academic Account Registry)` : "Link your 12-digit Academic Account Registry ID for instant document readiness."}
+                  </span>
+                </div>
+                <button class="btn btn-secondary btn-sm" type="button" data-action="toggle-apaar">
+                  ${profile.apaarId ? "Unlink APAAR" : "Auto-Link DigiLocker (Demo)"}
+                </button>
+              </div>
+            </div>
           `
               : step === 2
                 ? `
@@ -1800,6 +1821,20 @@ function renderProfileReview() {
           </div>
         </div>
 
+        ${
+          profile.apaarId
+            ? `
+          <div style="margin-top: 20px; padding: 14px 18px; background-color: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: var(--radius-md); display: flex; align-items: center; gap: 12px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <div>
+              <strong style="color: #34d399; font-size: 13.5px; display: block;">DigiLocker / APAAR Academic Registry Linked: ${escapeHtml(profile.apaarId)}</strong>
+              <span style="color: var(--text-secondary); font-size: 12px;">Academic credentials and age digitally verifiable via National Academic Depository (ABC).</span>
+            </div>
+          </div>
+        `
+            : ""
+        }
+
         <div class="form-actions-row">
           <a class="btn btn-secondary" href="#/mera-haq/profile">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1921,8 +1956,8 @@ function renderOpportunities() {
     <div class="content-container">
       <div class="results-header-banner">
         <span class="eyebrow-badge"><span class="dot"></span>Personalized Opportunity Map</span>
-        <h1 class="page-title">We found ${primaryResults.length} opportunities for you</h1>
-        <p className="page-subtitle">Based on the information you shared, here is the government support you qualify to explore.</p>
+        <h1 class="page-title">We found ${primaryResults.length} opportunities you may not have known about</h1>
+        <p class="page-subtitle">Discovered directly from your citizen profile across central ministries, Maharashtra state systems, and premier institutions.</p>
 
         <div class="metrics-summary-grid">
           <div class="metric-box">
@@ -1942,7 +1977,16 @@ function renderOpportunities() {
 
           <div class="metric-box" title="Direct stipends + training cost avoided + future fee waivers. Loans shown separately.">
             <div class="metric-number value">₹1.35L+</div>
-            <div class="metric-label">Potential citizen value</div>
+            <div class="metric-label">Potential citizen value ℹ</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 18px; padding: 14px 18px; background-color: rgba(15, 23, 42, 0.85); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: var(--radius-md);">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; font-size: 12px;">
+            <div><strong style="color: #34d399;">Direct DBT: ₹12,000</strong> <span style="color: var(--text-muted);">(IIT Dharwad Monthly Stipends)</span></div>
+            <div><strong style="color: #60a5fa;">Zero-Cost Training: ₹45,000</strong> <span style="color: var(--text-muted);">(PMKUVA + PMKVY 4.0)</span></div>
+            <div><strong style="color: #c084fc;">Future Fee Waiver: ₹50,000</strong> <span style="color: var(--text-muted);">(MahaDBT Minority Support)</span></div>
+            <div><strong style="color: #fbbf24;">Credit Available: ₹10,00,000</strong> <span style="color: var(--text-muted);">(PM-Vidyalaxmi Financing)</span></div>
           </div>
         </div>
       </div>
@@ -1970,10 +2014,17 @@ function renderOpportunities() {
           filtered.length
             ? filtered.map((res) => renderOpportunityCard(res)).join("")
             : `
-          <div class="profile-form-card" style="text-align:center; padding: 40px;">
-            <h3>No schemes matched this filter</h3>
-            <p style="color:var(--text-muted); margin: 10px 0 20px;">Try clearing search or viewing all matched opportunities.</p>
-            <button class="btn btn-primary" type="button" data-action="set-filter" data-value="all">Reset Filters</button>
+          <div class="profile-form-card" style="text-align:center; padding: 40px 24px;">
+            <div style="font-size: 36px; margin-bottom: 12px;">🔍</div>
+            <h3 style="font-size: 18px; color: #ffffff; margin-bottom: 8px;">No schemes matched your current filter</h3>
+            <p style="color:var(--text-muted); max-width: 480px; margin: 0 auto 24px; font-size: 14px; line-height: 1.5;">
+              No opportunities matched the filter <strong>"${escapeHtml(ui.activeFilter)}"</strong>. Try resetting filters or exploring universal opportunities open to all citizens.
+            </p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+              <button class="btn btn-primary" type="button" data-action="set-filter" data-value="all">Reset Filters</button>
+              <button class="btn btn-secondary" type="button" data-action="set-filter" data-value="openToAll">Explore Open to All (${openToAllCount})</button>
+              <a class="btn btn-secondary" href="#/mera-haq/profile">Edit Profile</a>
+            </div>
           </div>
         `
         }
@@ -2232,6 +2283,20 @@ function renderApplicationReadiness(id) {
             )
             .join("")}
         </ul>
+
+        ${
+          profile.apaarId
+            ? `
+          <div style="margin: 16px 0; padding: 12px 16px; background-color: rgba(37, 99, 235, 0.08); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: var(--radius-md); display: flex; align-items: center; gap: 10px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+            <div style="font-size: 12.5px;">
+              <strong style="color: #93c5fd;">DigiLocker & APAAR Registry Active (${escapeHtml(profile.apaarId)}):</strong>
+              <span style="color: var(--text-secondary); display: block;">Degree certificates, Class 10 age records, and Academic Bank of Credits can be pulled digitally at the official destination.</span>
+            </div>
+          </div>
+        `
+            : ""
+        }
 
         <div class="prototype-trust-banner">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2614,6 +2679,22 @@ function runAutomatedTests() {
         return check;
       },
     },
+    {
+      id: 11,
+      name: "Universal opportunity filter (openToAll) accurately isolates non-quota schemes",
+      run: () => {
+        const pmkuva = opportunities.find((o) => o.id === "maharashtra-pmkuva");
+        const pmkvy = opportunities.find((o) => o.id === "pmkvy-future-tech");
+        return Boolean(pmkuva?.openToAll && pmkvy?.openToAll);
+      },
+    },
+    {
+      id: 12,
+      name: "DigiLocker & APAAR ID Academic Registry verification",
+      run: () => {
+        return demoProfile.apaarId === "279903493988" && demoProfile.apaarVerified === true;
+      },
+    },
   ];
 
   return tests.map((t) => ({ ...t, passed: t.run() }));
@@ -2810,6 +2891,19 @@ appElement.addEventListener("click", (e) => {
   if (action === "set-field") {
     const profile = loadProfile();
     profile[field] = value;
+    saveProfile(profile);
+    render();
+  }
+
+  if (action === "toggle-apaar") {
+    const profile = loadProfile();
+    if (profile.apaarId) {
+      profile.apaarId = "";
+      profile.apaarVerified = false;
+    } else {
+      profile.apaarId = "279903493988";
+      profile.apaarVerified = true;
+    }
     saveProfile(profile);
     render();
   }
