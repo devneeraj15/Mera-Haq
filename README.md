@@ -4,6 +4,9 @@
 
 A prototype built for the **"Build What Moves India"** challenge.
 
+🌐 **Live Deployment:** [https://devneeraj15.github.io/Mera-Haq/](https://devneeraj15.github.io/Mera-Haq/)  
+📦 **GitHub Repository:** [https://github.com/devneeraj15/Mera-Haq](https://github.com/devneeraj15/Mera-Haq)
+
 ---
 
 ## 🌟 The Core Problem Solved
