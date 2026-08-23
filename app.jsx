@@ -3518,20 +3518,66 @@ function WhyDoIMatchMatrix({ id }) {
   );
 }
 
+// Which document names DigiLocker can supply (partial match, case-insensitive)
+const DIGILOCKER_FETCHABLE = [
+  "aadhaar", "class 10", "10th", "ssc", "class 12", "12th", "hsc", "degree",
+  "graduation", "bachelor", "marksheet", "mark sheet", "bonafide", "apaar",
+  "academic bank", "domicile", "caste certificate", "income certificate",
+  "birth certificate", "disability certificate", "pan card", "driving licence",
+  "voter id", "voter card", "ration card", "bpl certificate", "land record",
+  "khata", "khasra", "soil health", "crop insurance", "mcp card",
+];
+
+function canFetchFromDigiLocker(docName) {
+  const lower = docName.toLowerCase();
+  return DIGILOCKER_FETCHABLE.some((kw) => lower.includes(kw));
+}
+
 function ApplicationReadiness({ id }) {
   const { profile, setModalOpportunityId } = useApp();
   const result = getResultById(id, profile);
+
+  const [fetchedDocs, setFetchedDocs] = React.useState({});
+  const [fetchingDoc, setFetchingDoc] = React.useState(null);
+  const [fetchingAll, setFetchingAll] = React.useState(false);
 
   if (!result) return <NotFoundView />;
 
   const opp = result.opportunity;
   const docs = opp.requiredDocuments || [];
-  const attentionCount = docs.filter((d) => d.status !== "ready").length;
+  const attentionDocs = docs.filter((d) => d.status !== "ready");
+  const fetchableDocs = attentionDocs.filter((d) => canFetchFromDigiLocker(d.name));
+  const fetchedCount = Object.values(fetchedDocs).filter(Boolean).length;
+  const allFetched = fetchableDocs.length > 0 && fetchableDocs.every((d) => fetchedDocs[d.name]);
+
+  function handleFetch(docName) {
+    setFetchingDoc(docName);
+    setTimeout(() => {
+      setFetchedDocs((prev) => ({ ...prev, [docName]: true }));
+      setFetchingDoc(null);
+    }, 1500);
+  }
+
+  function handleFetchAll() {
+    if (fetchingAll) return;
+    setFetchingAll(true);
+    const remaining = fetchableDocs.filter((d) => !fetchedDocs[d.name]);
+    remaining.forEach((d, i) => {
+      setTimeout(() => {
+        setFetchedDocs((prev) => ({ ...prev, [d.name]: true }));
+        if (i === remaining.length - 1) setFetchingAll(false);
+      }, (i + 1) * 800);
+    });
+  }
+
+  const readinessScore = Math.round(
+    ((docs.filter((d) => d.status === "ready").length + fetchedCount) / Math.max(docs.length, 1)) * 100
+  );
 
   return (
     <div className="content-container narrow">
       <div className="back-link-row" onClick={() => history.back()}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <line x1="19" y1="12" x2="5" y2="12"></line>
           <polyline points="12 19 5 12 12 5"></polyline>
         </svg>
@@ -3542,50 +3588,141 @@ function ApplicationReadiness({ id }) {
         <span className="eyebrow-badge"><span className="dot"></span>Pre-Application Checklist</span>
         <h1 className="page-title">Before you apply</h1>
         <p className="page-subtitle">
-          {attentionCount > 0 ? `${attentionCount} document(s) may need attention before you proceed to the official destination for ${opp.name}.` : `All checklist items look ready for ${opp.name}.`}
+          {attentionDocs.length > 0
+            ? `${attentionDocs.length} document(s) needed for ${opp.name} — fetch directly from DigiLocker where available.`
+            : `All checklist items look ready for ${opp.name}.`}
         </p>
 
-        <ul className="readiness-docs-list">
-          {docs.map((doc, i) => (
-            <li key={i} className={`doc-check-item ${doc.status === "ready" ? "ready" : "attention"}`}>
-              <span className={`criterion-icon ${doc.status === "ready" ? "match" : "verify"}`} style={{ width: "22px", height: "22px", fontSize: "12px" }}>
-                {doc.status === "ready" ? "✓" : "!"}
+        {/* Readiness progress bar */}
+        <div style={{ margin: "16px 0 20px", padding: "14px 18px", backgroundColor: "rgba(15,23,42,0.6)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-md)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+            <span style={{ fontSize: "13px", color: "var(--text-secondary)" }}>Document readiness</span>
+            <strong style={{ fontSize: "14px", color: readinessScore === 100 ? "#34d399" : "#60a5fa" }}>{readinessScore}%</strong>
+          </div>
+          <div style={{ height: "6px", backgroundColor: "rgba(255,255,255,0.08)", borderRadius: "100px", overflow: "hidden" }}>
+            <div style={{ height: "100%", width: `${readinessScore}%`, backgroundColor: readinessScore === 100 ? "#10b981" : "#3b82f6", borderRadius: "100px", transition: "width 0.5s ease" }} />
+          </div>
+          {fetchableDocs.length > 0 && !allFetched && (
+            <div style={{ marginTop: "10px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "8px" }}>
+              <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
+                {fetchableDocs.length} document{fetchableDocs.length > 1 ? "s" : ""} available via DigiLocker
               </span>
-              <div className="doc-info">
-                <strong>{doc.name}</strong>
-                <span>{doc.status === "ready" ? "Document typically available for B.Tech / Graduate" : "Needs attention: " + (doc.note || "Verify before applying")}</span>
-              </div>
-            </li>
-          ))}
+              <button
+                onClick={handleFetchAll}
+                disabled={fetchingAll}
+                style={{
+                  display: "flex", alignItems: "center", gap: "6px", padding: "6px 14px",
+                  backgroundColor: "rgba(37, 99, 235, 0.15)", border: "1px solid rgba(59, 130, 246, 0.4)",
+                  borderRadius: "100px", color: "#93c5fd", fontSize: "12px", fontWeight: 600,
+                  cursor: fetchingAll ? "default" : "pointer", opacity: fetchingAll ? 0.7 : 1,
+                }}
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+                {fetchingAll ? "Fetching from DigiLocker…" : `Fetch all from DigiLocker (${fetchableDocs.filter((d) => !fetchedDocs[d.name]).length})`}
+              </button>
+            </div>
+          )}
+          {allFetched && (
+            <div style={{ marginTop: "8px", fontSize: "12px", color: "#34d399", display: "flex", alignItems: "center", gap: "6px" }}>
+              ✓ All available documents fetched from DigiLocker
+            </div>
+          )}
+        </div>
+
+        {/* Document list */}
+        <ul className="readiness-docs-list">
+          {docs.map((doc, i) => {
+            const isFetched = fetchedDocs[doc.name];
+            const isFetchable = canFetchFromDigiLocker(doc.name);
+            const isLoading = fetchingDoc === doc.name;
+            const isReady = doc.status === "ready" || isFetched;
+
+            return (
+              <li key={i} className={`doc-check-item ${isReady ? "ready" : "attention"}`}>
+                <span
+                  className={`criterion-icon ${isReady ? "match" : "verify"}`}
+                  style={{ width: "22px", height: "22px", fontSize: "12px", flexShrink: 0 }}
+                >
+                  {isLoading ? "⟳" : isReady ? "✓" : "!"}
+                </span>
+                <div className="doc-info" style={{ flex: 1 }}>
+                  <strong>{doc.name}</strong>
+                  <span>
+                    {isFetched
+                      ? "✅ Fetched from DigiLocker — digitally verified"
+                      : doc.status === "ready"
+                      ? "Document typically available for B.Tech / Graduate"
+                      : "Needs attention: " + (doc.note || "Verify before applying")}
+                  </span>
+                </div>
+
+                {/* DigiLocker fetch button — shown for attention docs that are fetchable */}
+                {doc.status !== "ready" && isFetchable && !isFetched && (
+                  <button
+                    onClick={() => handleFetch(doc.name)}
+                    disabled={isLoading || fetchingAll}
+                    style={{
+                      display: "flex", alignItems: "center", gap: "5px", flexShrink: 0,
+                      padding: "5px 11px", backgroundColor: "rgba(37, 99, 235, 0.12)",
+                      border: "1px solid rgba(59, 130, 246, 0.35)", borderRadius: "100px",
+                      color: "#93c5fd", fontSize: "11px", fontWeight: 600, cursor: "pointer",
+                      whiteSpace: "nowrap", opacity: isLoading ? 0.7 : 1,
+                    }}
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    </svg>
+                    {isLoading ? "Fetching…" : "DigiLocker"}
+                  </button>
+                )}
+
+                {/* "Not in DigiLocker" hint for un-fetchable attention docs */}
+                {doc.status !== "ready" && !isFetchable && !isFetched && (
+                  <span style={{ flexShrink: 0, fontSize: "10.5px", color: "var(--text-muted)", whiteSpace: "nowrap" }}>Manual only</span>
+                )}
+
+                {isFetched && (
+                  <span style={{ flexShrink: 0, fontSize: "11px", color: "#34d399", whiteSpace: "nowrap" }}>✓ DigiLocker</span>
+                )}
+              </li>
+            );
+          })}
         </ul>
 
+        {/* DigiLocker APAAR banner */}
         {profile.apaarId && (
-          <div style={{ margin: "16px 0", padding: "12px 16px", backgroundColor: "rgba(37, 99, 235, 0.08)", border: "1px solid rgba(59, 130, 246, 0.3)", borderRadius: "var(--radius-md)", display: "flex", alignItems: "center", gap: "10px" }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+          <div style={{ margin: "16px 0", padding: "12px 16px", backgroundColor: "rgba(37, 99, 235, 0.08)", border: "1px solid rgba(59, 130, 246, 0.3)", borderRadius: "var(--radius-md)", display: "flex", alignItems: "flex-start", gap: "10px" }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2" style={{ flexShrink: 0, marginTop: "1px" }}>
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            </svg>
             <div style={{ fontSize: "12.5px" }}>
-              <strong style={{ color: "#93c5fd" }}>DigiLocker & APAAR Registry Active ({profile.apaarId}):</strong>
-              <span style={{ color: "var(--text-secondary)", display: "block" }}>Degree certificates, Class 10 age records, and Academic Bank of Credits can be pulled digitally at the official destination.</span>
+              <strong style={{ color: "#93c5fd" }}>DigiLocker APAAR Registry ({profile.apaarId}) active</strong>
+              <span style={{ color: "var(--text-secondary)", display: "block", marginTop: "3px" }}>
+                Degree certificates, Class 10 age records, Income/Caste certificates, Disability certificates, and Land records can be fetched digitally. Aadhaar verification is always instant.
+              </span>
             </div>
           </div>
         )}
 
         <div className="prototype-trust-banner">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="12" y1="16" x2="12" y2="12"></line>
             <line x1="12" y1="8" x2="12.01" y2="8"></line>
           </svg>
           <div>
-            <strong>Official Handoff Notice:</strong> Mera Haq does not submit applications or store official certificates. When you continue, you will be routed to the official program website.
+            <strong>Official Handoff Notice:</strong> Mera Haq does not store official certificates. DigiLocker fetch is a <em>demo simulation</em>. When you continue, you will be routed to the official program website.
           </div>
         </div>
 
         <div className="form-actions-row">
           <a className="btn btn-secondary" href={`#/mera-haq/opportunities/${opp.id}/eligibility`}>Back</a>
-
           <button className="btn btn-primary btn-lg" type="button" onClick={() => setModalOpportunityId(opp.id)}>
             <span>Continue to official application</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
               <polyline points="15 3 21 3 21 9"></polyline>
               <line x1="10" y1="14" x2="21" y2="3"></line>
