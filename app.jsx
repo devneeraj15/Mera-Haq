@@ -2527,7 +2527,7 @@ function UmangHeader() {
 }
 
 function UmangSidebar() {
-  const { currentRoute, savedIds, mobileSidebarOpen } = useApp();
+  const { currentRoute, savedIds, mobileSidebarOpen, setMobileSidebarOpen } = useApp();
 
   const isMeraHaqActive = currentRoute.startsWith("/mera-haq") || currentRoute === "/";
   const isSchemesActive = currentRoute.startsWith("/schemes");
@@ -2540,8 +2540,16 @@ function UmangSidebar() {
   const isSavedActive = currentRoute === "/saved";
 
   return (
-    <aside className={`umang-sidebar ${mobileSidebarOpen ? "mobile-open" : ""}`} aria-label="Main Navigation">
-      <nav className="sidebar-nav">
+    <>
+      {mobileSidebarOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setMobileSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+      <aside className={`umang-sidebar ${mobileSidebarOpen ? "mobile-open" : ""}`} aria-label="Main Navigation">
+        <nav className="sidebar-nav" onClick={() => setMobileSidebarOpen(false)}>
         <a className={`sidebar-nav-item ${isHomeActive ? "active" : ""}`} href="#/home">
           <svg className="nav-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -2626,6 +2634,7 @@ function UmangSidebar() {
         <span>National e-Governance Division (NeGD)</span>
       </div>
     </aside>
+    </>
   );
 }
 

@@ -2439,6 +2439,7 @@ function shell(content) {
 
       <!-- BODY: SIDEBAR + MAIN CONTENT -->
       <div class="body-wrapper">
+        ${ui.mobileSidebarOpen ? `<div class="sidebar-overlay active" data-action="toggle-sidebar" aria-hidden="true"></div>` : ""}
         <!-- LEFT SIDEBAR -->
         <aside class="umang-sidebar ${ui.mobileSidebarOpen ? "mobile-open" : ""}" id="umang-sidebar" aria-label="Main Navigation">
           <nav class="sidebar-nav">
