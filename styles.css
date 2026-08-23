@@ -2317,4 +2317,194 @@ button:disabled {
   margin-top: 6px;
 }
 
+/* ==========================================================================
+   TWO-STAGE PROGRESSIVE PROFILING & SMART QUESTION INTERACTION
+   ========================================================================== */
+
+/* 3-State Eligibility Badges */
+.status-pill.LIKELY_ELIGIBLE,
+.status-pill.likely-eligible {
+  background-color: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  color: #34d399;
+}
+
+.status-pill.POTENTIAL_MATCH,
+.status-pill.potential-match {
+  background-color: rgba(59, 130, 246, 0.18);
+  border: 1px solid rgba(96, 165, 250, 0.45);
+  color: #93c5fd;
+}
+
+.status-pill.NOT_ELIGIBLE,
+.status-pill.not-eligible {
+  background-color: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #94a3b8;
+}
+
+/* Progressive Discovery & Personalization Banner */
+.progressive-enrichment-banner {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.progressive-enrichment-banner .enrichment-info h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 4px 0 6px;
+}
+
+.progressive-enrichment-banner .enrichment-info p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  max-width: 620px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Inline Smart Question Box on Opportunity Card */
+.inline-smart-question-box {
+  margin-top: 14px;
+  padding: 16px 18px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  border-radius: var(--radius-md);
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.inline-question-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #c7d2fe;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.inline-options-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.inline-opt-btn {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid var(--border-default);
+  color: #e2e8f0;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.inline-opt-btn:hover {
+  background: var(--umang-blue);
+  border-color: var(--umang-blue-light);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.inline-opt-btn.selected {
+  background: var(--umang-blue);
+  border-color: #60a5fa;
+  color: #ffffff;
+}
+
+/* Modal for Progressive Personalization */
+.enrichment-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.enrichment-modal-card {
+  background: #0f172a;
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  border-radius: var(--radius-lg);
+  max-width: 580px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.enrichment-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 16px;
+}
+
+.enrichment-modal-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.enrichment-modal-header p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.gender-select-row {
+  display: flex;
+  gap: 10px;
+}
+
+.gender-pill-btn {
+  flex: 1;
+  padding: 10px 16px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+}
+
+.gender-pill-btn:hover {
+  border-color: var(--umang-blue-light);
+  background: rgba(37, 99, 235, 0.15);
+}
+
+.gender-pill-btn.active {
+  background: var(--umang-blue);
+  border-color: #60a5fa;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.4);
+}
+
+
 

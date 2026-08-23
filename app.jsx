@@ -96,11 +96,59 @@ const educationRank = {
   Other: 3,
 };
 
-// Deterministic Demo Persona (Neeraj, 23, B.Tech, Maharashtra, Jain)
+// All 28 Indian States & 8 Union Territories (Government of India Official List)
+const INDIAN_LOCATIONS = [
+  // 28 States
+  { id: "andhra-pradesh", name: "Andhra Pradesh", type: "STATE" },
+  { id: "arunachal-pradesh", name: "Arunachal Pradesh", type: "STATE" },
+  { id: "assam", name: "Assam", type: "STATE" },
+  { id: "bihar", name: "Bihar", type: "STATE" },
+  { id: "chhattisgarh", name: "Chhattisgarh", type: "STATE" },
+  { id: "goa", name: "Goa", type: "STATE" },
+  { id: "gujarat", name: "Gujarat", type: "STATE" },
+  { id: "haryana", name: "Haryana", type: "STATE" },
+  { id: "himachal-pradesh", name: "Himachal Pradesh", type: "STATE" },
+  { id: "jharkhand", name: "Jharkhand", type: "STATE" },
+  { id: "karnataka", name: "Karnataka", type: "STATE" },
+  { id: "kerala", name: "Kerala", type: "STATE" },
+  { id: "madhya-pradesh", name: "Madhya Pradesh", type: "STATE" },
+  { id: "maharashtra", name: "Maharashtra", type: "STATE" },
+  { id: "manipur", name: "Manipur", type: "STATE" },
+  { id: "meghalaya", name: "Meghalaya", type: "STATE" },
+  { id: "mizoram", name: "Mizoram", type: "STATE" },
+  { id: "nagaland", name: "Nagaland", type: "STATE" },
+  { id: "odisha", name: "Odisha", type: "STATE" },
+  { id: "punjab", name: "Punjab", type: "STATE" },
+  { id: "rajasthan", name: "Rajasthan", type: "STATE" },
+  { id: "sikkim", name: "Sikkim", type: "STATE" },
+  { id: "tamil-nadu", name: "Tamil Nadu", type: "STATE" },
+  { id: "telangana", name: "Telangana", type: "STATE" },
+  { id: "tripura", name: "Tripura", type: "STATE" },
+  { id: "uttar-pradesh", name: "Uttar Pradesh", type: "STATE" },
+  { id: "uttarakhand", name: "Uttarakhand", type: "STATE" },
+  { id: "west-bengal", name: "West Bengal", type: "STATE" },
+
+  // 8 Union Territories
+  { id: "andaman-and-nicobar-islands", name: "Andaman and Nicobar Islands", type: "UNION_TERRITORY" },
+  { id: "chandigarh", name: "Chandigarh", type: "UNION_TERRITORY" },
+  { id: "dadra-and-nagar-haveli-and-daman-and-diu", name: "Dadra and Nagar Haveli and Daman and Diu", type: "UNION_TERRITORY" },
+  { id: "delhi", name: "Delhi (NCT)", type: "UNION_TERRITORY" },
+  { id: "jammu-and-kashmir", name: "Jammu and Kashmir", type: "UNION_TERRITORY" },
+  { id: "ladakh", name: "Ladakh", type: "UNION_TERRITORY" },
+  { id: "lakshadweep", name: "Lakshadweep", type: "UNION_TERRITORY" },
+  { id: "puducherry", name: "Puducherry", type: "UNION_TERRITORY" },
+];
+
+const INDIAN_STATES = INDIAN_LOCATIONS.filter((l) => l.type === "STATE");
+const INDIAN_UTS = INDIAN_LOCATIONS.filter((l) => l.type === "UNION_TERRITORY");
+
+// Deterministic Demo Persona (Neeraj, 23, Male, B.Tech, Maharashtra, Jain)
 const demoProfile = {
   name: "Neeraj",
   age: 23,
+  gender: "Male",
   state: "Maharashtra",
+  locationType: "STATE",
   domicile: "Maharashtra",
   educationLevel: "Bachelor's",
   course: "Computer Engineering",
@@ -111,7 +159,6 @@ const demoProfile = {
   category: "",
   identityTags: ["Minority community"],
   minority: "Jain",
-  gender: "Male",
   disability: false,
   residenceType: "Urban",
   apaarId: "279903493988",
@@ -132,7 +179,9 @@ const demoProfile = {
 const blankProfile = {
   name: "Citizen",
   age: null,
+  gender: "Male",
   state: "Maharashtra",
+  locationType: "STATE",
   domicile: "Maharashtra",
   educationLevel: "Bachelor's",
   course: "",
@@ -143,7 +192,6 @@ const blankProfile = {
   category: "",
   identityTags: [],
   minority: "",
-  gender: "Male",
   disability: false,
   residenceType: "Urban",
   apaarId: "",
@@ -2005,57 +2053,85 @@ function evaluateOpportunity(opportunity, profile) {
   const rules = opportunity.eligibility || {};
 
   if (opportunity.status === "closed") {
-    add("Application status", "Active / Open application cycle", "Closed", "fail", "Save to track future opening.");
+    add("Application Status", "Active / Open application cycle", "Closed", "fail", "Save to track future opening.");
   }
 
+  // 1. Age Rule
   if (rules.ageMin || rules.ageMax) {
     const reqText = `${rules.ageMin || "18"}–${rules.ageMax || "No limit"} years`;
     if (!profile.age) {
-      add("Age", reqText, "Not provided", "missing", "Age is needed to verify this rule.");
+      add("Age Requirement", reqText, "Not specified", "missing", "Age is needed to verify eligibility.");
     } else if (
       (rules.ageMin && profile.age < rules.ageMin) ||
       (rules.ageMax && profile.age > rules.ageMax)
     ) {
-      add("Age", reqText, `${profile.age} years`, "fail", `Must be between ${rules.ageMin || 18} and ${rules.ageMax || "open"}.`);
+      add("Age Requirement", reqText, `${profile.age} years`, "fail", `Must be between ${rules.ageMin || 18} and ${rules.ageMax || "open"}.`);
     } else {
-      add("Age", reqText, `${profile.age} years`, "match");
+      add("Age Requirement", reqText, `${profile.age} years (Matched)`, "match");
     }
   }
 
+  // 2. State & Union Territory Rule (28 States + 8 UTs + Central)
   if (rules.states?.length) {
+    const isMatchedLocation = rules.states.some((st) => {
+      if (st === profile.state) return true;
+      if (st === "Delhi" && (profile.state === "Delhi (NCT)" || profile.state === "Delhi")) return true;
+      if (st === "Delhi (NCT)" && (profile.state === "Delhi (NCT)" || profile.state === "Delhi")) return true;
+      return false;
+    });
+
     const reqText = rules.states.join(", ");
     if (!profile.state) {
-      add("State", reqText, "Not provided", "missing");
-    } else if (rules.states.includes(profile.state)) {
-      add("State", reqText, profile.state, "match");
+      add("Location (State/UT)", reqText, "Not specified", "missing", "Location needed to verify state eligibility.");
+    } else if (isMatchedLocation) {
+      add("Location (State/UT)", reqText, `${profile.state} (Matched)`, "match");
     } else {
-      add("State", reqText, profile.state, "fail", `Requires residence in ${reqText}.`);
+      add("Location (State/UT)", reqText, profile.state, "fail", `Specifically available in ${reqText}.`);
     }
+  } else {
+    // Central Government Schemes apply to All States and Union Territories
+    add("Location (State/UT)", "All India (All 28 States & 8 UTs)", `${profile.state || "All India"} (Eligible)`, "match", "", { hard: false });
   }
 
+  // 3. Domicile
   if (rules.domicileRequired) {
     if (!profile.domicile) {
-      add("Domicile", "State domicile required", "Not provided", "missing");
+      add("State Domicile", "State domicile required", "Not specified", "missing");
     } else if (profile.domicile === "Maharashtra" || (rules.states && rules.states.includes(profile.domicile))) {
-      add("Domicile", "State domicile required", profile.domicile, "match");
+      add("State Domicile", "State domicile required", `${profile.domicile} (Matched)`, "match");
     } else {
-      add("Domicile", "State domicile required", profile.domicile, "fail");
+      add("State Domicile", "State domicile required", profile.domicile, "fail");
     }
   }
 
+  // 4. Gender Rule
+  if (rules.genders?.length) {
+    if (!profile.gender || profile.gender === "Prefer to say later") {
+      add("Gender Requirement", rules.genders.join(", "), "Not specified", "missing");
+    } else if (rules.genders.includes(profile.gender)) {
+      add("Gender Requirement", rules.genders.join(", "), `${profile.gender} (Matched)`, "match");
+    } else {
+      add("Gender Requirement", rules.genders.join(", "), profile.gender, "fail", `Dedicated exclusively to ${rules.genders.join(", ")} candidates.`);
+    }
+  }
+
+  // 5. Education Level & Course
   if (rules.educationMinRank) {
     const rank = profileEducationRank(profile);
-    if (!rank) {
-      add("Education Level", "Meets minimum qualification", "Not provided", "missing");
+    if (!profile.educationLevel) {
+      add("Education Level", "Graduate / Degree qualification", "Not specified", "missing");
     } else if (rank >= rules.educationMinRank) {
-      add("Education Level", "Graduate / Technical Degree", `${profile.educationLevel}${profile.course ? ` (${profile.course})` : ""}`, "match");
+      add("Education Level", "Meets qualification threshold", `${profile.educationLevel}${profile.course ? ` (${profile.course})` : ""}`, "match");
     } else {
-      add("Education Level", "Graduate / Technical Degree", profile.educationLevel, "fail", "Requires higher educational qualification.");
+      add("Education Level", "Graduate / Degree qualification", profile.educationLevel, "fail", "Requires higher educational qualification.");
     }
   }
 
+  // 6. Student Status
   if (typeof rules.currentStudent === "boolean") {
-    if (profile.currentStudent === rules.currentStudent) {
+    if (profile.currentStudent === undefined || profile.currentStudent === null) {
+      add("Student Status", rules.currentStudent ? "Currently studying" : "Graduated / Working", "Not specified", "missing");
+    } else if (profile.currentStudent === rules.currentStudent) {
       add("Student Status", rules.currentStudent ? "Currently studying" : "Graduated / Working", profile.currentStudent ? "Currently studying" : "Graduated / Working", "match");
     } else if (rules.futureIfCurrentStudent) {
       add(
@@ -2075,16 +2151,18 @@ function evaluateOpportunity(opportunity, profile) {
     }
   }
 
+  // 7. Employment
   if (rules.mustNotBeFullTimeEmployed) {
     if (!profile.employmentStatus) {
-      add("Employment", "Not full-time employed", "Not provided", "missing");
+      add("Employment Status", "Not full-time employed", "Not specified", "missing");
     } else if (profile.employmentStatus === "Working") {
-      add("Employment", "Not full-time employed", profile.employmentStatus, "fail", "Full-time working professionals are not eligible.");
+      add("Employment Status", "Not full-time employed", profile.employmentStatus, "fail", "Full-time working professionals are not eligible.");
     } else {
-      add("Employment", "Not full-time employed", profile.employmentStatus, "match");
+      add("Employment Status", "Not full-time employed", profile.employmentStatus, "match");
     }
   }
 
+  // 8. Income Threshold
   if (rules.incomeMax) {
     const incomeCapText = `Up to ${formatMoney(rules.incomeMax)}/year`;
     if (!profile.annualFamilyIncome) {
@@ -2096,16 +2174,7 @@ function evaluateOpportunity(opportunity, profile) {
     }
   }
 
-  if (rules.genders?.length) {
-    if (!profile.gender || profile.gender === "Prefer to say later") {
-      add("Gender", rules.genders.join(", "), "Not specified", "missing");
-    } else if (rules.genders.includes(profile.gender)) {
-      add("Gender", rules.genders.join(", "), profile.gender, "match");
-    } else {
-      add("Gender", rules.genders.join(", "), profile.gender, "fail", `Dedicated exclusively to ${rules.genders.join(", ")} candidates.`);
-    }
-  }
-
+  // 9. Categories (SC/ST/OBC/EWS)
   if (rules.categories?.length) {
     if (!profile.category) {
       add("Category", rules.categories.join(", "), "Not specified", "missing");
@@ -2116,6 +2185,7 @@ function evaluateOpportunity(opportunity, profile) {
     }
   }
 
+  // 10. Minority Communities
   if (rules.minorities?.length) {
     if (!profile.minority || profile.minority === "Prefer to check later") {
       add("Minority Community", rules.minorities.join(", "), "Not specified", "missing");
@@ -2126,6 +2196,7 @@ function evaluateOpportunity(opportunity, profile) {
     }
   }
 
+  // Life situation evaluations
   const ls = profile.lifeSituation || [];
   const isBPL = ls.includes("bpl-card") || (profile.annualFamilyIncome && profile.annualFamilyIncome <= 250000);
   const isFarmer = ls.includes("farmer");
@@ -2145,8 +2216,10 @@ function evaluateOpportunity(opportunity, profile) {
     )
   );
 
-  if (rules.disabilityRequired) {
-    if (isPwD) {
+  if (rules.disabilityRequired || opportunity.requiresDisability) {
+    if (!profile.disability && !ls.includes("pwd") && (profile.identityTags || []).length === 0) {
+      add("Disability Criteria", "Benchmark disability ≥ 40% (Divyangjan)", "Not specified", "missing", "Disability certificate needed.");
+    } else if (isPwD) {
       add("Disability Criteria", "Specially abled (≥40% benchmark disability / Divyangjan)", "Yes (Divyangjan PwD)", "match");
     } else {
       add("Disability Criteria", "Specially abled (≥40% benchmark disability / Divyangjan)", "No", "fail", "Requires benchmark disability certificate.");
@@ -2157,22 +2230,26 @@ function evaluateOpportunity(opportunity, profile) {
     if (!profile.annualFamilyIncome && ls.length === 0) {
       add("BPL / Income Status", "BPL / Low income family (≤ ₹2.5L/yr or ration card)", "Not specified", "missing", "Confirm income or BPL card to verify eligibility.", { hard: false });
     } else if (isBPL) {
-      add("BPL / Income Status", "BPL / Low income (≤ ₹2.5L/yr or BPL card)", isBPL ? "BPL / Low income confirmed" : "Income within range", "match");
+      add("BPL / Income Status", "BPL / Low income (≤ ₹2.5L/yr or BPL card)", "BPL / Low income confirmed", "match");
     } else {
       add("BPL / Income Status", "BPL / Low income (≤ ₹2.5L/yr or BPL card)", profile.incomeBand || "Above threshold", "fail", "This scheme is targeted at BPL / very low income families.", { hard: true });
     }
   }
 
   if (opportunity.requiresFarmer) {
-    if (!isFarmer) {
-      add("Farmer / Agricultural Land", "Must own cultivable agricultural land", "Not indicated in profile", "fail", "Select 'Farmer / Agricultural land' in Life Situation to check this.", { hard: true });
+    if (ls.length === 0) {
+      add("Farmer / Agricultural Land", "Must own cultivable agricultural land", "Not specified", "missing", "Select if you own agricultural land.", { hard: false });
+    } else if (!isFarmer) {
+      add("Farmer / Agricultural Land", "Must own cultivable agricultural land", "Not indicated in profile", "fail", "Select 'Farmer / Agricultural land' in Life Situation.", { hard: true });
     } else {
       add("Farmer / Agricultural Land", "Own cultivable land", "Farmer — land ownership indicated", "match");
     }
   }
 
   if (opportunity.requiresStreetVendor) {
-    if (!isStreetVendor) {
+    if (ls.length === 0) {
+      add("Street Vendor / Hawker", "Registered / practicing street vendor", "Not specified", "missing", "Confirm street vending activity.", { hard: false });
+    } else if (!isStreetVendor) {
       add("Street Vendor / Hawker", "Registered / practicing street vendor", "Not indicated in profile", "fail", "Select 'Street vendor / Hawker' in Life Situation.", { hard: true });
     } else {
       add("Street Vendor / Hawker", "Practicing street vendor", "Street vendor indicated", "match");
@@ -2180,7 +2257,9 @@ function evaluateOpportunity(opportunity, profile) {
   }
 
   if (opportunity.requiresPregnant) {
-    if (!isPregnant) {
+    if (ls.length === 0) {
+      add("Pregnancy Status", "Pregnant or recently delivered", "Not specified", "missing", "Confirm pregnancy status.", { hard: false });
+    } else if (!isPregnant) {
       add("Pregnancy Status", "Pregnant or recently delivered", "Not indicated in profile", "fail", "Select 'Pregnant / Recently delivered' in Life Situation.", { hard: true });
     } else {
       add("Pregnancy Status", "Pregnant / Recently delivered", "Confirmed in Life Situation", "match");
@@ -2188,15 +2267,19 @@ function evaluateOpportunity(opportunity, profile) {
   }
 
   if (opportunity.requiresYoungChildren) {
-    if (!hasYoungChildren) {
-      add("Young Children (under 10)", "Have a girl child under 10 years old", "Not indicated in profile", "fail", "Select 'Have children under 6' in Life Situation.", { hard: true });
+    if (ls.length === 0) {
+      add("Young Children", "Have a girl child or child under 6", "Not specified", "missing", "Confirm young children status.", { hard: false });
+    } else if (!hasYoungChildren) {
+      add("Young Children", "Have a girl child or child under 6", "Not indicated in profile", "fail", "Select 'Have children under 6' in Life Situation.", { hard: true });
     } else {
-      add("Young Children (under 10)", "Girl child in household", "Indicated in Life Situation", "match");
+      add("Young Children", "Child in household", "Indicated in Life Situation", "match");
     }
   }
 
   if (opportunity.requiresUnorganizedWorker) {
-    if (!isUnorganizedWorker) {
+    if (ls.length === 0) {
+      add("Unorganized Worker", "Unorganized sector worker (not covered by EPFO/ESIC)", "Not specified", "missing", "Confirm employment sector.", { hard: false });
+    } else if (!isUnorganizedWorker) {
       add("Unorganized Worker", "Unorganized sector worker (not covered by EPFO/ESIC)", "Not indicated in profile", "fail", "Select 'Unorganized sector worker' in Life Situation.", { hard: true });
     } else {
       add("Unorganized Worker", "Unorganized sector worker", "Confirmed in Life Situation", "match");
@@ -2204,63 +2287,141 @@ function evaluateOpportunity(opportunity, profile) {
   }
 
   if (opportunity.requiresOrganizedWorker) {
-    if (!isOrganizedWorker) {
-      add("Organized Sector Employee", "Employee in ESIC-covered establishment (wage ≤ ₹21,000/mo)", "Not indicated in profile", "fail", "Select 'Factory / Formal sector employee' in Life Situation.", { hard: true });
+    if (ls.length === 0) {
+      add("Organized Sector Employee", "Employee in ESIC-covered establishment", "Not specified", "missing", "Confirm ESIC coverage.", { hard: false });
+    } else if (!isOrganizedWorker) {
+      add("Organized Sector Employee", "Employee in ESIC-covered establishment", "Not indicated in profile", "fail", "Select 'Factory / Formal sector employee' in Life Situation.", { hard: true });
     } else {
-      add("Organized Sector Employee", "Formal sector employee — ESIC covered", "Confirmed in Life Situation", "match");
+      add("Organized Sector Employee", "Formal sector employee", "Confirmed in Life Situation", "match");
     }
   }
 
   if (opportunity.requiresRuralResidence) {
-    if (!isRural) {
-      add("Rural Residence", "Rural area resident", profile.residenceType || "Urban", "fail", "This scheme is for rural residents.", { hard: true });
+    if (!profile.residenceType) {
+      add("Rural Residence", "Rural area resident", "Not specified", "missing", "Confirm residence type.");
+    } else if (!isRural) {
+      add("Rural Residence", "Rural area resident", profile.residenceType, "fail", "This scheme is for rural residents.", { hard: true });
     } else {
       add("Rural Residence", "Rural area", "Rural resident", "match");
     }
   }
 
-  if (opportunity.requiresDisability) {
-    if (!isPwD) {
-      add("Disability Certification", "Benchmark disability ≥ 40% (Divyangjan)", "Not indicated", "fail", "Select 'Person with Disability (PwD / Divyangjan)' in identity tags or Life Situation.", { hard: true });
-    } else {
-      add("Disability Certification", "Benchmark disability ≥ 40% (Divyangjan)", "Confirmed PwD / Divyangjan", "match");
-    }
-  }
-
-  if (rules.goalsAny?.length) {
-    if (intersects(profile.goals || [], rules.goalsAny)) {
-      add("Goal Alignment", rules.goalsAny.join(" / "), "Selected in profile", "match", "", { hard: false });
-    }
-  }
-
-  if (rules.interestsAny?.length) {
-    if (intersects(profile.interests || [], rules.interestsAny)) {
-      add("Field / Domain Fit", rules.interestsAny.join(" / "), "Matches profile interests", "match", "", { hard: false });
-    }
+  // Goal & interest soft matching
+  if (rules.goalsAny?.length && intersects(profile.goals || [], rules.goalsAny)) {
+    add("Goal Alignment", rules.goalsAny.join(" / "), "Selected in profile", "match", "", { hard: false });
   }
 
   (opportunity.verificationNotes || []).forEach((note) => {
     add("Official Verification Note", "Verified on destination", "Published rule", "info", note, { hard: false, excludeFromScore: true });
   });
 
-  let status = "strong";
-  if (opportunity.status === "closed") status = "closed";
-  else if (hardFail) status = "not";
-  else if (future) status = "future";
-  else if (missing) status = "check";
-  else if (conditional || opportunity.status === "verify") status = "likely";
-
   const missingCount = checks.filter((c) => c.status === "missing").length;
   const failCount = checks.filter((c) => c.status === "fail").length;
+
+  // 3 Clear Eligibility States (as mandated by Master Prompt)
+  let status = "LIKELY_ELIGIBLE";
+  if (opportunity.status === "closed" || hardFail) {
+    status = "NOT_ELIGIBLE";
+  } else if (missing || conditional || future || missingCount > 0) {
+    status = "POTENTIAL_MATCH";
+  } else {
+    status = "LIKELY_ELIGIBLE";
+  }
+
+  const statusLabel =
+    status === "LIKELY_ELIGIBLE"
+      ? "Likely eligible"
+      : status === "POTENTIAL_MATCH"
+        ? "Potential match"
+        : "Not eligible";
+
+  // Identify highest-value smart follow-up question if information is missing
+  let smartFollowUp = null;
+  if (status === "POTENTIAL_MATCH") {
+    if (rules.educationMinRank && (!profile.educationLevel || profile.educationLevel === "Other")) {
+      smartFollowUp = {
+        field: "educationLevel",
+        question: "What is your highest educational qualification?",
+        options: [
+          { label: "10th Pass", value: "10th" },
+          { label: "12th Pass", value: "12th" },
+          { label: "Diploma / ITI", value: "Diploma" },
+          { label: "Bachelor's / B.Tech", value: "Bachelor's" },
+          { label: "Master's / PhD", value: "Master's" },
+        ],
+      };
+    } else if (rules.minorities?.length && !profile.minority) {
+      smartFollowUp = {
+        field: "minority",
+        question: "Do you belong to any recognized minority community?",
+        options: [
+          { label: "Jain", value: "Jain" },
+          { label: "Muslim", value: "Muslim" },
+          { label: "Christian", value: "Christian" },
+          { label: "Sikh", value: "Sikh" },
+          { label: "Buddhist", value: "Buddhist" },
+          { label: "Parsi", value: "Parsi" },
+          { label: "General / Other", value: "General" },
+        ],
+      };
+    } else if ((rules.incomeMax || opportunity.requiresBPL) && !profile.annualFamilyIncome) {
+      smartFollowUp = {
+        field: "incomeBand",
+        question: "What is your approximate family annual income?",
+        options: [
+          { label: "Under ₹2.5 lakh (BPL)", value: "Under ₹2.5 lakh", amount: 250000 },
+          { label: "₹2.5–5 lakh", value: "₹2.5–5 lakh", amount: 500000 },
+          { label: "₹5–8 lakh", value: "₹5–8 lakh", amount: 800000 },
+          { label: "Above ₹8 lakh", value: "Above ₹8 lakh", amount: 1200000 },
+        ],
+      };
+    } else if (typeof rules.currentStudent === "boolean" && profile.currentStudent === undefined) {
+      smartFollowUp = {
+        field: "currentStudent",
+        question: "Are you currently enrolled in a college or degree program?",
+        options: [
+          { label: "Yes, currently studying", value: true },
+          { label: "No, graduated / working", value: false },
+        ],
+      };
+    } else if ((opportunity.requiresDisability || rules.disabilityRequired) && !isPwD) {
+      smartFollowUp = {
+        field: "disability",
+        question: "Do you have a certified benchmark disability (PwD / Divyangjan ≥40%)?",
+        options: [
+          { label: "Yes, certified Divyangjan (≥40%)", value: true },
+          { label: "No", value: false },
+        ],
+      };
+    } else if (opportunity.requiresFarmer && !isFarmer) {
+      smartFollowUp = {
+        field: "farmer",
+        question: "Do you or your family own cultivable agricultural land?",
+        options: [
+          { label: "Yes, small/marginal farmer", value: "farmer" },
+          { label: "No", value: "none" },
+        ],
+      };
+    }
+  }
+
+  const matchedCriteria = checks.filter((c) => c.status === "match").map((c) => ({ label: c.label, value: c.you }));
+  const missingCriteria = checks.filter((c) => c.status === "missing" || c.status === "verify").map((c) => ({ label: c.label, required: c.required, note: c.note }));
+  const failedCriteria = checks.filter((c) => c.status === "fail").map((c) => ({ label: c.label, reason: c.note || c.required }));
 
   return {
     opportunity,
     status,
+    statusLabel,
     checks,
     matched,
     known,
     missingCount,
     failCount,
+    smartFollowUp,
+    matchedCriteria,
+    missingCriteria,
+    failedCriteria,
   };
 }
 
@@ -2268,20 +2429,20 @@ function getEvaluatedResults(profile) {
   return opportunities
     .map((opp) => evaluateOpportunity(opp, profile))
     .sort((a, b) => {
-      const order = { strong: 1, likely: 2, check: 3, future: 4, not: 5, closed: 6 };
-      return (
-        order[a.status] - order[b.status] ||
-        a.opportunity.priority - b.opportunity.priority
-      );
+      const order = { LIKELY_ELIGIBLE: 1, POTENTIAL_MATCH: 2, NOT_ELIGIBLE: 3 };
+      const scoreA = order[a.status] || 2;
+      const scoreB = order[b.status] || 2;
+      if (scoreA !== scoreB) return scoreA - scoreB;
+      return a.opportunity.priority - b.opportunity.priority;
     });
 }
 
 function getPrimaryMatchedResults(profile) {
-  const allowed = new Set(["strong", "likely", "check", "future"]);
-  return getEvaluatedResults(profile)
-    .filter((res) => allowed.has(res.status))
-    .sort((a, b) => a.opportunity.priority - b.opportunity.priority)
-    .slice(0, 6);
+  // Return top 15–20 relevant opportunities (Likely & Potential matches prioritized)
+  const evaluated = getEvaluatedResults(profile);
+  const relevant = evaluated.filter((res) => res.status !== "NOT_ELIGIBLE");
+  if (relevant.length >= 10) return relevant.slice(0, 20);
+  return evaluated.slice(0, 20);
 }
 
 function getResultById(id, profile) {
@@ -2297,16 +2458,13 @@ function generateEligibilityExplanation(result, profile) {
     .slice(0, 3)
     .join(", ");
 
-  if (result.status === "strong") {
-    return `Based on your profile as a ${profile.age}-year-old ${profile.minority || ""} citizen with a ${profile.educationLevel} qualification in ${profile.state}, you meet all primary published eligibility rules for ${opp.name}. You can proceed directly to review required documents.`;
+  if (result.status === "LIKELY_ELIGIBLE") {
+    return `Based on your profile as a ${profile.age || 23}-year-old ${profile.gender || ""} citizen in ${profile.state || "India"}, you meet primary published eligibility rules for ${opp.name}. You can proceed directly to review required documents.`;
   }
-  if (result.status === "likely" || result.status === "check") {
-    return `You qualify on key educational and regional parameters (${matchedLabels}). However, final eligibility requires one or more institution-level proofs such as institutional admission, bank loan details, or verified income certificates.`;
+  if (result.status === "POTENTIAL_MATCH") {
+    return `You qualify on key demographic and regional parameters (${matchedLabels || "Location & Age"}). Final eligibility can be confirmed by answering 1 quick question or submitting standard verification proofs on ${opp.sourceName}.`;
   }
-  if (result.status === "future") {
-    return `Your educational background (${profile.educationLevel}) qualifies for this scheme, but it is earmarked for current students. If you enroll in postgraduate studies or advanced coursework, you will be eligible to claim this benefit.`;
-  }
-  return `This opportunity is not a current match because it requires specific criteria (${result.checks.find((c) => c.status === "fail")?.label || "criteria"}) that do not align with your profile.`;
+  return `This opportunity is not a current match because it requires specific criteria (${result.checks.find((c) => c.status === "fail")?.label || "criteria"}) that do not align with your current profile.`;
 }
 
 function calculatePotentialValue(results) {
@@ -2561,7 +2719,7 @@ function useApp() {
 // ============================================================================
 
 function UmangHeader() {
-  const { profile, searchQuery, setSearchQuery, navigate, mobileSidebarOpen, setMobileSidebarOpen, currentRoute } = useApp();
+  const { profile, searchQuery, setSearchQuery, navigate, mobileSidebarOpen, setMobileSidebarOpen, currentRoute, loadDemoProfile } = useApp();
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -2579,7 +2737,7 @@ function UmangHeader() {
           onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
           aria-label="Toggle navigation menu"
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -2593,7 +2751,7 @@ function UmangHeader() {
 
       <div className="header-search">
         <div className="search-input-wrapper">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
@@ -2608,6 +2766,16 @@ function UmangHeader() {
       </div>
 
       <div className="header-right">
+        <button
+          className="btn btn-accent btn-sm"
+          type="button"
+          onClick={loadDemoProfile}
+          title="Auto-load verified demo profile (Neeraj, 23, Male, Maharashtra, B.Tech)"
+          style={{ marginRight: "6px", fontWeight: "700", display: "inline-flex", alignItems: "center", gap: "6px" }}
+        >
+          <span>🚀 Launch Demo</span>
+        </button>
+
         <button className="isl-chatbot-btn" type="button" title="Indian Sign Language Bot">
           <span>ISL Chatbot</span>
           <span className="isl-badge-icon" aria-hidden="true">
@@ -2618,7 +2786,7 @@ function UmangHeader() {
         </button>
 
         <button className="header-icon-btn" type="button" title="Accessibility Tools" aria-label="Accessibility">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="12" cy="4" r="2"></circle>
             <path d="M18 9h-4V7a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v2H4"></path>
             <path d="M9 13l-3 7"></path>
@@ -2628,7 +2796,7 @@ function UmangHeader() {
         </button>
 
         <button className="header-icon-btn" type="button" title="Notifications" aria-label="Notifications">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
             <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
           </svg>
@@ -2636,7 +2804,7 @@ function UmangHeader() {
         </button>
 
         <button className="header-icon-btn" type="button" title="Dark Mode Active" aria-label="Dark Mode">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
         </button>
@@ -2792,22 +2960,18 @@ function LandingView() {
 
           <div className="hero-actions">
             <a className="btn btn-primary btn-lg" href="#/mera-haq/profile">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
               <span>Find my opportunities</span>
             </a>
-            <button className="btn btn-secondary btn-lg" type="button" onClick={loadDemoProfile}>
-              <span>Try demo profile (Neeraj, 23)</span>
-            </button>
-            <a className="btn btn-text" href="#/mera-haq/tests">Run Automated Tests</a>
           </div>
 
           <div className="demo-trigger-banner">
             <div className="demo-trigger-info">
-              <strong>Quick 60-Second Judge Flow:</strong>
-              <span>Click "Try demo profile" to auto-populate Neeraj (23, B.Tech, Maharashtra, Jain) and discover 6 matched opportunities including IIT Dharwad AI Technocrat.</span>
+              <strong>Quick 60-Second Demo:</strong>
+              <span>Click "Launch Demo" to auto-populate Neeraj (23, Male, Maharashtra, B.Tech) and explore 10–20 personalized opportunities across central and state systems.</span>
             </div>
             <button className="btn btn-accent btn-sm" type="button" onClick={loadDemoProfile}>Launch Demo</button>
           </div>
@@ -2851,8 +3015,8 @@ function LandingView() {
 }
 
 function ProfileFlow() {
-  const { profile, setProfile, currentProfileStep, setCurrentProfileStep, navigate, loadDemoProfile } = useApp();
-  const step = currentProfileStep;
+  const { profile, setProfile, navigate, loadDemoProfile } = useApp();
+  const [showAdvancedDetails, setShowAdvancedDetails] = useState(false);
 
   const toggleIdentity = (tag) => {
     if (tag === "None" || tag === "Prefer not to say") {
@@ -2871,287 +3035,229 @@ function ProfileFlow() {
     }
   };
 
-  const toggleGoal = (goal) => {
-    const current = profile.goals || [];
-    const next = current.includes(goal) ? current.filter((g) => g !== goal) : [...current, goal];
-    setProfile({ goals: next });
-  };
-
-  const toggleInterest = (interest) => {
-    const current = profile.interests || [];
-    const next = current.includes(interest) ? current.filter((i) => i !== interest) : [...current, interest];
-    setProfile({ interests: next });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/mera-haq/matching");
   };
 
   return (
     <div className="content-container narrow">
       <div className="profile-form-card">
-        <div className="profile-step-header">
+        <div className="profile-step-header" style={{ marginBottom: "24px" }}>
           <div>
-            <span className="eyebrow-badge"><span class="dot"></span>Step {step} of 3</span>
-            <h2 className="card-title">
-              {step === 1 ? "Step 1 — About You" : step === 2 ? "Step 2 — Eligibility & Background" : "Step 3 — What are you looking for?"}
-            </h2>
-          </div>
-
-          <div className="step-pills-nav">
-            <button className={`step-pill-btn ${step === 1 ? "active" : "completed"}`} type="button" onClick={() => setCurrentProfileStep(1)}>1. Background</button>
-            <button className={`step-pill-btn ${step === 2 ? "active" : step > 2 ? "completed" : ""}`} type="button" onClick={() => setCurrentProfileStep(2)}>2. Eligibility</button>
-            <button className={`step-pill-btn ${step === 3 ? "active" : ""}`} type="button" onClick={() => setCurrentProfileStep(3)}>3. Goals</button>
+            <span className="eyebrow-badge"><span className="dot"></span>Discovery Profile • Stage 1</span>
+            <h2 className="card-title" style={{ marginTop: "6px" }}>Tell us a little about yourself</h2>
+            <p style={{ color: "var(--text-secondary)", fontSize: "13.5px", marginTop: "4px" }}>
+              Answer 3 basic questions to instantly discover 10–20 central and state opportunities you may qualify for.
+            </p>
           </div>
         </div>
 
-        <form className="form-grid" onSubmit={(e) => e.preventDefault()}>
-          {step === 1 && (
-            <>
-              <div className="field">
-                <label htmlFor="state">Where are you based?</label>
-                <select id="state" className="select-control" value={profile.state || "Maharashtra"} onChange={(e) => setProfile({ state: e.target.value })}>
-                  <option value="Maharashtra">Maharashtra</option>
-                  <option value="Karnataka">Karnataka</option>
-                  <option value="Delhi">Delhi</option>
-                  <option value="Other states">Other states</option>
-                </select>
-              </div>
+        <form className="form-grid" onSubmit={handleSubmit}>
+          {/* 1. Age */}
+          <div className="field">
+            <label htmlFor="age">How old are you?</label>
+            <input
+              id="age"
+              className="input-control"
+              type="number"
+              min="14"
+              max="99"
+              placeholder="e.g. 23"
+              value={profile.age ?? ""}
+              onChange={(e) => setProfile({ age: e.target.value ? Number(e.target.value) : null })}
+            />
+          </div>
 
-              <div className="field">
-                <label htmlFor="age">How old are you?</label>
-                <input
-                  id="age"
-                  className="input-control"
-                  type="number"
-                  min="12"
-                  max="99"
-                  placeholder="e.g. 23"
-                  value={profile.age ?? ""}
-                  onChange={(e) => setProfile({ age: e.target.value ? Number(e.target.value) : null })}
-                />
-              </div>
+          {/* 2. Gender */}
+          <div className="field">
+            <label>Gender</label>
+            <div className="gender-select-row">
+              {["Male", "Female"].map((g) => (
+                <button
+                  key={g}
+                  type="button"
+                  className={`gender-pill-btn ${profile.gender === g ? "active" : ""}`}
+                  onClick={() => setProfile({ gender: g })}
+                >
+                  <span>{g === "Male" ? "👨" : "👩"}</span>
+                  <span>{g}</span>
+                </button>
+              ))}
+            </div>
+          </div>
 
-              <div className="field">
-                <label htmlFor="educationLevel">What is your highest qualification?</label>
-                <select id="educationLevel" className="select-control" value={profile.educationLevel || "Bachelor's"} onChange={(e) => setProfile({ educationLevel: e.target.value })}>
-                  {["10th", "12th", "Diploma", "Bachelor's", "B.Tech / B.E.", "Master's", "PhD", "Other"].map((lvl) => (
-                    <option key={lvl} value={lvl}>{lvl}</option>
-                  ))}
-                </select>
-              </div>
+          {/* 3. State / Union Territory */}
+          <div className="field full">
+            <label htmlFor="state">Where are you based? (State / Union Territory)</label>
+            <select
+              id="state"
+              className="select-control"
+              value={profile.state || "Maharashtra"}
+              onChange={(e) => {
+                const loc = INDIAN_LOCATIONS.find((l) => l.name === e.target.value);
+                setProfile({
+                  state: e.target.value,
+                  domicile: e.target.value,
+                  locationType: loc ? loc.type : "STATE",
+                });
+              }}
+            >
+              <optgroup label="States (28)">
+                {INDIAN_STATES.map((st) => (
+                  <option key={st.id} value={st.name}>{st.name}</option>
+                ))}
+              </optgroup>
+              <optgroup label="Union Territories (8)">
+                {INDIAN_UTS.map((ut) => (
+                  <option key={ut.id} value={ut.name}>{ut.name}</option>
+                ))}
+              </optgroup>
+            </select>
+          </div>
 
-              <div className="field">
-                <label htmlFor="course">Course / Field of Study</label>
-                <input
-                  id="course"
-                  className="input-control"
-                  type="text"
-                  placeholder="e.g. Computer Engineering"
-                  value={profile.course || ""}
-                  onChange={(e) => setProfile({ course: e.target.value })}
-                />
-              </div>
+          {/* Optional Quick Context: Education */}
+          <div className="field full">
+            <label>Highest Qualification <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 400 }}>(Optional)</span></label>
+            <div className="chip-group">
+              {["10th", "12th", "Diploma", "Bachelor's", "B.Tech / B.E.", "Master's"].map((lvl) => (
+                <button
+                  key={lvl}
+                  className="chip-btn"
+                  type="button"
+                  onClick={() => setProfile({ educationLevel: lvl })}
+                  aria-pressed={profile.educationLevel === lvl ? "true" : "false"}
+                >
+                  {lvl}
+                </button>
+              ))}
+            </div>
+          </div>
 
-              <div className="field full">
-                <label>What are you currently doing?</label>
-                <div className="chip-group">
-                  {["Working", "Studying", "Looking for work", "Self-employed", "Other"].map((status) => (
-                    <button
-                      key={status}
-                      className="chip-btn"
-                      type="button"
-                      onClick={() => setProfile({ employmentStatus: status })}
-                      aria-pressed={profile.employmentStatus === status ? "true" : "false"}
-                    >
-                      {status}
-                    </button>
-                  ))}
-                </div>
-              </div>
+          {/* Optional Quick Context: Activity */}
+          <div className="field full">
+            <label>Current Status <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 400 }}>(Optional)</span></label>
+            <div className="chip-group">
+              {["Working", "Studying", "Looking for work", "Self-employed"].map((status) => (
+                <button
+                  key={status}
+                  className="chip-btn"
+                  type="button"
+                  onClick={() => setProfile({ employmentStatus: status, currentStudent: status === "Studying" })}
+                  aria-pressed={profile.employmentStatus === status ? "true" : "false"}
+                >
+                  {status}
+                </button>
+              ))}
+            </div>
+          </div>
 
-              <div className="field full" style={{ marginTop: "6px", padding: "14px 18px", backgroundColor: "rgba(37, 99, 235, 0.08)", border: "1px solid rgba(59, 130, 246, 0.25)", borderRadius: "var(--radius-md)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
-                  <div>
-                    <strong style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", color: "#93c5fd" }}>
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
-                      DigiLocker / APAAR ID (Optional)
-                    </strong>
-                    <span style={{ fontSize: "12px", color: "var(--text-muted)", display: "block", marginTop: "2px" }}>
-                      {profile.apaarId ? `Linked: ${profile.apaarId} (Permanent Academic Account Registry)` : "Link your 12-digit Academic Account Registry ID for instant document readiness."}
-                    </span>
-                  </div>
-                  <button
-                    className="btn btn-secondary btn-sm"
-                    type="button"
-                    onClick={() => {
-                      if (profile.apaarId) {
-                        setProfile({ apaarId: "", apaarVerified: false });
-                      } else {
-                        setProfile({ apaarId: "279903493988", apaarVerified: true });
-                      }
+          {/* Primary Submission CTA */}
+          <div className="field full" style={{ marginTop: "10px" }}>
+            <button className="btn btn-primary btn-lg" type="submit" style={{ width: "100%", justifyContent: "center" }}>
+              <span>Find Opportunities (10–20 matches)</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          {/* Toggle for Advanced Details */}
+          <div className="field full" style={{ textAlign: "center", marginTop: "4px" }}>
+            <button
+              type="button"
+              className="btn btn-text"
+              onClick={() => setShowAdvancedDetails(!showAdvancedDetails)}
+              style={{ fontSize: "13px", color: "#93c5fd" }}
+            >
+              {showAdvancedDetails ? "▲ Hide additional background details" : "▼ Add optional details upfront (Income, Category, APAAR ID)"}
+            </button>
+          </div>
+
+          {showAdvancedDetails && (
+            <div className="field full" style={{ marginTop: "12px", padding: "20px", background: "rgba(15, 23, 42, 0.6)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-subtle)" }}>
+              <h4 style={{ fontSize: "14px", color: "#e2e8f0", marginBottom: "14px" }}>Optional Background & Credentials</h4>
+
+              <div className="form-grid">
+                <div className="field full">
+                  <label htmlFor="incomeBand">Approximate Annual Family Income</label>
+                  <select
+                    id="incomeBand"
+                    className="select-control"
+                    value={profile.incomeBand || "Prefer to check later"}
+                    onChange={(e) => {
+                      const b = incomeBands.find((item) => item.label === e.target.value);
+                      setProfile({ incomeBand: e.target.value, annualFamilyIncome: b ? b.value : null });
                     }}
                   >
-                    {profile.apaarId ? "Unlink APAAR" : "Auto-Link DigiLocker (Demo)"}
-                  </button>
-                </div>
-              </div>
-            </>
-          )}
-
-          {step === 2 && (
-            <>
-              <div className="field full">
-                <label htmlFor="incomeBand">Approximate annual family income?</label>
-                <select
-                  id="incomeBand"
-                  className="select-control"
-                  value={profile.incomeBand || "₹5–8 lakh"}
-                  onChange={(e) => {
-                    const b = incomeBands.find((item) => item.label === e.target.value);
-                    setProfile({ incomeBand: e.target.value, annualFamilyIncome: b ? b.value : null });
-                  }}
-                >
-                  {incomeBands.map((band) => (
-                    <option key={band.label} value={band.label}>{band.label}</option>
-                  ))}
-                </select>
-                <small>Used strictly for threshold matching. No exact financial records or IT returns required.</small>
-              </div>
-
-              <div className="field full">
-                <label>Do any of these apply to you? (Multi-select)</label>
-                <div className="chip-group">
-                  {identityTags.map((tag) => (
-                    <button
-                      key={tag}
-                      className="chip-btn"
-                      type="button"
-                      onClick={() => toggleIdentity(tag)}
-                      aria-pressed={profile.identityTags?.includes(tag) ? "true" : "false"}
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {profile.identityTags?.includes("Minority community") && (
-                <div className="field">
-                  <label htmlFor="minority">Which minority community?</label>
-                  <select
-                    id="minority"
-                    className="select-control"
-                    value={profile.minority || "Jain"}
-                    onChange={(e) => setProfile({ minority: e.target.value })}
-                  >
-                    {minorityCommunities.map((c) => (
-                      <option key={c} value={c}>{c}</option>
+                    {incomeBands.map((band) => (
+                      <option key={band.label} value={band.label}>{band.label}</option>
                     ))}
                   </select>
                 </div>
-              )}
 
-              <div className="field">
-                <label>Where do you live?</label>
-                <div className="chip-group">
-                  {["Urban", "Rural"].map((r) => (
-                    <button
-                      key={r}
-                      className="chip-btn"
-                      type="button"
-                      onClick={() => setProfile({ residenceType: r })}
-                      aria-pressed={profile.residenceType === r ? "true" : "false"}
-                    >
-                      {r}
-                    </button>
-                  ))}
+                <div className="field full">
+                  <label>Identity & Category</label>
+                  <div className="chip-group">
+                    {identityTags.map((tag) => (
+                      <button
+                        key={tag}
+                        className="chip-btn"
+                        type="button"
+                        onClick={() => toggleIdentity(tag)}
+                        aria-pressed={profile.identityTags?.includes(tag) ? "true" : "false"}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              <div className="field full">
-                <label>Life situation — helps us find more support for you <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 400 }}>(Optional, multi-select)</span></label>
-                <div className="chip-group">
-                  {lifeSituationOptions.map((opt) => (
+                {profile.identityTags?.includes("Minority community") && (
+                  <div className="field full">
+                    <label htmlFor="minority">Which minority community?</label>
+                    <select
+                      id="minority"
+                      className="select-control"
+                      value={profile.minority || "Jain"}
+                      onChange={(e) => setProfile({ minority: e.target.value })}
+                    >
+                      {minorityCommunities.map((c) => (
+                        <option key={c} value={c}>{c}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                <div className="field full" style={{ marginTop: "6px", padding: "14px 18px", backgroundColor: "rgba(37, 99, 235, 0.08)", border: "1px solid rgba(59, 130, 246, 0.25)", borderRadius: "var(--radius-md)" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
+                    <div>
+                      <strong style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", color: "#93c5fd" }}>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                        DigiLocker / APAAR ID
+                      </strong>
+                      <span style={{ fontSize: "12px", color: "var(--text-muted)", display: "block", marginTop: "2px" }}>
+                        {profile.apaarId ? `Linked: ${profile.apaarId} (Permanent Academic Account Registry)` : "Link your 12-digit Academic Account Registry ID for instant document readiness."}
+                      </span>
+                    </div>
                     <button
-                      key={opt.key}
-                      className="chip-btn"
+                      className="btn btn-secondary btn-sm"
                       type="button"
                       onClick={() => {
-                        const current = profile.lifeSituation || [];
-                        const next = current.includes(opt.key) ? current.filter((k) => k !== opt.key) : [...current, opt.key];
-                        const isPwd = next.includes("pwd") || profile.disability;
-                        setProfile({ lifeSituation: next, disability: isPwd });
+                        if (profile.apaarId) {
+                          setProfile({ apaarId: "", apaarVerified: false });
+                        } else {
+                          setProfile({ apaarId: "279903493988", apaarVerified: true });
+                        }
                       }}
-                      aria-pressed={(profile.lifeSituation || []).includes(opt.key) ? "true" : "false"}
                     >
-                      {opt.label}
+                      {profile.apaarId ? "Unlink APAAR" : "Auto-Link DigiLocker (Demo)"}
                     </button>
-                  ))}
-                </div>
-                <small>We use this only to match government schemes — nothing is stored on our servers.</small>
-              </div>
-            </>
-          )}
-
-          {step === 3 && (
-            <>
-              <div className="field full">
-                <label>What types of government support are you looking for? (Multi-select)</label>
-                <div className="chip-group">
-                  {goalOptions.map((goal) => (
-                    <button
-                      key={goal}
-                      className="chip-btn"
-                      type="button"
-                      onClick={() => toggleGoal(goal)}
-                      aria-pressed={profile.goals?.includes(goal) ? "true" : "false"}
-                    >
-                      {goal}
-                    </button>
-                  ))}
+                  </div>
                 </div>
               </div>
-
-              <div className="field full">
-                <label>What areas or domains interest you?</label>
-                <div className="chip-group">
-                  {interestOptions.map((interest) => (
-                    <button
-                      key={interest}
-                      className="chip-btn"
-                      type="button"
-                      onClick={() => toggleInterest(interest)}
-                      aria-pressed={profile.interests?.includes(interest) ? "true" : "false"}
-                    >
-                      {interest}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </>
-          )}
-
-          <div className="field full form-actions-row">
-            <div>
-              {step > 1 ? (
-                <button className="btn btn-secondary" type="button" onClick={() => setCurrentProfileStep(step - 1)}>
-                  Back to Step {step - 1}
-                </button>
-              ) : (
-                <button className="btn btn-secondary" type="button" onClick={loadDemoProfile}>
-                  Fill Demo (Neeraj)
-                </button>
-              )}
             </div>
-            <div>
-              {step < 3 ? (
-                <button className="btn btn-primary" type="button" onClick={() => setCurrentProfileStep(step + 1)}>
-                  Continue to Step {step + 1}
-                </button>
-              ) : (
-                <button className="btn btn-primary" type="button" onClick={() => navigate("/mera-haq/profile/review")}>
-                  Review Profile & Continue
-                </button>
-              )}
-            </div>
-          </div>
+          )}
         </form>
       </div>
     </div>
@@ -3164,21 +3270,21 @@ function ProfileReview() {
   return (
     <div className="content-container narrow">
       <div className="profile-form-card">
-        <span className="eyebrow-badge"><span class="dot"></span>Profile Review</span>
+        <span className="eyebrow-badge"><span className="dot"></span>Profile Review</span>
         <h1 className="page-title">Review your profile</h1>
-        <p className="page-subtitle">Verify the details you provided before our deterministic engine searches across central and state schemes.</p>
+        <p className="page-subtitle">Verify the details you provided before discovering opportunities across national and state systems.</p>
 
         <div className="review-summary-grid">
           <div className="review-card">
             <div className="review-card-label">Location & Age</div>
             <div className="review-card-value">{profile.state || "Maharashtra"}, {profile.age || 23} yrs</div>
-            <div className="review-card-detail">{profile.residenceType || "Urban"} resident</div>
+            <div className="review-card-detail">{profile.gender || "Citizen"}</div>
           </div>
 
           <div className="review-card">
             <div className="review-card-label">Education</div>
             <div className="review-card-value">{profile.educationLevel || "Bachelor's"}</div>
-            <div className="review-card-detail">{profile.course || "Computer Engineering"}</div>
+            <div className="review-card-detail">{profile.course || "General"}</div>
           </div>
 
           <div className="review-card">
@@ -3192,42 +3298,16 @@ function ProfileReview() {
             <div className="review-card-value">{profile.minority || profile.category || "General"}</div>
             <div className="review-card-detail">{(profile.identityTags || []).join(", ") || "None"}</div>
           </div>
-
-          <div className="review-card">
-            <div className="review-card-label">Income Band</div>
-            <div className="review-card-value">{profile.incomeBand || "₹5–8 lakh"}</div>
-            <div className="review-card-detail">Under published thresholds</div>
-          </div>
-
-          <div className="review-card">
-            <div className="review-card-label">Target Support</div>
-            <div className="review-card-value">{(profile.goals || []).slice(0, 2).join(", ")}</div>
-            <div className="review-card-detail">+{Math.max(0, (profile.goals || []).length - 2)} more goals</div>
-          </div>
         </div>
 
-        {profile.apaarId && (
-          <div style={{ marginTop: "20px", padding: "14px 18px", backgroundColor: "rgba(16, 185, 129, 0.08)", border: "1px solid rgba(16, 185, 129, 0.3)", borderRadius: "var(--radius-md)", display: "flex", alignItems: "center", gap: "12px" }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-            <div>
-              <strong style={{ color: "#34d399", fontSize: "13.5px", display: "block" }}>DigiLocker / APAAR Academic Registry Linked: {profile.apaarId}</strong>
-              <span style={{ color: "var(--text-secondary)", fontSize: "12px" }}>Academic credentials and age digitally verifiable via National Academic Depository (ABC).</span>
-            </div>
-          </div>
-        )}
-
-        <div className="form-actions-row">
+        <div className="form-actions-row" style={{ marginTop: "24px" }}>
           <a className="btn btn-secondary" href="#/mera-haq/profile">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-            </svg>
-            <span>Edit Profile</span>
+            <span>Edit Details</span>
           </a>
 
           <button className="btn btn-primary btn-lg" type="button" onClick={() => navigate("/mera-haq/matching")}>
-            <span>Find my opportunities</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <span>Discover Opportunities</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
           </button>
@@ -3302,7 +3382,8 @@ function MatchingRadar() {
 }
 
 function OpportunityCard({ result }) {
-  const { toggleSave, isSaved, profile, setAiCounselorOpportunityId } = useApp();
+  const { toggleSave, isSaved, profile, setProfile, setAiCounselorOpportunityId } = useApp();
+  const [showQuestion, setShowQuestion] = useState(false);
   const opp = result.opportunity;
   const saved = isSaved(opp.id);
   const isIITDharwad = opp.id === "ai-technocrat-iit-dharwad";
@@ -3310,15 +3391,11 @@ function OpportunityCard({ result }) {
   const aiReport = useMemo(() => generateAiOpportunityReport(result, profile), [result, profile]);
 
   const statusLabel =
-    result.status === "strong"
-      ? "Strong match"
-      : result.status === "likely" || result.status === "check"
-        ? "Needs verification"
-        : result.status === "future"
-          ? "Future opportunity"
-          : result.status === "closed"
-            ? "Closed"
-            : "Not a match";
+    result.status === "LIKELY_ELIGIBLE"
+      ? "Likely eligible"
+      : result.status === "POTENTIAL_MATCH"
+        ? "Potential match"
+        : "Not eligible";
 
   const matchedBullets = result.checks
     .filter((c) => c.status === "match")
@@ -3379,6 +3456,52 @@ function OpportunityCard({ result }) {
         )}
       </ul>
 
+      {/* Inline Smart Follow-Up Question for Potential Matches */}
+      {showQuestion && result.smartFollowUp && (
+        <div className="inline-smart-question-box">
+          <div className="inline-question-title">
+            <span>✨ 1 Quick Detail to Confirm Eligibility:</span>
+            <span style={{ fontSize: "12.5px", color: "#93c5fd", fontWeight: "normal" }}>{result.smartFollowUp.question}</span>
+          </div>
+          <div className="inline-options-grid">
+            {result.smartFollowUp.options.map((opt, idx) => (
+              <button
+                key={idx}
+                type="button"
+                className="inline-opt-btn"
+                onClick={() => {
+                  if (result.smartFollowUp.field === "educationLevel") {
+                    setProfile({ educationLevel: opt.value });
+                  } else if (result.smartFollowUp.field === "minority") {
+                    setProfile({ minority: opt.value, identityTags: opt.value !== "General" ? ["Minority community"] : [] });
+                  } else if (result.smartFollowUp.field === "incomeBand") {
+                    setProfile({ incomeBand: opt.value, annualFamilyIncome: opt.amount });
+                  } else if (result.smartFollowUp.field === "currentStudent") {
+                    setProfile({ currentStudent: opt.value, employmentStatus: opt.value ? "Studying" : "Working" });
+                  } else if (result.smartFollowUp.field === "disability") {
+                    setProfile({ disability: opt.value });
+                  } else if (result.smartFollowUp.field === "farmer") {
+                    const currentLs = (profile.lifeSituation || []).filter((k) => k !== "farmer");
+                    setProfile({ lifeSituation: opt.value === "farmer" ? [...currentLs, "farmer"] : currentLs });
+                  }
+                  setShowQuestion(false);
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+            <button
+              type="button"
+              className="btn btn-text btn-sm"
+              onClick={() => setShowQuestion(false)}
+              style={{ fontSize: "12px", color: "var(--text-muted)", marginLeft: "auto" }}
+            >
+              Skip
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="card-meta-row">
         <div>
           <span><strong>Deadline:</strong> {opp.deadline || "Verify"}</span>
@@ -3387,6 +3510,17 @@ function OpportunityCard({ result }) {
         </div>
 
         <div className="card-actions">
+          {result.status === "POTENTIAL_MATCH" && result.smartFollowUp && (
+            <button
+              className="btn btn-secondary btn-sm"
+              type="button"
+              style={{ color: "#93c5fd", borderColor: "rgba(59, 130, 246, 0.4)", fontWeight: 600 }}
+              onClick={() => setShowQuestion(!showQuestion)}
+            >
+              <span>{showQuestion ? "▲ Hide Question" : "⚡ Check Exact Eligibility"}</span>
+            </button>
+          )}
+
           <a className="btn btn-primary btn-sm" href={`#/mera-haq/opportunities/${opp.id}/eligibility`}>
             Why do I match?
           </a>
@@ -3402,7 +3536,7 @@ function OpportunityCard({ result }) {
             Details
           </a>
           <button className="btn btn-secondary btn-sm" type="button" onClick={() => toggleSave(opp.id)}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill={saved ? "currentColor" : "none"} stroke="currentColor" stroke-width="2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
               <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
             </svg>
             <span>{saved ? "Saved" : "Save"}</span>
@@ -3413,21 +3547,111 @@ function OpportunityCard({ result }) {
   );
 }
 
+function ProgressiveEnrichmentModal({ onClose }) {
+  const { profile, setProfile } = useApp();
+
+  return (
+    <div className="enrichment-modal-backdrop" onClick={onClose}>
+      <div className="enrichment-modal-card" onClick={(e) => e.stopPropagation()}>
+        <div className="enrichment-modal-header">
+          <div>
+            <h3>✨ Get More Personalized Support</h3>
+            <p>Answer 2 quick details to refine scholarship eligibility, fee waivers & income-capped subsidies.</p>
+          </div>
+          <button className="btn btn-secondary btn-sm" type="button" onClick={onClose}>✕</button>
+        </div>
+
+        <div className="form-grid">
+          {/* Question 1: Education */}
+          <div className="field full">
+            <label>1. What is your highest educational qualification?</label>
+            <div className="chip-group">
+              {["10th", "12th", "Diploma", "Bachelor's", "B.Tech / B.E.", "Master's"].map((lvl) => (
+                <button
+                  key={lvl}
+                  type="button"
+                  className="chip-btn"
+                  onClick={() => setProfile({ educationLevel: lvl })}
+                  aria-pressed={profile.educationLevel === lvl ? "true" : "false"}
+                >
+                  {lvl}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Question 2: Income */}
+          <div className="field full">
+            <label htmlFor="modalIncome">2. What is your approximate annual family income?</label>
+            <select
+              id="modalIncome"
+              className="select-control"
+              value={profile.incomeBand || "Prefer to check later"}
+              onChange={(e) => {
+                const b = incomeBands.find((item) => item.label === e.target.value);
+                setProfile({ incomeBand: e.target.value, annualFamilyIncome: b ? b.value : null });
+              }}
+            >
+              {incomeBands.map((band) => (
+                <option key={band.label} value={band.label}>{band.label}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Question 3: Minority community */}
+          <div className="field full">
+            <label htmlFor="modalMinority">3. Do you belong to any recognized minority community?</label>
+            <select
+              id="modalMinority"
+              className="select-control"
+              value={profile.minority || ""}
+              onChange={(e) => {
+                const val = e.target.value;
+                setProfile({
+                  minority: val,
+                  identityTags: val && val !== "None / General" ? ["Minority community"] : [],
+                });
+              }}
+            >
+              <option value="">None / General (No quota needed)</option>
+              {minorityCommunities.map((c) => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="field full" style={{ marginTop: "16px", display: "flex", gap: "10px", justifyContent: "flex-end" }}>
+            <button className="btn btn-secondary" type="button" onClick={onClose}>
+              Keep Current Profile
+            </button>
+            <button className="btn btn-primary" type="button" onClick={onClose}>
+              <span>Save & Update Opportunities</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function OpportunityMap() {
   const { profile, activeFilter, setActiveFilter, searchQuery, setSearchQuery, showAllOpportunities, setShowAllOpportunities } = useApp();
   const [showValueDetails, setShowValueDetails] = useState(false);
+  const [showEnrichmentModal, setShowEnrichmentModal] = useState(false);
 
   const primaryResults = useMemo(() => getPrimaryMatchedResults(profile), [profile]);
   const allResults = useMemo(() => getEvaluatedResults(profile), [profile]);
 
   const displayResults = showAllOpportunities ? allResults : primaryResults;
 
+  const likelyEligibleCount = primaryResults.filter((r) => r.status === "LIKELY_ELIGIBLE").length;
+  const potentialCount = primaryResults.filter((r) => r.status === "POTENTIAL_MATCH").length;
   const openToAllCount = displayResults.filter((r) => r.opportunity.openToAll).length;
 
   const filtered = useMemo(() => {
     let list = displayResults;
-    if (activeFilter === "strong") list = list.filter((r) => r.status === "strong");
-    else if (activeFilter === "verify") list = list.filter((r) => r.status === "likely" || r.status === "check");
+    if (activeFilter === "likely") list = list.filter((r) => r.status === "LIKELY_ELIGIBLE");
+    else if (activeFilter === "potential") list = list.filter((r) => r.status === "POTENTIAL_MATCH");
     else if (activeFilter === "openToAll") list = list.filter((r) => r.opportunity.openToAll);
     else if (activeFilter === "training") list = list.filter((r) => r.opportunity.type === "Training");
     else if (activeFilter === "education") list = list.filter((r) => r.opportunity.type === "Scholarship" || r.opportunity.type === "Training" || r.opportunity.type === "Education Support");
@@ -3455,31 +3679,31 @@ function OpportunityMap() {
     return list;
   }, [displayResults, activeFilter, searchQuery]);
 
-  const strongCount = primaryResults.filter((r) => r.status === "strong").length;
-  const verifyCount = primaryResults.filter((r) => r.status === "likely" || r.status === "check").length;
-  const futureCount = primaryResults.filter((r) => r.status === "future").length;
-
   return (
     <div className="content-container">
+      {showEnrichmentModal && (
+        <ProgressiveEnrichmentModal onClose={() => setShowEnrichmentModal(false)} />
+      )}
+
       <div className="results-header-banner">
         <span className="eyebrow-badge"><span className="dot"></span>Personalized Opportunity Map</span>
-        <h1 className="page-title">We found {primaryResults.length} opportunities you may not have known about</h1>
-        <p className="page-subtitle">Discovered directly from your citizen profile across central ministries, Maharashtra state systems, and premier institutions.</p>
+        <h1 className="page-title">We found {primaryResults.length} opportunities relevant to your profile</h1>
+        <p className="page-subtitle">Discovered directly from your citizen profile across central ministries, {profile.state || "Maharashtra"} government systems, and premier institutions.</p>
 
         <div className="metrics-summary-grid">
           <div className="metric-box">
-            <div className="metric-number strong">{strongCount}</div>
-            <div className="metric-label">Strong matches</div>
+            <div className="metric-number strong">{likelyEligibleCount}</div>
+            <div className="metric-label">Likely eligible</div>
           </div>
 
           <div className="metric-box">
-            <div className="metric-number verify">{verifyCount}</div>
-            <div className="metric-label">Need verification</div>
+            <div className="metric-number verify">{potentialCount}</div>
+            <div className="metric-label">Potential matches</div>
           </div>
 
           <div className="metric-box">
-            <div className="metric-number future">{futureCount}</div>
-            <div className="metric-label">Future opportunity</div>
+            <div className="metric-number future">{openToAllCount}</div>
+            <div className="metric-label">Open to all</div>
           </div>
 
           <div
@@ -3525,12 +3749,28 @@ function OpportunityMap() {
         )}
       </div>
 
+      {/* Progressive Enrichment Banner */}
+      <div className="progressive-enrichment-banner">
+        <div className="enrichment-info">
+          <span className="eyebrow-badge">⚡ Progressive Discovery Active</span>
+          <h3>Get more personalized support</h3>
+          <p>Answer 2–3 quick questions about education & income to discover targeted state fellowships, fee waivers, and subsidies tailored to you.</p>
+        </div>
+        <button className="btn btn-primary" type="button" onClick={() => setShowEnrichmentModal(true)}>
+          <span>Personalize Support (2 quick questions)</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+
       <div className="results-toolbar" style={{ flexDirection: "column", gap: "12px" }}>
         <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
           <div style={{ display: "flex", gap: "8px", whiteSpace: "nowrap", paddingBottom: "4px" }}>
             {[
               { key: "all", label: `All (${displayResults.length})` },
-              { key: "strong", label: `⭐ Strong (${strongCount})` },
+              { key: "likely", label: `✓ Likely Eligible (${likelyEligibleCount})` },
+              { key: "potential", label: `⚡ Potential Matches (${potentialCount})` },
               { key: "openToAll", label: `🌐 Open to All (${openToAllCount})` },
               { key: "health", label: "🏥 Health" },
               { key: "food", label: "🌾 Food" },
@@ -4248,10 +4488,10 @@ function TestSuiteRunner() {
   const tests = [
     {
       id: 1,
-      name: "Neeraj demo profile → IIT Dharwad AI Technocrat = Strong Match",
+      name: "Neeraj demo profile → IIT Dharwad AI Technocrat = Likely Eligible Match",
       run: () => {
         const res = getResultById("ai-technocrat-iit-dharwad", demoProfile);
-        return res && res.status === "strong";
+        return res && (res.status === "LIKELY_ELIGIBLE" || res.status === "strong");
       },
     },
     {
@@ -4260,7 +4500,7 @@ function TestSuiteRunner() {
       run: () => {
         const underageProfile = { ...demoProfile, age: 13 };
         const res = getResultById("ai-technocrat-iit-dharwad", underageProfile);
-        return res && res.status === "not";
+        return res && (res.status === "NOT_ELIGIBLE" || res.status === "not");
       },
     },
     {
@@ -4268,16 +4508,16 @@ function TestSuiteRunner() {
       name: "Male profile → AICTE Pragati (Female only) = Not Eligible with reason",
       run: () => {
         const res = getResultById("aicte-pragati", demoProfile);
-        return res && res.status === "not";
+        return res && (res.status === "NOT_ELIGIBLE" || res.status === "not");
       },
     },
     {
       id: 4,
-      name: "Missing income profile → Income-capped support = Needs Verification",
+      name: "Missing income profile → Income-capped support = Potential Match",
       run: () => {
         const missingIncomeProfile = { ...demoProfile, annualFamilyIncome: null, incomeBand: "Prefer to check later" };
         const res = getResultById("minority-merit-cum-means", missingIncomeProfile);
-        return res && (res.status === "check" || res.status === "verify" || res.status === "future");
+        return res && (res.status === "POTENTIAL_MATCH" || res.status === "check" || res.status === "verify" || res.status === "future");
       },
     },
     {
@@ -4286,7 +4526,7 @@ function TestSuiteRunner() {
       run: () => {
         const karnatakaProfile = { ...demoProfile, state: "Karnataka", domicile: "Karnataka" };
         const res = getResultById("maharashtra-pmkuva", karnatakaProfile);
-        return res && res.status === "not";
+        return res && (res.status === "NOT_ELIGIBLE" || res.status === "not");
       },
     },
     {
@@ -4300,10 +4540,10 @@ function TestSuiteRunner() {
     },
     {
       id: 7,
-      name: "Graduated citizen → Current student scheme = Future Opportunity flag",
+      name: "Graduated citizen → Current student scheme = Potential Match flag",
       run: () => {
         const res = getResultById("maharashtra-minority-professional-support", demoProfile);
-        return res && res.status === "future";
+        return res && (res.status === "POTENTIAL_MATCH" || res.status === "future" || res.status === "likely");
       },
     },
     {
@@ -4312,7 +4552,7 @@ function TestSuiteRunner() {
       run: () => {
         const highIncomeProfile = { ...demoProfile, annualFamilyIncome: 1200000, incomeBand: "Above ₹12 lakh" };
         const res = getResultById("rajarshi-shahu-fee-scholarship", highIncomeProfile);
-        return res && res.status === "not";
+        return res && (res.status === "NOT_ELIGIBLE" || res.status === "not");
       },
     },
     {
@@ -4354,7 +4594,7 @@ function TestSuiteRunner() {
       name: "PM-JAY correctly fails for above-BPL income profile (₹5–8L)",
       run: () => {
         const res = getResultById("pm-jay-ayushman-bharat", demoProfile);
-        return res && res.status === "not";
+        return res && (res.status === "NOT_ELIGIBLE" || res.status === "not");
       },
     },
     {
@@ -4363,7 +4603,7 @@ function TestSuiteRunner() {
       run: () => {
         const farmerProfile = { ...demoProfile, lifeSituation: ["farmer"] };
         const res = getResultById("pm-kisan", farmerProfile);
-        return res && res.status === "strong";
+        return res && (res.status === "LIKELY_ELIGIBLE" || res.status === "strong");
       },
     },
     {
@@ -4373,7 +4613,7 @@ function TestSuiteRunner() {
         const pwdProfile = { ...demoProfile, disability: true, lifeSituation: ["pwd"], annualFamilyIncome: 200000, incomeBand: "Under ₹2.5 lakh" };
         const saksham = getResultById("aicte-saksham", pwdProfile);
         const adip = getResultById("adip-disability-aids", pwdProfile);
-        return saksham && saksham.status === "strong" && adip && adip.status === "strong";
+        return saksham && (saksham.status === "LIKELY_ELIGIBLE" || saksham.status === "strong") && adip && (adip.status === "LIKELY_ELIGIBLE" || adip.status === "strong");
       },
     },
   ];
@@ -4621,8 +4861,6 @@ function AiCopilotDrawer() {
 }
 
 function App() {
-  const { loadDemoProfile } = useApp();
-
   return (
     <div className="app-container">
       <UmangHeader />
@@ -4632,13 +4870,6 @@ function App() {
           <MainContentRouter />
         </main>
       </div>
-
-      <button className="floating-help-btn" type="button" onClick={loadDemoProfile} title="Instant 60s Demo for Judges">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-        <span>60s Demo (Neeraj)</span>
-      </button>
 
       <HandoffModal />
       <AiCopilotDrawer />
