@@ -372,6 +372,8 @@ button:disabled {
   flex-direction: column;
   padding: 16px 10px;
   transition: transform var(--transition-normal);
+}
+
 .sidebar-overlay {
   position: fixed;
   inset: 0;
