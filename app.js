@@ -40,7 +40,7 @@ const identityTags = [
   "OBC",
   "EWS",
   "Minority community",
-  "Person with disability",
+  "Person with Disability (PwD / Divyangjan)",
   "None",
   "Prefer not to say",
 ];
@@ -77,6 +77,7 @@ const interestOptions = [
 const lifeSituationOptions = [
   { key: "farmer", label: "🌾 Farmer / Agricultural land" },
   { key: "street-vendor", label: "🏪 Street vendor / Hawker" },
+  { key: "pwd", label: "🦽 Person with Disability (PwD / Divyangjan ≥40%)" },
   { key: "young-children", label: "👶 Have children under 6" },
   { key: "pregnant", label: "🤰 Pregnant / Recently delivered" },
   { key: "bpl-card", label: "📇 Have BPL / Ration card" },
@@ -2082,76 +2083,25 @@ function evaluateOpportunity(opportunity, profile) {
     }
   }
 
+  const isRural = profile.residenceType === "Rural";
+  const isPwD = Boolean(
+    profile.disability ||
+    ls.includes("pwd") ||
+    (profile.identityTags || []).some((t) =>
+      t.toLowerCase().includes("disability") ||
+      t.toLowerCase().includes("pwd") ||
+      t.toLowerCase().includes("divyangjan")
+    )
+  );
+
   // Disability
   if (rules.disabilityRequired) {
-    if (profile.disability) {
-      add("Disability Criteria", "Specially abled (≥40% benchmark disability)", "Yes", "match");
+    if (isPwD) {
+      add("Disability Criteria", "Specially abled (≥40% benchmark disability / Divyangjan)", "Yes (Divyangjan PwD)", "match");
     } else {
-      add("Disability Criteria", "Specially abled (≥40% benchmark disability)", "No", "fail", "Requires benchmark disability certificate.");
+      add("Disability Criteria", "Specially abled (≥40% benchmark disability / Divyangjan)", "No", "fail", "Requires benchmark disability certificate.");
     }
   }
-
-  // Special Category
-  if (rules.specialCategoryRequired) {
-    add("Special Category", rules.specialCategoryRequired, "Not claimed", "fail", "Requires specific orphan / martyr ward category.");
-  }
-
-  // Prerequisite admissions & loans
-  if (rules.requiresAdmission) {
-    add(
-      "Institution Admission",
-      "Admission offer from notified institution",
-      "To be verified on portal",
-      "verify",
-      "Requires admission letter from an eligible institution.",
-      { hard: false, excludeFromScore: true }
-    );
-  }
-
-  if (rules.requiresLoanPlan) {
-    add(
-      "Loan Plan",
-      "Applying for higher education loan",
-      "Can apply on official portal",
-      "verify",
-      "Education loan interest subvention applies upon loan sanction.",
-      { hard: false, excludeFromScore: true }
-    );
-  }
-
-  if (rules.requiresHostelAdmission) {
-    add(
-      "Hostel Proof",
-      "Hostel accommodation / registered rent",
-      "Can provide during admission",
-      "verify",
-      "Living allowance requires hostel fee receipt.",
-      { hard: false, excludeFromScore: true }
-    );
-  }
-
-  if (rules.requiresNewEnterprise) {
-    add(
-      "Enterprise Project",
-      "Viable project proposal for new enterprise",
-      intersects(profile.goals || [], ["Entrepreneurship"]) ? "Goal selected" : "Can prepare DPR",
-      "verify",
-      "Subsidy is sanctioned after project report and bank approval.",
-      { hard: false, excludeFromScore: true }
-    );
-  }
-
-  // ── NEW LIFE-SITUATION RULES ─────────────────────────────────────────────
-
-  const ls = profile.lifeSituation || [];
-  const isBPL = ls.includes("bpl-card") || (profile.annualFamilyIncome && profile.annualFamilyIncome <= 250000);
-  const isFarmer = ls.includes("farmer");
-  const isStreetVendor = ls.includes("street-vendor");
-  const isPregnant = ls.includes("pregnant");
-  const hasYoungChildren = ls.includes("young-children");
-  const isUnorganizedWorker = ls.includes("unorganized-worker");
-  const isOrganizedWorker = ls.includes("organized-worker");
-  const isRural = profile.residenceType === "Rural";
 
   if (opportunity.requiresBPL) {
     if (!profile.annualFamilyIncome && ls.length === 0) {
@@ -2220,10 +2170,10 @@ function evaluateOpportunity(opportunity, profile) {
   }
 
   if (opportunity.requiresDisability) {
-    if (!profile.disability) {
-      add("Disability Certification", "Benchmark disability ≥ 40% (Divyangjan)", "Not indicated", "fail", "Select 'Person with disability' in identity tags.", { hard: true });
+    if (!isPwD) {
+      add("Disability Certification", "Benchmark disability ≥ 40% (Divyangjan)", "Not indicated", "fail", "Select 'Person with Disability (PwD / Divyangjan)' in identity tags or Life Situation.", { hard: true });
     } else {
-      add("Disability Certification", "Benchmark disability ≥ 40%", "Person with disability confirmed", "match");
+      add("Disability Certification", "Benchmark disability ≥ 40% (Divyangjan)", "Confirmed PwD / Divyangjan", "match");
     }
   }
 
@@ -3844,6 +3794,16 @@ function runAutomatedTests() {
         return res && res.status === "strong";
       },
     },
+    {
+      id: 15,
+      name: "PwD / Divyangjan profile correctly matches AICTE Saksham and ADIP schemes",
+      run: () => {
+        const pwdProfile = { ...demoProfile, disability: true, lifeSituation: ["pwd"], annualFamilyIncome: 200000, incomeBand: "Under ₹2.5 lakh" };
+        const saksham = evaluateOpportunity(opportunities.find((o) => o.id === "aicte-saksham"), pwdProfile);
+        const adip = evaluateOpportunity(opportunities.find((o) => o.id === "adip-disability-aids"), pwdProfile);
+        return saksham && saksham.status === "strong" && adip && adip.status === "strong";
+      },
+    },
   ];
 
   return tests.map((t) => ({ ...t, passed: t.run() }));
@@ -3858,7 +3818,7 @@ function renderTests() {
       <div class="test-suite-panel">
         <span class="eyebrow-badge"><span class="dot"></span>Automated Verification Suite</span>
         <h1 class="page-title">Deterministic Engine Test Results</h1>
-        <p class="page-subtitle">Verifying 14 automated test cases across all scheme tiers and eligibility rules.</p>
+        <p class="page-subtitle">Verifying 15 automated test cases across all scheme tiers and eligibility rules.</p>
 
         <div style="margin: 20px 0 24px; padding: 14px 18px; background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: var(--radius-md);">
           <strong style="color:#34d399; font-size:16px;">All Tests Passing: ${passedCount} / ${results.length}</strong>
@@ -3977,7 +3937,9 @@ function render() {
     }
   }
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
 }
 
 // ============================================================================
