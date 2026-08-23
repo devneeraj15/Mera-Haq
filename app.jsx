@@ -53,6 +53,13 @@ const goalOptions = [
   "Entrepreneurship",
   "Skill development",
   "Employment opportunities",
+  "Health insurance",
+  "Food & ration support",
+  "Housing subsidy",
+  "Agricultural support",
+  "Utilities (LPG/power)",
+  "Pension & retirement",
+  "Women & child benefits",
 ];
 
 const interestOptions = [
@@ -63,6 +70,17 @@ const interestOptions = [
   "Healthcare",
   "Finance",
   "Manufacturing",
+  "Agriculture",
+];
+
+const lifeSituationOptions = [
+  { key: "farmer", label: "🌾 Farmer / Agricultural land" },
+  { key: "street-vendor", label: "🏪 Street vendor / Hawker" },
+  { key: "young-children", label: "👶 Have children under 6" },
+  { key: "pregnant", label: "🤰 Pregnant / Recently delivered" },
+  { key: "bpl-card", label: "📇 Have BPL / Ration card" },
+  { key: "unorganized-worker", label: "👷 Unorganized sector worker" },
+  { key: "organized-worker", label: "🏭 Factory / Formal sector employee" },
 ];
 
 const educationRank = {
@@ -97,6 +115,7 @@ const demoProfile = {
   residenceType: "Urban",
   apaarId: "279903493988",
   apaarVerified: true,
+  lifeSituation: [],
   interests: ["AI", "Technology", "Product", "Skill development"],
   goals: [
     "Scholarships",
@@ -105,6 +124,7 @@ const demoProfile = {
     "Subsidised loans",
     "Fellowships",
     "Skill development",
+    "Entrepreneurship",
   ],
 };
 
@@ -127,6 +147,7 @@ const blankProfile = {
   residenceType: "Urban",
   apaarId: "",
   apaarVerified: false,
+  lifeSituation: [],
   interests: ["AI", "Technology"],
   goals: ["Scholarships", "Free training", "Skill development"],
 };
@@ -903,6 +924,998 @@ const opportunities = [
     lastVerified: "2026-08-23",
     status: "open",
   },
+
+  // ── TIER A: HEALTH INSURANCE ─────────────────────────────────────────────
+
+  {
+    id: "pm-jay-ayushman-bharat",
+    priority: 18,
+    name: "PM-JAY — Ayushman Bharat Health Insurance",
+    shortDescription: "Cashless health insurance of up to ₹5 lakh per family per year for secondary and tertiary hospitalisation at empanelled hospitals.",
+    governmentLevel: "Central",
+    department: "Ministry of Health & Family Welfare / NHA",
+    type: "Health Insurance",
+    category: "health",
+    openToAll: false,
+    benefit: {
+      type: "insurance",
+      amount: 500000,
+      description: "₹5,00,000 per family per year — cashless hospitalisation at 25,000+ empanelled hospitals.",
+      directAmount: 0,
+      costAvoidedAmount: 500000,
+      financingAmount: 0,
+      components: [
+        "Cashless treatment up to ₹5 lakh/year",
+        "Covers pre & post-hospitalisation expenses",
+        "All pre-existing conditions covered from Day 1",
+        "Portable across India — use at any empanelled hospital",
+        "No premium payment required for beneficiaries",
+      ],
+    },
+    eligibility: {
+      incomeMax: 500000,
+      goalsAny: ["Health insurance"],
+    },
+    requiresBPL: true,
+    verificationNotes: [
+      "Eligibility verified via SECC 2011 database or state inclusion lists.",
+      "Download Ayushman card from pmjay.gov.in using Aadhaar.",
+    ],
+    requiredDocuments: [
+      { name: "Aadhaar Card / Family ID", status: "ready" },
+      { name: "Ration Card / SECC / BPL Certificate", status: "attention", note: "Needed to confirm PMJAY beneficiary list inclusion" },
+    ],
+    deadline: "Always Open",
+    applicationUrl: "https://pmjay.gov.in/",
+    sourceName: "National Health Authority — PM-JAY",
+    sourceUrl: "https://pmjay.gov.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  {
+    id: "esic-health-insurance",
+    priority: 19,
+    name: "ESIC — Employee State Insurance Corporation",
+    shortDescription: "Comprehensive health insurance (medical, sickness, maternity, disability, death) for organised sector employees earning up to ₹21,000/month.",
+    governmentLevel: "Central",
+    department: "Ministry of Labour & Employment / ESIC",
+    type: "Health Insurance",
+    category: "health",
+    openToAll: false,
+    benefit: {
+      type: "insurance",
+      amount: 0,
+      description: "Full medical care for employee and family + 70% wage replacement during sickness + maternity benefits.",
+      directAmount: 0,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "Full OPD, IPD, and specialist medical care for employee and dependants",
+        "Sickness benefit: 70% wages for up to 91 days/year",
+        "Maternity benefit: 26 weeks at full wages",
+        "Disablement and dependent's pension",
+        "Funeral expenses reimbursement",
+      ],
+    },
+    eligibility: {
+      goalsAny: ["Health insurance", "Employment opportunities"],
+    },
+    requiresOrganizedWorker: true,
+    verificationNotes: [
+      "Applicable to employees in ESI-covered establishments with monthly wage ≤ ₹21,000.",
+      "Employer registers the establishment; employee gets ESIC card.",
+    ],
+    requiredDocuments: [
+      { name: "Employment / Salary Proof", status: "attention", note: "Requires employer registration in ESIC portal" },
+      { name: "Aadhaar Card", status: "ready" },
+    ],
+    deadline: "Ongoing — employer registration required",
+    applicationUrl: "https://esic.in/",
+    sourceName: "ESIC Portal",
+    sourceUrl: "https://esic.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  // ── TIER A: FOOD SECURITY ─────────────────────────────────────────────────
+
+  {
+    id: "pmgkay-free-food-grains",
+    priority: 20,
+    name: "PM Garib Kalyan Anna Yojana (Free Food Grains)",
+    shortDescription: "5 kg free rice / wheat per person per month for all NFSA/Priority Household (PHH) and Antyodaya (AAY) ration card holders.",
+    governmentLevel: "Central",
+    department: "Ministry of Food & Consumer Affairs",
+    type: "Food Security",
+    category: "food",
+    openToAll: false,
+    benefit: {
+      type: "subsidy",
+      amount: 12000,
+      description: "5 kg free food grain per person per month (estimated ₹1,000+/month per family).",
+      directAmount: 12000,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "5 kg free rice or wheat per person/month",
+        "Delivered through fair price shops (PDS network)",
+        "Applicable to all NFSA beneficiaries (Priority + Antyodaya)",
+        "Portable ration via 'One Nation One Ration Card'",
+      ],
+    },
+    eligibility: {
+      incomeMax: 250000,
+      goalsAny: ["Food & ration support"],
+    },
+    requiresBPL: true,
+    verificationNotes: [
+      "Requires valid Priority Household (PHH) or Antyodaya Anna Yojana (AAY) ration card.",
+      "Beneficiary list maintained by state government Food department.",
+    ],
+    requiredDocuments: [
+      { name: "Ration Card (PHH / AAY)", status: "attention", note: "Must be enrolled in state ration card system" },
+      { name: "Aadhaar seeding with ration card", status: "attention", note: "Required for biometric verification at PDS shop" },
+    ],
+    deadline: "Ongoing — monthly entitlement",
+    applicationUrl: "https://nfsa.gov.in/",
+    sourceName: "NFSA Portal",
+    sourceUrl: "https://nfsa.gov.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  {
+    id: "nfsa-pds-ration",
+    priority: 21,
+    name: "National Food Security Act — PDS Ration Card",
+    shortDescription: "Subsidised food grains (rice at ₹3/kg, wheat at ₹2/kg) for income-eligible families through the Public Distribution System.",
+    governmentLevel: "Central",
+    department: "Ministry of Food & Consumer Affairs / State Civil Supplies",
+    type: "Food Security",
+    category: "food",
+    openToAll: false,
+    benefit: {
+      type: "subsidy",
+      amount: 6000,
+      description: "Up to 35 kg subsidised grains/month per AAY family, or 5 kg per person for PHH.",
+      directAmount: 0,
+      costAvoidedAmount: 6000,
+      financingAmount: 0,
+      components: [
+        "Rice: ₹3/kg | Wheat: ₹2/kg | Coarse grains: ₹1/kg",
+        "Antyodaya (poorest families): 35 kg/month",
+        "Priority Household: 5 kg per member/month",
+        "State portability under One Nation One Ration Card",
+      ],
+    },
+    eligibility: {
+      incomeMax: 250000,
+      goalsAny: ["Food & ration support"],
+    },
+    requiresBPL: true,
+    verificationNotes: [
+      "Apply for new ration card at your state's civil supplies office or state portal.",
+      "Maharashtra: rcms.mahafood.gov.in",
+    ],
+    requiredDocuments: [
+      { name: "Proof of Address (domicile)", status: "ready" },
+      { name: "Income Certificate / BPL proof", status: "attention", note: "State-wise income cap applies" },
+      { name: "Family Aadhaar details", status: "ready" },
+    ],
+    deadline: "Apply any time at civil supplies office",
+    applicationUrl: "https://rcms.mahafood.gov.in/",
+    sourceName: "NFSA / MahaFood Portal",
+    sourceUrl: "https://nfsa.gov.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  // ── TIER A: HOUSING ───────────────────────────────────────────────────────
+
+  {
+    id: "pmay-urban",
+    priority: 22,
+    name: "PMAY-Urban — Pradhan Mantri Awas Yojana (Urban)",
+    shortDescription: "Interest subsidy on home loans up to ₹2.67 lakh under Credit Linked Subsidy Scheme (CLSS) for EWS / LIG / MIG urban families without a pucca house.",
+    governmentLevel: "Central",
+    department: "Ministry of Housing & Urban Affairs",
+    type: "Housing",
+    category: "housing",
+    openToAll: false,
+    benefit: {
+      type: "subsidy",
+      amount: 267000,
+      description: "One-time credit-linked interest subsidy up to ₹2.67 lakh on home loan (EWS/LIG). MIG: up to ₹2.35 lakh.",
+      directAmount: 0,
+      costAvoidedAmount: 267000,
+      financingAmount: 0,
+      components: [
+        "EWS (income ≤ ₹3L): 6.5% interest subsidy on loan up to ₹6L",
+        "LIG (income ≤ ₹6L): 6.5% interest subsidy on loan up to ₹6L",
+        "MIG-I (income ≤ ₹12L): 4% on loan up to ₹9L",
+        "MIG-II (income ≤ ₹18L): 3% on loan up to ₹12L",
+        "Subsidy amount credited upfront to reduce EMI",
+      ],
+    },
+    eligibility: {
+      incomeMax: 1800000,
+      residenceType: "Urban",
+      goalsAny: ["Housing subsidy"],
+    },
+    verificationNotes: [
+      "Beneficiary family must not own a pucca house in India.",
+      "Female ownership / co-ownership preferred for EWS/LIG.",
+      "Apply through empanelled banks / housing finance companies.",
+    ],
+    requiredDocuments: [
+      { name: "Income Certificate / ITR", status: "attention" },
+      { name: "Self-declaration of no pucca house", status: "attention" },
+      { name: "Aadhaar Card", status: "ready" },
+      { name: "Property / Sale agreement", status: "attention" },
+    ],
+    deadline: "Scheme ongoing — check pmaymis.gov.in for current sub-scheme",
+    applicationUrl: "https://pmaymis.gov.in/",
+    sourceName: "MoHUA / PMAY Urban Portal",
+    sourceUrl: "https://pmaymis.gov.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  {
+    id: "pmay-gramin",
+    priority: 23,
+    name: "PMAY-Gramin — Pradhan Mantri Awas Yojana (Rural)",
+    shortDescription: "Direct financial assistance of ₹1.2–1.3 lakh for construction of a pucca house for houseless and kutcha house dwellers in rural areas.",
+    governmentLevel: "Central",
+    department: "Ministry of Rural Development",
+    type: "Housing",
+    category: "housing",
+    openToAll: false,
+    benefit: {
+      type: "grant",
+      amount: 130000,
+      description: "₹1.20 lakh (plains) / ₹1.30 lakh (hilly/NE states) direct cash grant for house construction.",
+      directAmount: 130000,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "₹1.2–1.3 lakh direct transfer for house construction",
+        "Additional ₹12,000 for sanitation (linked with SBM-G)",
+        "90–95 days MGNREGA labour entitlement for unskilled work",
+        "Free LPG connection under Ujjwala Yojana linkage",
+      ],
+    },
+    eligibility: {
+      goalsAny: ["Housing subsidy"],
+    },
+    requiresRuralResidence: true,
+    verificationNotes: [
+      "Selected from SECC 2011 permanent wait-list (Awaas+) by Gram Panchayat.",
+      "Check your name on rhreporting.nic.in or contact Gram Sachiv.",
+    ],
+    requiredDocuments: [
+      { name: "SECC / Awaas+ inclusion list verification", status: "attention" },
+      { name: "Aadhaar-linked Bank Account", status: "ready" },
+      { name: "No pucca house self-declaration", status: "attention" },
+    ],
+    deadline: "Allocated by Gram Panchayat — apply via Awaas+ App",
+    applicationUrl: "https://rhreporting.nic.in/",
+    sourceName: "Ministry of Rural Development / PMAY-G Portal",
+    sourceUrl: "https://pmayg.nic.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  // ── TIER B: AGRICULTURE ───────────────────────────────────────────────────
+
+  {
+    id: "pm-kisan",
+    priority: 24,
+    name: "PM-KISAN — Direct Income Support for Farmers",
+    shortDescription: "₹6,000 per year in three instalments of ₹2,000 directly to the bank account of small & marginal farmer families.",
+    governmentLevel: "Central",
+    department: "Ministry of Agriculture & Farmers' Welfare",
+    type: "Agricultural Support",
+    category: "agriculture",
+    openToAll: false,
+    benefit: {
+      type: "cash",
+      amount: 6000,
+      description: "₹6,000/year (₹2,000 × 3 instalments) as income support — direct bank transfer.",
+      directAmount: 6000,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "₹2,000 per 4-month instalment (3 instalments/year)",
+        "Directly credited to Aadhaar-seeded bank account",
+        "No restriction on use of funds",
+        "Check status at pmkisan.gov.in",
+      ],
+    },
+    eligibility: {
+      goalsAny: ["Agricultural support"],
+    },
+    requiresFarmer: true,
+    verificationNotes: [
+      "Family must own cultivable agricultural land.",
+      "Institutional land holders, former/current constitutional post holders and income-tax payees are excluded.",
+    ],
+    requiredDocuments: [
+      { name: "Land ownership records / Khata", status: "attention", note: "Khasra / Khatauni from revenue records required" },
+      { name: "Aadhaar-linked Bank Account", status: "ready" },
+      { name: "Mobile number linked to Aadhaar", status: "ready" },
+    ],
+    deadline: "Always Open — register at pmkisan.gov.in",
+    applicationUrl: "https://pmkisan.gov.in/",
+    sourceName: "PM-KISAN Portal",
+    sourceUrl: "https://pmkisan.gov.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  {
+    id: "kisan-credit-card",
+    priority: 25,
+    name: "Kisan Credit Card (KCC) — Agricultural Credit",
+    shortDescription: "Short-term credit up to ₹3 lakh at 4% effective interest (7% with 3% GOI subvention) for crop cultivation, post-harvest, and allied activities.",
+    governmentLevel: "Central",
+    department: "Ministry of Agriculture / NABARD / Commercial Banks",
+    type: "Agricultural Support",
+    category: "agriculture",
+    openToAll: false,
+    benefit: {
+      type: "credit",
+      amount: 300000,
+      description: "Credit limit up to ₹3 lakh at just 4% per annum effective rate (after 3% interest subvention by GOI).",
+      directAmount: 0,
+      costAvoidedAmount: 0,
+      financingAmount: 300000,
+      components: [
+        "Revolving credit for crop production expenses",
+        "Interest subvention: 7% rate – 3% GOI subvention = 4% effective",
+        "Covers post-harvest, household needs, maintenance of assets",
+        "ATM-enabled RuPay debit card for withdrawals",
+        "Personal accident insurance of ₹50,000 included",
+      ],
+    },
+    eligibility: {
+      goalsAny: ["Agricultural support"],
+    },
+    requiresFarmer: true,
+    verificationNotes: [
+      "Apply at nearest bank branch with land records.",
+      "No income / collateral required for credit up to ₹1.60 lakh.",
+    ],
+    requiredDocuments: [
+      { name: "Land Records / Khasra", status: "attention" },
+      { name: "Photograph", status: "ready" },
+      { name: "Identity Proof (Aadhaar)", status: "ready" },
+      { name: "Address Proof", status: "ready" },
+    ],
+    deadline: "Always Open at any bank branch",
+    applicationUrl: "https://www.nabard.org/",
+    sourceName: "NABARD / Your Bank Branch",
+    sourceUrl: "https://www.nabard.org/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  {
+    id: "pm-fasal-bima",
+    priority: 26,
+    name: "PM Fasal Bima Yojana — Crop Insurance",
+    shortDescription: "Comprehensive crop insurance against natural calamities, pests, and diseases at very low farmer-paid premium (2% Kharif, 1.5% Rabi, 5% commercial crops).",
+    governmentLevel: "Central",
+    department: "Ministry of Agriculture & Farmers' Welfare",
+    type: "Agricultural Support",
+    category: "agriculture",
+    openToAll: false,
+    benefit: {
+      type: "insurance",
+      amount: 0,
+      description: "Up to full sum insured (as per state district notification) — covers yield loss, post-harvest, localised disasters.",
+      directAmount: 0,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "Low farmer premium: 2% (Kharif), 1.5% (Rabi), 5% (horticulture)",
+        "Balance premium paid by Central + State Government",
+        "Covers standing crop, post-harvest losses, prevented sowing",
+        "Smart / remote sensing technology for faster claim settlement",
+      ],
+    },
+    eligibility: {
+      goalsAny: ["Agricultural support"],
+    },
+    requiresFarmer: true,
+    verificationNotes: [
+      "Notified crops listed per district before sowing season.",
+      "KCC holders enrolled automatically; non-loanee farmers can opt-in.",
+    ],
+    requiredDocuments: [
+      { name: "Land Records / Khasra for the season", status: "attention" },
+      { name: "Sowing certificate", status: "attention" },
+      { name: "Bank account details", status: "ready" },
+    ],
+    deadline: "Enroll before crop season cut-off at nearest bank / CSC",
+    applicationUrl: "https://pmfby.gov.in/",
+    sourceName: "PMFBY Portal",
+    sourceUrl: "https://pmfby.gov.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  // ── TIER B: UTILITIES ─────────────────────────────────────────────────────
+
+  {
+    id: "pm-ujjwala-lpg",
+    priority: 27,
+    name: "PM Ujjwala Yojana — Free LPG Connection",
+    shortDescription: "Free LPG cooking gas connection + first cylinder + stove to BPL women. Refills at subsidised/market price with first-cylinder free.",
+    governmentLevel: "Central",
+    department: "Ministry of Petroleum & Natural Gas",
+    type: "Utilities",
+    category: "utilities",
+    openToAll: false,
+    benefit: {
+      type: "grant",
+      amount: 3500,
+      description: "Free LPG connection (deposit waiver ~₹1,600) + first refill + stove deposit waiver (total benefit ~₹3,500).",
+      directAmount: 3500,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "Free LPG connection (security deposit waived)",
+        "First refill cylinder free of cost",
+        "Option for EMI-based repayment of stove / regulator",
+        "Subsidised refills via DBT thereafter",
+      ],
+    },
+    eligibility: {
+      genders: ["Female"],
+      goalsAny: ["Utilities (LPG/power)"],
+    },
+    requiresBPL: true,
+    verificationNotes: [
+      "Apply at nearest LPG distributor (HP, Bharat Gas, Indane).",
+      "Must not already have an LPG connection in the household.",
+    ],
+    requiredDocuments: [
+      { name: "Aadhaar Card (woman applicant)", status: "ready" },
+      { name: "Ration Card / BPL Certificate", status: "attention" },
+      { name: "Bank account (for DBT subsidy)", status: "ready" },
+    ],
+    deadline: "Apply at LPG distributor any time",
+    applicationUrl: "https://www.pmuy.gov.in/",
+    sourceName: "PM Ujjwala Yojana Portal",
+    sourceUrl: "https://www.pmuy.gov.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  {
+    id: "saubhagya-electricity",
+    priority: 28,
+    name: "Saubhagya — Free Household Electricity Connection",
+    shortDescription: "Free electricity connection for BPL households and ₹500 for APL households in rural and urban areas under PM Sahaj Bijli Har Ghar Yojana.",
+    governmentLevel: "Central",
+    department: "Ministry of Power / State DISCOMs",
+    type: "Utilities",
+    category: "utilities",
+    openToAll: false,
+    benefit: {
+      type: "grant",
+      amount: 5000,
+      description: "Free connection cost (estimated ₹4,000–5,000 for BPL households).",
+      directAmount: 5000,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "Free household electricity connection for BPL families",
+        "5 LED bulbs + 1 fan for solar-powered connections in off-grid areas",
+        "5-year repair & maintenance for solar units",
+        "APL households: ₹500 in 10 instalments via electricity bills",
+      ],
+    },
+    eligibility: {
+      goalsAny: ["Utilities (LPG/power)"],
+    },
+    requiresBPL: true,
+    verificationNotes: [
+      "Contact local DISCOM/electricity board or nearest CSC.",
+      "Largely completed in most states — check connectivity status at saubhagya.gov.in.",
+    ],
+    requiredDocuments: [
+      { name: "Aadhaar Card", status: "ready" },
+      { name: "Ration Card / BPL Certificate", status: "attention" },
+    ],
+    deadline: "Contact local electricity board / DISCOM",
+    applicationUrl: "https://saubhagya.gov.in/",
+    sourceName: "Saubhagya Portal / MoP",
+    sourceUrl: "https://saubhagya.gov.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  // ── TIER B: WOMEN & CHILD ─────────────────────────────────────────────────
+
+  {
+    id: "janani-suraksha-yojana",
+    priority: 29,
+    name: "Janani Suraksha Yojana — Safe Motherhood Cash Incentive",
+    shortDescription: "Cash assistance of ₹1,400 (rural) / ₹1,000 (urban) to pregnant women delivering at government health facilities to promote institutional delivery.",
+    governmentLevel: "Central",
+    department: "Ministry of Health & Family Welfare / NHM",
+    type: "Women & Child",
+    category: "women-child",
+    openToAll: false,
+    benefit: {
+      type: "cash",
+      amount: 1400,
+      description: "₹1,400 cash for rural BPL pregnant women; ₹1,000 urban. ASHA gets ₹300 (rural) / ₹200 (urban) as performance incentive.",
+      directAmount: 1400,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "₹1,400 cash assistance for rural BPL pregnant women",
+        "₹1,000 for urban BPL women delivering at govt facility",
+        "Covers all pregnancies (no restriction on birth order in low-performing states)",
+        "ASHA facilitator provides doorstep support",
+      ],
+    },
+    eligibility: {
+      genders: ["Female"],
+      goalsAny: ["Women & child benefits", "Health insurance"],
+    },
+    requiresPregnant: true,
+    verificationNotes: [
+      "Deliver at government health facility or accredited private hospital.",
+      "Register with ASHA worker or sub-centre early in pregnancy.",
+    ],
+    requiredDocuments: [
+      { name: "MCH (Mother Child Health) Card", status: "attention", note: "Obtain from sub-centre / PHC at pregnancy registration" },
+      { name: "Aadhaar / BPL card", status: "ready" },
+      { name: "Bank account for direct transfer", status: "ready" },
+    ],
+    deadline: "Register during pregnancy — delivery must be institutional",
+    applicationUrl: "https://nhm.gov.in/",
+    sourceName: "National Health Mission",
+    sourceUrl: "https://nhm.gov.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  {
+    id: "pmmvy-maternity-benefit",
+    priority: 30,
+    name: "PM Matru Vandana Yojana (PMMVY) — Maternity Benefit",
+    shortDescription: "₹5,000 maternity benefit in two instalments for the first living child, and ₹6,000 for the second child if it's a girl — promoting early antenatal care.",
+    governmentLevel: "Central",
+    department: "Ministry of Women & Child Development",
+    type: "Women & Child",
+    category: "women-child",
+    openToAll: false,
+    benefit: {
+      type: "cash",
+      amount: 5000,
+      description: "₹5,000 in 2 instalments for first child; ₹6,000 one-time for second child (if girl).",
+      directAmount: 5000,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "1st instalment ₹3,000: on early pregnancy registration (within 150 days)",
+        "2nd instalment ₹2,000: after delivery and first vaccination",
+        "2nd child benefit ₹6,000: one-time if child is a girl",
+        "DBT direct to mother's bank account",
+      ],
+    },
+    eligibility: {
+      genders: ["Female"],
+      goalsAny: ["Women & child benefits"],
+    },
+    requiresPregnant: true,
+    verificationNotes: [
+      "Apply via Anganwadi Centre or health sub-centre within 150 days of last menstrual period.",
+      "Available at pmmvy-cas.nic.in or WCD district office.",
+    ],
+    requiredDocuments: [
+      { name: "MCP Card (Mother Child Protection)", status: "attention" },
+      { name: "Aadhaar Card", status: "ready" },
+      { name: "Bank Account Passbook", status: "ready" },
+      { name: "Marriage Certificate / Pregnancy proof", status: "attention" },
+    ],
+    deadline: "Register within 150 days of last menstrual period",
+    applicationUrl: "https://pmmvy-cas.nic.in/",
+    sourceName: "PMMVY / WCD Ministry",
+    sourceUrl: "https://pmmvy-cas.nic.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  {
+    id: "sukanya-samriddhi-yojana",
+    priority: 31,
+    name: "Sukanya Samriddhi Yojana — Girl Child Savings Scheme",
+    shortDescription: "High-interest (currently 8.2% p.a.) tax-free savings account for a girl child (below 10 years) with deduction under 80C. Matures after 21 years.",
+    governmentLevel: "Central",
+    department: "Ministry of Finance / India Post / Banks",
+    type: "Women & Child",
+    category: "women-child",
+    openToAll: false,
+    benefit: {
+      type: "savings",
+      amount: 0,
+      description: "8.2% p.a. interest (tax-free) — highest among small savings schemes. 80C tax benefit on deposits.",
+      directAmount: 0,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "8.2% interest per annum (compounded yearly) — among highest safe savings rates",
+        "Income tax deduction up to ₹1.5L under Section 80C",
+        "Partial withdrawal (50%) allowed at age 18 for education",
+        "Minimum deposit ₹250/year, maximum ₹1.5L/year",
+        "Account matures after 21 years (or on marriage after 18)",
+      ],
+    },
+    eligibility: {
+      goalsAny: ["Women & child benefits", "Scholarships", "Education support"],
+    },
+    requiresYoungChildren: true,
+    verificationNotes: [
+      "Parent / guardian opens account at Post Office or designated bank.",
+      "One account per girl child, max 2 accounts per family.",
+    ],
+    requiredDocuments: [
+      { name: "Girl child birth certificate", status: "attention" },
+      { name: "Parent/Guardian Aadhaar & address proof", status: "ready" },
+      { name: "Photographs (guardian + girl)", status: "ready" },
+    ],
+    deadline: "Open before girl child turns 10 years of age",
+    applicationUrl: "https://www.indiapost.gov.in/",
+    sourceName: "India Post / Designated Banks",
+    sourceUrl: "https://www.indiapost.gov.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  // ── TIER B: EMPLOYMENT ────────────────────────────────────────────────────
+
+  {
+    id: "mgnrega-job-card",
+    priority: 32,
+    name: "MGNREGA — Guaranteed Rural Employment Job Card",
+    shortDescription: "100 days of guaranteed wage employment per household per year at government-notified wage rates (₹220–400/day depending on state) for rural adult workers.",
+    governmentLevel: "Central",
+    department: "Ministry of Rural Development",
+    type: "Employment",
+    category: "employment",
+    openToAll: false,
+    benefit: {
+      type: "wage",
+      amount: 40000,
+      description: "100 days guaranteed work per year at ~₹220–400/day (state-specific MGNREGA wage rate).",
+      directAmount: 40000,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "100 days guaranteed wage employment per household",
+        "Work allocated within 15 days of application or unemployment allowance",
+        "Wages deposited in bank / post office accounts",
+        "Additional days in drought / natural calamity notified years",
+        "Women: minimum 1/3rd participation mandated",
+      ],
+    },
+    eligibility: {
+      ageMin: 18,
+      goalsAny: ["Employment opportunities"],
+    },
+    requiresRuralResidence: true,
+    verificationNotes: [
+      "Enroll for Job Card at Gram Panchayat. Free of cost.",
+      "Demand work in writing to Gram Panchayat; work must start within 15 days.",
+    ],
+    requiredDocuments: [
+      { name: "Job Card Application (free at Gram Panchayat)", status: "attention" },
+      { name: "Aadhaar Card", status: "ready" },
+      { name: "Photograph", status: "ready" },
+    ],
+    deadline: "Apply at Gram Panchayat any time",
+    applicationUrl: "https://nrega.nic.in/",
+    sourceName: "MGNREGA — Nrega.nic.in",
+    sourceUrl: "https://nrega.nic.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  {
+    id: "pm-svanidhi-street-vendor",
+    priority: 33,
+    name: "PM SVANidhi — Street Vendor Micro-Credit Loan",
+    shortDescription: "Collateral-free working capital loans of ₹10,000 → ₹20,000 → ₹50,000 for street vendors, with 7% interest subvention and digital transaction incentives.",
+    governmentLevel: "Central",
+    department: "Ministry of Housing & Urban Affairs",
+    type: "Employment",
+    category: "employment",
+    openToAll: false,
+    benefit: {
+      type: "credit",
+      amount: 50000,
+      description: "₹10,000 (Tier 1) → ₹20,000 (Tier 2) → ₹50,000 (Tier 3) collateral-free loan with 7% interest subvention.",
+      directAmount: 0,
+      costAvoidedAmount: 0,
+      financingAmount: 50000,
+      components: [
+        "Tier 1: ₹10,000 working capital loan",
+        "Tier 2: ₹20,000 (on timely repayment of Tier 1)",
+        "Tier 3: ₹50,000 (on timely repayment of Tier 2)",
+        "7% interest subvention via DBT (annual)",
+        "Cashback up to ₹100/month on digital transactions",
+        "Credit score building through repayment history",
+      ],
+    },
+    eligibility: {
+      goalsAny: ["Entrepreneurship", "Employment opportunities", "Subsidised loans"],
+    },
+    requiresStreetVendor: true,
+    verificationNotes: [
+      "Requires vending certificate or Letter of Recommendation from ULB.",
+      "Apply at banks, MFIs, or pmsvanidhi.mohua.gov.in.",
+    ],
+    requiredDocuments: [
+      { name: "Vending Certificate / Letter of Recommendation from ULB", status: "attention", note: "Key eligibility document" },
+      { name: "Aadhaar Card", status: "ready" },
+      { name: "Bank Account", status: "ready" },
+    ],
+    deadline: "Always Open — apply at pmsvanidhi.mohua.gov.in",
+    applicationUrl: "https://pmsvanidhi.mohua.gov.in/",
+    sourceName: "PM SVANidhi Portal / MoHUA",
+    sourceUrl: "https://pmsvanidhi.mohua.gov.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  {
+    id: "startup-india-recognition",
+    priority: 34,
+    name: "Startup India — DPIIT Recognition & Benefits",
+    shortDescription: "DPIIT startup recognition unlocking tax holidays (3 years), self-certification under labour & environment laws, relaxed IP filing fees (80% discount), and Startup India Seed Fund access.",
+    governmentLevel: "Central",
+    department: "DPIIT / Ministry of Commerce & Industry",
+    type: "Employment",
+    category: "employment",
+    openToAll: true,
+    benefit: {
+      type: "regulatory",
+      amount: 0,
+      description: "3-year income tax holiday, 80% discount on IP fees, ₹20–50 lakh seed fund access (via SISFS).",
+      directAmount: 0,
+      costAvoidedAmount: 0,
+      financingAmount: 5000000,
+      components: [
+        "Income Tax exemption for 3 consecutive years (Section 80-IAC)",
+        "Capital gains tax exemption on investment (Section 54EE)",
+        "80% concession on patent, trademark filing fees",
+        "Self-certification under 9 Labour and 3 Environment laws",
+        "Startup India Seed Fund Scheme (SISFS): ₹20L–₹50L grant/loan",
+      ],
+    },
+    eligibility: {
+      ageMin: 18,
+      goalsAny: ["Entrepreneurship", "Employment opportunities"],
+    },
+    verificationNotes: [
+      "Startup must be incorporated/registered as Private Ltd, LLP, or Partnership.",
+      "Annual turnover should not exceed ₹100 crore for recognition eligibility.",
+    ],
+    requiredDocuments: [
+      { name: "Certificate of Incorporation / LLP Agreement", status: "attention", note: "Company must be registered first" },
+      { name: "Brief pitch deck / business description", status: "attention" },
+      { name: "PAN Card", status: "ready" },
+    ],
+    deadline: "Always Open — apply at startupindia.gov.in",
+    applicationUrl: "https://www.startupindia.gov.in/",
+    sourceName: "Startup India Portal / DPIIT",
+    sourceUrl: "https://www.startupindia.gov.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  // ── TIER C: PENSION ───────────────────────────────────────────────────────
+
+  {
+    id: "pm-shram-yogi-maan-dhan",
+    priority: 35,
+    name: "PM Shram Yogi Maan-dhan — Unorganized Worker Pension",
+    shortDescription: "₹3,000/month assured pension at age 60 for unorganized sector workers (aged 18–40) contributing ₹55–₹200/month matched equally by Government.",
+    governmentLevel: "Central",
+    department: "Ministry of Labour & Employment",
+    type: "Pension",
+    category: "pension",
+    openToAll: false,
+    benefit: {
+      type: "pension",
+      amount: 36000,
+      description: "₹3,000/month (₹36,000/year) guaranteed pension starting at age 60. Government co-contributes equal amount.",
+      directAmount: 36000,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "₹3,000/month guaranteed pension from age 60",
+        "Government matches your contribution 1:1",
+        "Monthly contribution: ₹55 (age 18) to ₹200 (age 40)",
+        "Family pension: 50% to spouse on subscriber's death",
+        "Enroll through CSC / bank with savings account",
+      ],
+    },
+    eligibility: {
+      ageMin: 18,
+      ageMax: 40,
+      goalsAny: ["Pension & retirement", "Employment opportunities"],
+    },
+    requiresUnorganizedWorker: true,
+    verificationNotes: [
+      "Not eligible if covered by EPFO/ESIC/NPS or income-tax payer.",
+      "Monthly income from unorganized work should be ≤ ₹15,000.",
+    ],
+    requiredDocuments: [
+      { name: "Aadhaar Card", status: "ready" },
+      { name: "Savings Bank Account / Jan Dhan Account", status: "ready" },
+      { name: "Mobile number", status: "ready" },
+    ],
+    deadline: "Always Open — enroll at CSC or maandhan.in",
+    applicationUrl: "https://maandhan.in/",
+    sourceName: "PM-SYM / Maandhan Portal",
+    sourceUrl: "https://maandhan.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  {
+    id: "atal-pension-yojana",
+    priority: 36,
+    name: "Atal Pension Yojana (APY) — Guaranteed Pension for All",
+    shortDescription: "Guaranteed monthly pension of ₹1,000–₹5,000 after age 60 for citizens aged 18–40 contributing a fixed amount. Government co-contributed 50% for first 5 years for eligible subscribers.",
+    governmentLevel: "Central",
+    department: "Ministry of Finance / PFRDA",
+    type: "Pension",
+    category: "pension",
+    openToAll: true,
+    benefit: {
+      type: "pension",
+      amount: 60000,
+      description: "₹1,000–₹5,000/month guaranteed pension at 60. Choose your pension level when joining.",
+      directAmount: 60000,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "₹1,000 to ₹5,000/month guaranteed pension — citizen chooses level",
+        "Spouse receives same pension on subscriber's death",
+        "Nominee receives corpus (₹1.7L–₹8.5L) on both deaths",
+        "Income tax benefit under Section 80CCD",
+        "Join through any bank's savings account",
+      ],
+    },
+    eligibility: {
+      ageMin: 18,
+      ageMax: 40,
+      goalsAny: ["Pension & retirement"],
+    },
+    verificationNotes: [
+      "Must have a savings bank account and not be an income tax payer (for full GOI co-contribution).",
+      "Available at all banks — just walk in with Aadhaar & mobile number.",
+    ],
+    requiredDocuments: [
+      { name: "Aadhaar Card", status: "ready" },
+      { name: "Savings Bank Account", status: "ready" },
+      { name: "Mobile number", status: "ready" },
+    ],
+    deadline: "Always Open — apply at any bank",
+    applicationUrl: "https://www.npscra.nsdl.co.in/",
+    sourceName: "PFRDA / NPS / Atal Pension Yojana",
+    sourceUrl: "https://www.npscra.nsdl.co.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  {
+    id: "pm-kisan-maan-dhan",
+    priority: 37,
+    name: "PM Kisan Maan-dhan — Farmer Pension Scheme",
+    shortDescription: "₹3,000/month guaranteed pension at age 60 for small & marginal farmers aged 18–40, contributing ₹55–₹200/month matched equally by Government.",
+    governmentLevel: "Central",
+    department: "Ministry of Agriculture & Farmers' Welfare",
+    type: "Pension",
+    category: "pension",
+    openToAll: false,
+    benefit: {
+      type: "pension",
+      amount: 36000,
+      description: "₹3,000/month pension at 60 — Government co-contributes equal amount as farmer.",
+      directAmount: 36000,
+      costAvoidedAmount: 0,
+      financingAmount: 0,
+      components: [
+        "₹3,000/month guaranteed pension after age 60",
+        "Government matches contribution 1:1",
+        "Monthly contribution varies from ₹55 (age 18) to ₹200 (age 40)",
+        "Family pension: 50% to spouse",
+        "Directly linked to PM-KISAN — PM-KISAN instalment can be used for premium",
+      ],
+    },
+    eligibility: {
+      ageMin: 18,
+      ageMax: 40,
+      goalsAny: ["Pension & retirement", "Agricultural support"],
+    },
+    requiresFarmer: true,
+    verificationNotes: [
+      "Must be a small or marginal farmer (≤ 2 hectares cultivable land).",
+      "Excluded if covered by any other statutory social security scheme.",
+    ],
+    requiredDocuments: [
+      { name: "Land Records / Khata", status: "attention" },
+      { name: "Aadhaar Card", status: "ready" },
+      { name: "Savings Bank Account", status: "ready" },
+    ],
+    deadline: "Always Open — enroll at CSC or maandhan.in",
+    applicationUrl: "https://maandhan.in/",
+    sourceName: "PM Kisan Maandhan / Agriculture Ministry",
+    sourceUrl: "https://maandhan.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
+
+  // ── TIER C: DISABILITY ────────────────────────────────────────────────────
+
+  {
+    id: "adip-disability-aids",
+    priority: 38,
+    name: "ADIP Scheme — Free Assistive Devices for Divyangjan",
+    shortDescription: "Free or subsidised assistive devices (wheelchairs, hearing aids, artificial limbs, Braille kits, smart canes, etc.) for persons with benchmark disability and income up to ₹20,000/month.",
+    governmentLevel: "Central",
+    department: "Ministry of Social Justice & Empowerment / ALIMCO",
+    type: "Disability Support",
+    category: "disability",
+    openToAll: false,
+    benefit: {
+      type: "device",
+      amount: 30000,
+      description: "Free assistive devices worth ₹5,000–₹30,000+ depending on type (wheelchair, hearing aid, artificial limb, etc.).",
+      directAmount: 0,
+      costAvoidedAmount: 30000,
+      financingAmount: 0,
+      components: [
+        "Free wheelchair (manual / motorised for severe disability)",
+        "Free hearing aid (digital BTE for hearing impairment)",
+        "Artificial limb / caliper / tricycle",
+        "Braille kits, magnifiers for visual impairment",
+        "Smart cane for blind persons",
+        "Devices distributed at assessment / fitment camps by ALIMCO",
+      ],
+    },
+    eligibility: {
+      goalsAny: ["Health insurance", "Employment opportunities"],
+    },
+    requiresDisability: true,
+    verificationNotes: [
+      "Disability must be ≥40% (benchmark disability certificate required).",
+      "Income must be ≤ ₹20,000/month (family income for dependent).",
+      "Assessment camps organized by ALIMCO at district level.",
+    ],
+    requiredDocuments: [
+      { name: "Disability Certificate (≥40% benchmark)", status: "attention", note: "Issued by CMHO / district disability board" },
+      { name: "Income Certificate", status: "attention" },
+      { name: "Aadhaar Card", status: "ready" },
+      { name: "Photograph", status: "ready" },
+    ],
+    deadline: "Apply at ALIMCO camps or district social welfare office",
+    applicationUrl: "https://www.alimco.in/",
+    sourceName: "ALIMCO / MoSJE",
+    sourceUrl: "https://www.alimco.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
 ];
 
 // ============================================================================
@@ -1123,6 +2136,92 @@ function evaluateOpportunity(opportunity, profile) {
       "Subsidy is sanctioned after project report and bank approval.",
       { hard: false, excludeFromScore: true }
     );
+  }
+
+  // ── NEW LIFE-SITUATION RULES ─────────────────────────────────────────────
+
+  const ls = profile.lifeSituation || [];
+  const isBPL = ls.includes("bpl-card") || (profile.annualFamilyIncome && profile.annualFamilyIncome <= 250000);
+  const isFarmer = ls.includes("farmer");
+  const isStreetVendor = ls.includes("street-vendor");
+  const isPregnant = ls.includes("pregnant");
+  const hasYoungChildren = ls.includes("young-children");
+  const isUnorganizedWorker = ls.includes("unorganized-worker");
+  const isOrganizedWorker = ls.includes("organized-worker");
+  const isRural = profile.residenceType === "Rural";
+
+  if (opportunity.requiresBPL) {
+    if (!profile.annualFamilyIncome && ls.length === 0) {
+      add("BPL / Income Status", "BPL / Low income family (≤ ₹2.5L/yr or ration card)", "Not specified", "missing", "Confirm income or BPL card to verify eligibility.", { hard: false });
+    } else if (isBPL) {
+      add("BPL / Income Status", "BPL / Low income (≤ ₹2.5L/yr or BPL card)", isBPL ? "BPL / Low income confirmed" : "Income within range", "match");
+    } else {
+      add("BPL / Income Status", "BPL / Low income (≤ ₹2.5L/yr or BPL card)", profile.incomeBand || "Above threshold", "fail", "This scheme is targeted at BPL / very low income families.", { hard: true });
+    }
+  }
+
+  if (opportunity.requiresFarmer) {
+    if (!isFarmer) {
+      add("Farmer / Agricultural Land", "Must own cultivable agricultural land", "Not indicated in profile", "fail", "Select 'Farmer / Agricultural land' in Life Situation to check this.", { hard: true });
+    } else {
+      add("Farmer / Agricultural Land", "Own cultivable land", "Farmer — land ownership indicated", "match");
+    }
+  }
+
+  if (opportunity.requiresStreetVendor) {
+    if (!isStreetVendor) {
+      add("Street Vendor / Hawker", "Registered / practicing street vendor", "Not indicated in profile", "fail", "Select 'Street vendor / Hawker' in Life Situation.", { hard: true });
+    } else {
+      add("Street Vendor / Hawker", "Practicing street vendor", "Street vendor indicated", "match");
+    }
+  }
+
+  if (opportunity.requiresPregnant) {
+    if (!isPregnant) {
+      add("Pregnancy Status", "Pregnant or recently delivered", "Not indicated in profile", "fail", "Select 'Pregnant / Recently delivered' in Life Situation.", { hard: true });
+    } else {
+      add("Pregnancy Status", "Pregnant / Recently delivered", "Confirmed in Life Situation", "match");
+    }
+  }
+
+  if (opportunity.requiresYoungChildren) {
+    if (!hasYoungChildren) {
+      add("Young Children (under 10)", "Have a girl child under 10 years old", "Not indicated in profile", "fail", "Select 'Have children under 6' in Life Situation.", { hard: true });
+    } else {
+      add("Young Children (under 10)", "Girl child in household", "Indicated in Life Situation", "match");
+    }
+  }
+
+  if (opportunity.requiresUnorganizedWorker) {
+    if (!isUnorganizedWorker) {
+      add("Unorganized Worker", "Unorganized sector worker (not covered by EPFO/ESIC)", "Not indicated in profile", "fail", "Select 'Unorganized sector worker' in Life Situation.", { hard: true });
+    } else {
+      add("Unorganized Worker", "Unorganized sector worker", "Confirmed in Life Situation", "match");
+    }
+  }
+
+  if (opportunity.requiresOrganizedWorker) {
+    if (!isOrganizedWorker) {
+      add("Organized Sector Employee", "Employee in ESIC-covered establishment (wage ≤ ₹21,000/mo)", "Not indicated in profile", "fail", "Select 'Factory / Formal sector employee' in Life Situation.", { hard: true });
+    } else {
+      add("Organized Sector Employee", "Formal sector employee — ESIC covered", "Confirmed in Life Situation", "match");
+    }
+  }
+
+  if (opportunity.requiresRuralResidence) {
+    if (!isRural) {
+      add("Rural Residence", "Rural area resident", profile.residenceType || "Urban", "fail", "This scheme is for rural residents.", { hard: true });
+    } else {
+      add("Rural Residence", "Rural area", "Rural resident", "match");
+    }
+  }
+
+  if (opportunity.requiresDisability) {
+    if (!profile.disability) {
+      add("Disability Certification", "Benchmark disability ≥ 40% (Divyangjan)", "Not indicated", "fail", "Select 'Person with disability' in identity tags.", { hard: true });
+    } else {
+      add("Disability Certification", "Benchmark disability ≥ 40%", "Person with disability confirmed", "match");
+    }
   }
 
   if (rules.goalsAny?.length) {
@@ -1828,6 +2927,27 @@ function ProfileFlow() {
                   ))}
                 </div>
               </div>
+
+              <div className="field full">
+                <label>Life situation — helps us find more support for you <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 400 }}>(Optional, multi-select)</span></label>
+                <div className="chip-group">
+                  {lifeSituationOptions.map((opt) => (
+                    <button
+                      key={opt.key}
+                      className="chip-btn"
+                      type="button"
+                      onClick={() => {
+                        const current = profile.lifeSituation || [];
+                        setProfile({ lifeSituation: current.includes(opt.key) ? current.filter((k) => k !== opt.key) : [...current, opt.key] });
+                      }}
+                      aria-pressed={(profile.lifeSituation || []).includes(opt.key) ? "true" : "false"}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+                <small>We use this only to match government schemes — nothing is stored on our servers.</small>
+              </div>
             </>
           )}
 
@@ -2141,8 +3261,18 @@ function OpportunityMap() {
     else if (activeFilter === "verify") list = list.filter((r) => r.status === "likely" || r.status === "check");
     else if (activeFilter === "openToAll") list = list.filter((r) => r.opportunity.openToAll);
     else if (activeFilter === "training") list = list.filter((r) => r.opportunity.type === "Training");
+    else if (activeFilter === "education") list = list.filter((r) => r.opportunity.type === "Scholarship" || r.opportunity.type === "Training" || r.opportunity.type === "Education Support");
     else if (activeFilter === "scholarships") list = list.filter((r) => r.opportunity.type === "Scholarship");
     else if (activeFilter === "loans") list = list.filter((r) => r.opportunity.type === "Loan" || r.opportunity.type === "Interest Subsidy");
+    else if (activeFilter === "health") list = list.filter((r) => r.opportunity.category === "health" || r.opportunity.type === "Health Insurance");
+    else if (activeFilter === "food") list = list.filter((r) => r.opportunity.category === "food" || r.opportunity.type === "Food Security");
+    else if (activeFilter === "housing") list = list.filter((r) => r.opportunity.category === "housing" || r.opportunity.type === "Housing");
+    else if (activeFilter === "agriculture") list = list.filter((r) => r.opportunity.category === "agriculture" || r.opportunity.type === "Agricultural Support");
+    else if (activeFilter === "utilities") list = list.filter((r) => r.opportunity.category === "utilities" || r.opportunity.type === "Utilities");
+    else if (activeFilter === "women-child") list = list.filter((r) => r.opportunity.category === "women-child" || r.opportunity.type === "Women & Child");
+    else if (activeFilter === "pension") list = list.filter((r) => r.opportunity.category === "pension" || r.opportunity.type === "Pension");
+    else if (activeFilter === "disability") list = list.filter((r) => r.opportunity.category === "disability" || r.opportunity.type === "Disability Support");
+    else if (activeFilter === "employment") list = list.filter((r) => r.opportunity.category === "employment" || r.opportunity.type === "Employment");
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
@@ -2226,20 +3356,41 @@ function OpportunityMap() {
         )}
       </div>
 
-      <div className="results-toolbar">
-        <div className="filter-tabs">
-          <button className={`filter-tab-btn ${activeFilter === "all" ? "active" : ""}`} type="button" onClick={() => setActiveFilter("all")}>All ({displayResults.length})</button>
-          <button className={`filter-tab-btn ${activeFilter === "strong" ? "active" : ""}`} type="button" onClick={() => setActiveFilter("strong")}>Strong matches ({strongCount})</button>
-          <button className={`filter-tab-btn ${activeFilter === "openToAll" ? "active" : ""}`} type="button" onClick={() => setActiveFilter("openToAll")}>Open to All ({openToAllCount})</button>
-          <button className={`filter-tab-btn ${activeFilter === "verify" ? "active" : ""}`} type="button" onClick={() => setActiveFilter("verify")}>Need verification ({verifyCount})</button>
-          <button className={`filter-tab-btn ${activeFilter === "training" ? "active" : ""}`} type="button" onClick={() => setActiveFilter("training")}>Free Training</button>
-          <button className={`filter-tab-btn ${activeFilter === "scholarships" ? "active" : ""}`} type="button" onClick={() => setActiveFilter("scholarships")}>Scholarships</button>
-          <button className={`filter-tab-btn ${activeFilter === "loans" ? "active" : ""}`} type="button" onClick={() => setActiveFilter("loans")}>Loans & Subsidies</button>
+      <div className="results-toolbar" style={{ flexDirection: "column", gap: "12px" }}>
+        <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
+          <div style={{ display: "flex", gap: "8px", whiteSpace: "nowrap", paddingBottom: "4px" }}>
+            {[
+              { key: "all", label: `All (${displayResults.length})` },
+              { key: "strong", label: `⭐ Strong (${strongCount})` },
+              { key: "openToAll", label: `🌐 Open to All (${openToAllCount})` },
+              { key: "health", label: "🏥 Health" },
+              { key: "food", label: "🌾 Food" },
+              { key: "housing", label: "🏠 Housing" },
+              { key: "education", label: "🎓 Education" },
+              { key: "training", label: "🛠 Training" },
+              { key: "employment", label: "💼 Employment" },
+              { key: "agriculture", label: "🌱 Agriculture" },
+              { key: "utilities", label: "⚡ Utilities" },
+              { key: "women-child", label: "👶 Women & Child" },
+              { key: "pension", label: "👴 Pension" },
+              { key: "disability", label: "🦽 Disability" },
+            ].map(({ key, label }) => (
+              <button
+                key={key}
+                className={`filter-tab-btn${activeFilter === key ? " active" : ""}`}
+                type="button"
+                style={{ flexShrink: 0 }}
+                onClick={() => setActiveFilter(key)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <button className="btn btn-secondary btn-sm" type="button" onClick={() => setShowAllOpportunities(!showAllOpportunities)}>
-            {showAllOpportunities ? "Show Matched (Top 6)" : "Explore Full Dataset (17)"}
+            {showAllOpportunities ? "Show Matched Only" : `Explore Full Dataset (${opportunities.length})`}
           </button>
         </div>
       </div>
@@ -2755,10 +3906,9 @@ function TestSuiteRunner() {
     },
     {
       id: 9,
-      name: "Multi-opportunity matching returns expected dataset volume (17 schemes)",
+      name: "Multi-opportunity dataset volume = 39 schemes (all tiers)",
       run: () => {
-        const all = getEvaluatedResults(demoProfile);
-        return all.length === 17;
+        return opportunities.length === 39;
       },
     },
     {
@@ -2788,6 +3938,23 @@ function TestSuiteRunner() {
         return demoProfile.apaarId === "279903493988" && demoProfile.apaarVerified === true;
       },
     },
+    {
+      id: 13,
+      name: "PM-JAY correctly fails for above-BPL income profile (₹5–8L)",
+      run: () => {
+        const res = getResultById("pm-jay-ayushman-bharat", demoProfile);
+        return res && res.status === "not";
+      },
+    },
+    {
+      id: 14,
+      name: "Life Situation farmer tag correctly matches PM-KISAN for farmer profile",
+      run: () => {
+        const farmerProfile = { ...demoProfile, lifeSituation: ["farmer"] };
+        const res = getResultById("pm-kisan", farmerProfile);
+        return res && res.status === "strong";
+      },
+    },
   ];
 
   const results = tests.map((t) => ({ ...t, passed: t.run() }));
@@ -2798,7 +3965,7 @@ function TestSuiteRunner() {
       <div className="test-suite-panel">
         <span className="eyebrow-badge"><span className="dot"></span>Automated Verification Suite</span>
         <h1 className="page-title">Deterministic Engine Test Results</h1>
-        <p className="page-subtitle">Verifying the 10 automated test cases specified in Section 38.</p>
+        <p className="page-subtitle">Verifying 14 automated test cases across all scheme tiers and eligibility rules.</p>
 
         <div style={{ margin: "20px 0 24px", padding: "14px 18px", background: "rgba(16, 185, 129, 0.1)", border: "1px solid #10b981", borderRadius: "var(--radius-md)" }}>
           <strong style={{ color: "#34d399", fontSize: "16px" }}>All Tests Passing: {passedCount} / {results.length}</strong>

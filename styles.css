@@ -1755,3 +1755,30 @@ button:disabled {
   outline: 2px solid var(--umang-blue-light);
   outline-offset: 2px;
 }
+
+/* Hide scrollbar on filter row while keeping scroll functionality */
+.filter-scroll-row::-webkit-scrollbar { display: none; }
+.filter-scroll-row { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Category type badge on opportunity cards */
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 100px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.category-badge.health { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+.category-badge.food { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+.category-badge.housing { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; }
+.category-badge.agriculture { background: rgba(52, 211, 153, 0.15); color: #6ee7b7; }
+.category-badge.utilities { background: rgba(251, 191, 36, 0.15); color: #fcd34d; }
+.category-badge.women-child { background: rgba(236, 72, 153, 0.15); color: #f9a8d4; }
+.category-badge.pension { background: rgba(148, 163, 184, 0.15); color: #cbd5e1; }
+.category-badge.disability { background: rgba(139, 92, 246, 0.15); color: #c4b5fd; }
+.category-badge.employment { background: rgba(59, 130, 246, 0.15); color: #93c5fd; }
