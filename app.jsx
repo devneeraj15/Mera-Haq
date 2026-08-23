@@ -2126,6 +2126,14 @@ function evaluateOpportunity(opportunity, profile) {
     }
   }
 
+  const ls = profile.lifeSituation || [];
+  const isBPL = ls.includes("bpl-card") || (profile.annualFamilyIncome && profile.annualFamilyIncome <= 250000);
+  const isFarmer = ls.includes("farmer");
+  const isStreetVendor = ls.includes("street-vendor");
+  const isPregnant = ls.includes("pregnant");
+  const hasYoungChildren = ls.includes("young-children");
+  const isUnorganizedWorker = ls.includes("unorganized-worker");
+  const isOrganizedWorker = ls.includes("organized-worker");
   const isRural = profile.residenceType === "Rural";
   const isPwD = Boolean(
     profile.disability ||
@@ -4327,13 +4335,53 @@ function App() {
   );
 }
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("Mera Haq App Error:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: "40px 20px", textAlign: "center", color: "#fff", maxWidth: "600px", margin: "60px auto", backgroundColor: "#1e2433", borderRadius: "12px", border: "1px solid #ef4444" }}>
+          <h2 style={{ color: "#f87171", marginBottom: "12px" }}>Application Error Detected</h2>
+          <p style={{ color: "#94a3b8", fontSize: "14px", marginBottom: "20px" }}>{this.state.error?.message || "An unexpected error occurred."}</p>
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={() => {
+              localStorage.clear();
+              window.location.hash = "#/mera-haq";
+              window.location.reload();
+            }}
+          >
+            Reset Session & Reload
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 // Mount React Root
 const rootElement = document.getElementById("root");
 if (rootElement && typeof ReactDOM !== "undefined" && ReactDOM.createRoot) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
-    <AppProvider>
-      <App />
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <App />
+      </AppProvider>
+    </ErrorBoundary>
   );
 }

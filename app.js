@@ -2083,6 +2083,14 @@ function evaluateOpportunity(opportunity, profile) {
     }
   }
 
+  const ls = profile.lifeSituation || [];
+  const isBPL = ls.includes("bpl-card") || (profile.annualFamilyIncome && profile.annualFamilyIncome <= 250000);
+  const isFarmer = ls.includes("farmer");
+  const isStreetVendor = ls.includes("street-vendor");
+  const isPregnant = ls.includes("pregnant");
+  const hasYoungChildren = ls.includes("young-children");
+  const isUnorganizedWorker = ls.includes("unorganized-worker");
+  const isOrganizedWorker = ls.includes("organized-worker");
   const isRural = profile.residenceType === "Rural";
   const isPwD = Boolean(
     profile.disability ||
