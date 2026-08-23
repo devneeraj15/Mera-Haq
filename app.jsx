@@ -3634,10 +3634,27 @@ function ProgressiveEnrichmentModal({ onClose }) {
   );
 }
 
+const DOMAIN_CATEGORIES = [
+  { key: "all", label: "All Sectors", icon: "🌐" },
+  { key: "education", label: "Education & Scholarships", icon: "🎓" },
+  { key: "training", label: "Free Training & Skills", icon: "🛠" },
+  { key: "employment", label: "Jobs & Enterprise", icon: "💼" },
+  { key: "health", label: "Health & Medical", icon: "🏥" },
+  { key: "agriculture", label: "Agriculture & Farmers", icon: "🌱" },
+  { key: "housing", label: "Housing & Shelter", icon: "🏠" },
+  { key: "food", label: "Food Security", icon: "🌾" },
+  { key: "utilities", label: "Power & Utilities", icon: "⚡" },
+  { key: "women-child", label: "Women & Children", icon: "👶" },
+  { key: "pension", label: "Pension & Seniors", icon: "👴" },
+  { key: "disability", label: "Divyangjan (PwD)", icon: "🦽" },
+];
+
 function OpportunityMap() {
-  const { profile, activeFilter, setActiveFilter, searchQuery, setSearchQuery, showAllOpportunities, setShowAllOpportunities } = useApp();
+  const { profile, searchQuery, setSearchQuery, showAllOpportunities, setShowAllOpportunities } = useApp();
   const [showValueDetails, setShowValueDetails] = useState(false);
   const [showEnrichmentModal, setShowEnrichmentModal] = useState(false);
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [categoryFilter, setCategoryFilter] = useState("all");
 
   const primaryResults = useMemo(() => getPrimaryMatchedResults(profile), [profile]);
   const allResults = useMemo(() => getEvaluatedResults(profile), [profile]);
@@ -3650,23 +3667,65 @@ function OpportunityMap() {
 
   const filtered = useMemo(() => {
     let list = displayResults;
-    if (activeFilter === "likely") list = list.filter((r) => r.status === "LIKELY_ELIGIBLE");
-    else if (activeFilter === "potential") list = list.filter((r) => r.status === "POTENTIAL_MATCH");
-    else if (activeFilter === "openToAll") list = list.filter((r) => r.opportunity.openToAll);
-    else if (activeFilter === "training") list = list.filter((r) => r.opportunity.type === "Training");
-    else if (activeFilter === "education") list = list.filter((r) => r.opportunity.type === "Scholarship" || r.opportunity.type === "Training" || r.opportunity.type === "Education Support");
-    else if (activeFilter === "scholarships") list = list.filter((r) => r.opportunity.type === "Scholarship");
-    else if (activeFilter === "loans") list = list.filter((r) => r.opportunity.type === "Loan" || r.opportunity.type === "Interest Subsidy");
-    else if (activeFilter === "health") list = list.filter((r) => r.opportunity.category === "health" || r.opportunity.type === "Health Insurance");
-    else if (activeFilter === "food") list = list.filter((r) => r.opportunity.category === "food" || r.opportunity.type === "Food Security");
-    else if (activeFilter === "housing") list = list.filter((r) => r.opportunity.category === "housing" || r.opportunity.type === "Housing");
-    else if (activeFilter === "agriculture") list = list.filter((r) => r.opportunity.category === "agriculture" || r.opportunity.type === "Agricultural Support");
-    else if (activeFilter === "utilities") list = list.filter((r) => r.opportunity.category === "utilities" || r.opportunity.type === "Utilities");
-    else if (activeFilter === "women-child") list = list.filter((r) => r.opportunity.category === "women-child" || r.opportunity.type === "Women & Child");
-    else if (activeFilter === "pension") list = list.filter((r) => r.opportunity.category === "pension" || r.opportunity.type === "Pension");
-    else if (activeFilter === "disability") list = list.filter((r) => r.opportunity.category === "disability" || r.opportunity.type === "Disability Support");
-    else if (activeFilter === "employment") list = list.filter((r) => r.opportunity.category === "employment" || r.opportunity.type === "Employment");
 
+    // 1. Status Filter
+    if (statusFilter === "likely") {
+      list = list.filter((r) => r.status === "LIKELY_ELIGIBLE");
+    } else if (statusFilter === "potential") {
+      list = list.filter((r) => r.status === "POTENTIAL_MATCH");
+    } else if (statusFilter === "openToAll") {
+      list = list.filter((r) => r.opportunity.openToAll);
+    }
+
+    // 2. Domain Category Filter
+    if (categoryFilter !== "all") {
+      list = list.filter((r) => {
+        const opp = r.opportunity;
+        if (categoryFilter === "education") {
+          return (
+            opp.category === "education" ||
+            opp.type === "Scholarship" ||
+            opp.type === "Fellowship" ||
+            opp.type === "Fee Support" ||
+            opp.type === "Education Support" ||
+            opp.type === "Interest Subsidy"
+          );
+        }
+        if (categoryFilter === "training") {
+          return opp.category === "training" || opp.type === "Training";
+        }
+        if (categoryFilter === "employment") {
+          return opp.category === "employment" || opp.type === "Loan" || opp.type === "Employment";
+        }
+        if (categoryFilter === "health") {
+          return opp.category === "health" || opp.type === "Health Insurance";
+        }
+        if (categoryFilter === "agriculture") {
+          return opp.category === "agriculture" || opp.type === "Agricultural Support";
+        }
+        if (categoryFilter === "housing") {
+          return opp.category === "housing" || opp.type === "Housing";
+        }
+        if (categoryFilter === "food") {
+          return opp.category === "food" || opp.type === "Food Security";
+        }
+        if (categoryFilter === "utilities") {
+          return opp.category === "utilities" || opp.type === "Utilities";
+        }
+        if (categoryFilter === "women-child") {
+          return opp.category === "women-child" || opp.type === "Women & Child";
+        }
+        if (categoryFilter === "pension") {
+          return opp.category === "pension" || opp.type === "Pension";
+        }
+        if (categoryFilter === "disability") {
+          return opp.category === "disability" || opp.type === "Disability Support" || opp.id === "aicte-saksham" || opp.id === "adip-disability-aids";
+        }
+        return opp.category === categoryFilter;
+      });
+    }
+
+    // 3. Search Query
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       list = list.filter(
@@ -3676,8 +3735,9 @@ function OpportunityMap() {
           r.opportunity.department.toLowerCase().includes(q)
       );
     }
+
     return list;
-  }, [displayResults, activeFilter, searchQuery]);
+  }, [displayResults, statusFilter, categoryFilter, searchQuery]);
 
   return (
     <div className="content-container">
@@ -3764,43 +3824,67 @@ function OpportunityMap() {
         </button>
       </div>
 
-      <div className="results-toolbar" style={{ flexDirection: "column", gap: "12px" }}>
-        <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
-          <div style={{ display: "flex", gap: "8px", whiteSpace: "nowrap", paddingBottom: "4px" }}>
-            {[
-              { key: "all", label: `All (${displayResults.length})` },
-              { key: "likely", label: `✓ Likely Eligible (${likelyEligibleCount})` },
-              { key: "potential", label: `⚡ Potential Matches (${potentialCount})` },
-              { key: "openToAll", label: `🌐 Open to All (${openToAllCount})` },
-              { key: "health", label: "🏥 Health" },
-              { key: "food", label: "🌾 Food" },
-              { key: "housing", label: "🏠 Housing" },
-              { key: "education", label: "🎓 Education" },
-              { key: "training", label: "🛠 Training" },
-              { key: "employment", label: "💼 Employment" },
-              { key: "agriculture", label: "🌱 Agriculture" },
-              { key: "utilities", label: "⚡ Utilities" },
-              { key: "women-child", label: "👶 Women & Child" },
-              { key: "pension", label: "👴 Pension" },
-              { key: "disability", label: "🦽 Disability" },
-            ].map(({ key, label }) => (
+      {/* Clean Structured Discovery Toolbar */}
+      <div className="discovery-toolbar-container">
+        {/* Row 1: Eligibility Status Segmented Tabs + Full Dataset Toggle */}
+        <div className="status-filter-row">
+          <div className="status-pill-tabs">
+            <button
+              className={`status-tab-btn ${statusFilter === "all" ? "active" : ""}`}
+              type="button"
+              onClick={() => setStatusFilter("all")}
+            >
+              <span>All Statuses ({displayResults.length})</span>
+            </button>
+            <button
+              className={`status-tab-btn likely ${statusFilter === "likely" ? "active" : ""}`}
+              type="button"
+              onClick={() => setStatusFilter("likely")}
+            >
+              <span>✓ Likely Eligible ({likelyEligibleCount})</span>
+            </button>
+            <button
+              className={`status-tab-btn potential ${statusFilter === "potential" ? "active" : ""}`}
+              type="button"
+              onClick={() => setStatusFilter("potential")}
+            >
+              <span>⚡ Potential Matches ({potentialCount})</span>
+            </button>
+            <button
+              className={`status-tab-btn ${statusFilter === "openToAll" ? "active" : ""}`}
+              type="button"
+              onClick={() => setStatusFilter("openToAll")}
+            >
+              <span>🌐 Open to All ({openToAllCount})</span>
+            </button>
+          </div>
+
+          <button
+            className="btn btn-secondary btn-sm"
+            type="button"
+            style={{ flexShrink: 0 }}
+            onClick={() => setShowAllOpportunities(!showAllOpportunities)}
+          >
+            {showAllOpportunities ? "Show Matched Only" : `Explore Full Dataset (${opportunities.length})`}
+          </button>
+        </div>
+
+        {/* Row 2: Clean Category / Sector Horizontal Selector */}
+        <div className="domain-category-row">
+          <span className="domain-category-label">Sector:</span>
+          <div className="domain-category-scroll">
+            {DOMAIN_CATEGORIES.map(({ key, label, icon }) => (
               <button
                 key={key}
-                className={`filter-tab-btn${activeFilter === key ? " active" : ""}`}
+                className={`category-chip-btn ${categoryFilter === key ? "active" : ""}`}
                 type="button"
-                style={{ flexShrink: 0 }}
-                onClick={() => setActiveFilter(key)}
+                onClick={() => setCategoryFilter(key)}
               >
-                {label}
+                <span>{icon}</span>
+                <span>{label}</span>
               </button>
             ))}
           </div>
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <button className="btn btn-secondary btn-sm" type="button" onClick={() => setShowAllOpportunities(!showAllOpportunities)}>
-            {showAllOpportunities ? "Show Matched Only" : `Explore Full Dataset (${opportunities.length})`}
-          </button>
         </div>
       </div>
 
@@ -3810,13 +3894,13 @@ function OpportunityMap() {
         ) : (
           <div className="profile-form-card" style={{ textAlign: "center", padding: "40px 24px" }}>
             <div style={{ fontSize: "36px", marginBottom: "12px" }}>🔍</div>
-            <h3 style={{ fontSize: "18px", color: "#ffffff", marginBottom: "8px" }}>No schemes matched your current filter</h3>
+            <h3 style={{ fontSize: "18px", color: "#ffffff", marginBottom: "8px" }}>No schemes matched your current filters</h3>
             <p style={{ color: "var(--text-muted)", maxWidth: "480px", margin: "0 auto 24px", fontSize: "14px", lineHeight: "1.5" }}>
-              No opportunities matched the filter <strong>"{activeFilter}"</strong>. Try resetting filters or exploring universal opportunities open to all citizens.
+              No opportunities matched status <strong>"{statusFilter}"</strong> and sector <strong>"{categoryFilter}"</strong>. Try resetting filters or exploring universal opportunities open to all citizens.
             </p>
             <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
-              <button className="btn btn-primary" type="button" onClick={() => { setActiveFilter("all"); setSearchQuery(""); }}>Reset Filters</button>
-              <button className="btn btn-secondary" type="button" onClick={() => setActiveFilter("openToAll")}>Explore Open to All ({openToAllCount})</button>
+              <button className="btn btn-primary" type="button" onClick={() => { setStatusFilter("all"); setCategoryFilter("all"); setSearchQuery(""); }}>Reset All Filters</button>
+              <button className="btn btn-secondary" type="button" onClick={() => { setStatusFilter("openToAll"); setCategoryFilter("all"); }}>Explore Open to All ({openToAllCount})</button>
               <a className="btn btn-secondary" href="#/mera-haq/profile">Edit Profile</a>
             </div>
           </div>

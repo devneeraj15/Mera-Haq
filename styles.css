@@ -1190,41 +1190,135 @@ button:disabled {
   line-height: 1.3;
 }
 
-.results-toolbar {
+/* TOOLBAR & CATEGORY FILTER ARCHITECTURE */
+.discovery-toolbar-container {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 14px;
   margin-bottom: 24px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
 }
 
-.filter-tabs {
+.status-filter-row {
   display: flex;
-  gap: 6px;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 14px;
 }
 
-.filter-tab-btn {
-  padding: 7px 14px;
+.status-pill-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.status-tab-btn {
+  padding: 6px 14px;
   border-radius: var(--radius-pill);
   font-size: 13px;
   font-weight: 600;
-  background-color: var(--bg-surface);
+  background: var(--bg-surface);
   border: 1px solid var(--border-default);
   color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   transition: all var(--transition-fast);
 }
 
-.filter-tab-btn:hover {
-  background-color: var(--bg-surface-hover);
+.status-tab-btn:hover {
+  background: var(--bg-surface-hover);
+  color: #ffffff;
+  border-color: #4b5563;
+}
+
+.status-tab-btn.active {
+  background: var(--umang-blue);
+  border-color: var(--umang-blue-light);
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+}
+
+.status-tab-btn.active.likely {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #34d399;
+  color: #34d399;
+}
+
+.status-tab-btn.active.potential {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: #60a5fa;
+  color: #93c5fd;
+}
+
+.domain-category-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.domain-category-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.domain-category-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 2px 0;
+  width: 100%;
+}
+
+.domain-category-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.category-chip-btn {
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12.5px;
+  font-weight: 500;
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid var(--border-subtle);
+  color: #cbd5e1;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.category-chip-btn:hover {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: var(--umang-blue-light);
   color: #ffffff;
 }
 
-.filter-tab-btn.active {
-  background-color: var(--umang-blue);
-  border-color: var(--umang-blue-light);
+.category-chip-btn.active {
+  background: var(--umang-blue);
+  border-color: #60a5fa;
   color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.35);
 }
 
 /* OPPORTUNITY CARDS */
