@@ -1,15 +1,18 @@
 /**
  * MERA HAQ — CITIZEN OPPORTUNITY DISCOVERY LAYER
  * Prototype for "Build What Moves India"
- * Built natively inside the UMANG Web Experience
+ * Built natively inside the UMANG Web Experience (Fallback Runtime)
  */
 
-// ============================================================================
-// CONSTANTS & OPTIONS
-// ============================================================================
+(function () {
+  "use strict";
 
-const STORAGE_PROFILE = "umang-merahaq-profile";
-const STORAGE_SAVED = "umang-merahaq-saved";
+  // ============================================================================
+  // CONSTANTS & OPTIONS
+  // ============================================================================
+
+  const STORAGE_PROFILE = "umang-merahaq-profile";
+  const STORAGE_SAVED = "umang-merahaq-saved";
 
 const incomeBands = [
   { label: "Under ₹2.5 lakh", value: 250000 },
@@ -4189,10 +4192,12 @@ if (!localStorage.getItem(STORAGE_PROFILE)) {
   saveProfile(demoProfile);
 }
 
-// Only run vanilla render if React is not present or failed to load
-setTimeout(() => {
-  const rootEl = document.getElementById("root");
-  if (!rootEl || !rootEl.hasChildNodes()) {
-    render();
-  }
-}, 100);
+  // Only run vanilla render if React is not present or failed to load
+  setTimeout(() => {
+    const rootEl = document.getElementById("root");
+    if (!rootEl || !rootEl.hasChildNodes()) {
+      render();
+    }
+  }, 100);
+})();
+
