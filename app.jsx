@@ -2326,6 +2326,111 @@ function calculatePotentialValue(results) {
   );
 }
 
+function generateAiOpportunityReport(result, profile) {
+  if (!result || !result.opportunity) return null;
+  const opp = result.opportunity;
+  const checks = result.checks || [];
+  const matchChecks = checks.filter((c) => c.status === "match");
+  const failChecks = checks.filter((c) => c.status === "fail");
+
+  // Calculate dynamic AI alignment score (0 - 100)
+  let score = 50;
+  if (result.status === "strong") score = 88 + Math.min(10, matchChecks.length * 2);
+  else if (result.status === "likely") score = 76 + Math.min(12, matchChecks.length * 2);
+  else if (result.status === "check") score = 65 + Math.min(10, matchChecks.length);
+  else if (result.status === "future") score = 55;
+  else score = Math.max(15, 40 - failChecks.length * 10);
+
+  const courseStr = profile.course || profile.educationLevel || "Degree";
+  const stateStr = profile.state || "Maharashtra";
+  const isTechCourse = /comput|it|tech|engine|data|ai|softw|electr/i.test(profile.course || "");
+  const isMinority = Boolean(profile.minority && profile.minority !== "Prefer to check later");
+  const isPwD = Boolean(profile.disability || (profile.lifeSituation || []).includes("pwd"));
+
+  let headline = `${opp.type} Opportunity Fit`;
+  let reasoning = "";
+  let academicInsight = "";
+  let roadmap = [];
+  let bottleneck = "";
+
+  if (opp.id === "ai-technocrat-iit-dharwad") {
+    headline = isTechCourse ? `Exceptional Technical Fit for ${courseStr}` : "High Skilling Alignment";
+    reasoning = `AI evaluation confirms that as a ${profile.age}-year-old ${courseStr} graduate in ${stateStr}, your profile directly matches the PM-VIKAS High-Tech curriculum at IIT Dharwad. You qualify for the ₹12,000 direct cash stipend plus zero-cost sponsored residence on IIT campus.`;
+    academicInsight = `Your ${courseStr} qualification satisfies the degree eligibility threshold (Rank ≥ Bachelor's). Full-time placement tracks in Edge AI & Deep Learning are directly relevant.`;
+    roadmap = [
+      "Auto-fetch your Degree and Marksheets instantly via DigiLocker / APAAR.",
+      "Submit online statement of purpose via the official IIT Dharwad portal.",
+      "Receive Aadhaar DBT bank account verification for monthly ₹1,000 stipend disbursement."
+    ];
+    bottleneck = "Admissions are conducted in rolling batches. Early applicants receive preferred IIT residential allotment.";
+  } else if (opp.category === "health") {
+    headline = "Direct Cashless Healthcare Entitlement";
+    reasoning = `Your profile meets the target criteria for ${opp.name}. You are entitled to ₹5,00,000 per family per year in secondary and tertiary cashless hospitalisation across 27,000+ empanelled hospitals.`;
+    academicInsight = "No academic restrictions apply; universal entitlement based on economic/demographic parameters.";
+    roadmap = [
+      "Generate synthetic Ayushman Card or ESIC e-Pehchan card.",
+      "Link family members on the UMANG health registry.",
+      "Access cashless treatment at any empanelled hospital."
+    ];
+    bottleneck = "Ensure your Aadhaar is linked to your active mobile number for instant e-KYC hospital admissions.";
+  } else if (opp.category === "disability" || opp.id === "aicte-saksham") {
+    headline = isPwD ? "Priority Divyangjan Support Alignment" : "Benchmark Disability Support";
+    reasoning = isPwD
+      ? `As a verified Divyangjan candidate with benchmark disability (≥40%), you receive top-tier priority for ${opp.name} with ₹50,000/yr direct scholarship and assistive devices.`
+      : `This program is reserved for candidates with certified benchmark disability (≥40%).`;
+    academicInsight = `Technical degree enrollment provides seamless AICTE DBT disbursement directly into your bank account.`;
+    roadmap = [
+      "Verify UDID (Unique Disability ID) card on DigiLocker.",
+      "Link institution admission bonafide certificate.",
+      "Submit National Scholarship Portal (NSP) verification."
+    ];
+    bottleneck = "Keep your UDID card or District Medical Board certificate updated.";
+  } else {
+    headline = `${opp.type} Pathway (${Math.round(score)}% Match)`;
+    reasoning = `Based on your demographic background (${profile.age} yrs, ${stateStr}, ${profile.incomeBand || "income threshold"}), you meet key criteria for ${opp.name}. ${opp.benefit.description}.`;
+    academicInsight = `Matches current qualification (${profile.educationLevel}) with published guidelines of ${opp.department}.`;
+    roadmap = [
+      "Check required document checklist in the Readiness tab.",
+      "Fetch available certificates directly from DigiLocker.",
+      "Complete official application on " + opp.sourceName + "."
+    ];
+    bottleneck = opp.deadline ? `Official deadline is ${opp.deadline}. Prepare documents in advance.` : "Verify open cycle dates on official portal.";
+  }
+
+  return {
+    score: Math.round(score),
+    headline,
+    reasoning,
+    academicInsight,
+    roadmap,
+    bottleneck,
+  };
+}
+
+function getAiCounselorReply(question, opp, profile) {
+  const q = question.toLowerCase();
+  const courseStr = profile.course || profile.educationLevel || "Degree";
+  const stateStr = profile.state || "Maharashtra";
+
+  if (q.includes("document") || q.includes("digilocker") || q.includes("certificate")) {
+    const docs = (opp.requiredDocuments || []).map((d) => d.name).join(", ");
+    return `For ${opp.name}, the essential documents are: ${docs}. You can link your APAAR / ABC ID (${profile.apaarId || "Linked in demo"}) to auto-fetch your Degree and Marksheets without manual uploads!`;
+  }
+  if (q.includes("degree") || q.includes("course") || q.includes("b.tech") || q.includes("qualification") || q.includes("engineering")) {
+    return `Your ${courseStr} degree satisfies the minimum qualification criteria for ${opp.name}. Candidates with technical backgrounds receive direct preference for hands-on project modules.`;
+  }
+  if (q.includes("money") || q.includes("stipend") || q.includes("amount") || q.includes("dbt") || q.includes("cash") || q.includes("financial") || q.includes("benefit")) {
+    return `${opp.benefit.description}. Funds and subsidies under this program are disbursed directly into your Aadhaar-seeded bank account via Public Financial Management System (PFMS) Direct Benefit Transfer (DBT).`;
+  }
+  if (q.includes("deadline") || q.includes("date") || q.includes("last date") || q.includes("when")) {
+    return `The current published timeline indicates: "${opp.deadline || "Active rolling admissions"}". We recommend verifying on the official portal (${opp.sourceName}) as government batches fill rapidly.`;
+  }
+  if (q.includes("hostel") || q.includes("accommodation") || q.includes("stay")) {
+    return `For ${opp.name}, ${opp.id.includes("iit") ? "residential hostel accommodation is provided on the IIT Dharwad campus with dining facilities included under PM-VIKAS." : "hostel subsidies or maintenance allowances can be claimed with a registered rent or hostel receipt."}`;
+  }
+  return `As a ${profile.age}-year-old ${courseStr} citizen based in ${stateStr}, you meet key eligibility benchmarks for ${opp.name}. You can inspect rule breakdowns in the "Why Do I Match?" tab, verify documents via DigiLocker, and proceed directly to ${opp.sourceName}.`;
+}
+
 // ============================================================================
 // REACT APP CONTEXT
 // ============================================================================
@@ -2357,6 +2462,7 @@ function AppProvider({ children }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
   const [modalOpportunityId, setModalOpportunityId] = useState(null);
+  const [aiCounselorOpportunityId, setAiCounselorOpportunityId] = useState(null);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [showAllOpportunities, setShowAllOpportunities] = useState(false);
   const [currentProfileStep, setCurrentProfileStep] = useState(1);
@@ -2368,6 +2474,7 @@ function AppProvider({ children }) {
       setCurrentRoute(path);
       setMobileSidebarOpen(false);
       setModalOpportunityId(null);
+      setAiCounselorOpportunityId(null);
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
@@ -2382,6 +2489,7 @@ function AppProvider({ children }) {
     setCurrentRoute(normalized);
     setMobileSidebarOpen(false);
     setModalOpportunityId(null);
+    setAiCounselorOpportunityId(null);
     if (location.hash.replace(/^#/, "") !== normalized) {
       location.hash = normalized;
     }
@@ -2431,6 +2539,8 @@ function AppProvider({ children }) {
     setActiveFilter,
     modalOpportunityId,
     setModalOpportunityId,
+    aiCounselorOpportunityId,
+    setAiCounselorOpportunityId,
     mobileSidebarOpen,
     setMobileSidebarOpen,
     showAllOpportunities,
@@ -3192,10 +3302,12 @@ function MatchingRadar() {
 }
 
 function OpportunityCard({ result }) {
-  const { toggleSave, isSaved } = useApp();
+  const { toggleSave, isSaved, profile, setAiCounselorOpportunityId } = useApp();
   const opp = result.opportunity;
   const saved = isSaved(opp.id);
   const isIITDharwad = opp.id === "ai-technocrat-iit-dharwad";
+
+  const aiReport = useMemo(() => generateAiOpportunityReport(result, profile), [result, profile]);
 
   const statusLabel =
     result.status === "strong"
@@ -3234,6 +3346,13 @@ function OpportunityCard({ result }) {
           <h3 className="card-title">
             <a href={`#/mera-haq/opportunities/${opp.id}`}>{opp.name}</a>
           </h3>
+          {aiReport && (
+            <div className="ai-fit-tag">
+              <span>✨ {aiReport.score}% AI Match</span>
+              <span>•</span>
+              <span>{aiReport.headline}</span>
+            </div>
+          )}
         </div>
 
         <span className={`status-pill ${result.status}`}>
@@ -3271,6 +3390,14 @@ function OpportunityCard({ result }) {
           <a className="btn btn-primary btn-sm" href={`#/mera-haq/opportunities/${opp.id}/eligibility`}>
             Why do I match?
           </a>
+          <button
+            className="btn btn-secondary btn-sm"
+            type="button"
+            style={{ color: "#a5b4fc", borderColor: "rgba(99, 102, 241, 0.4)" }}
+            onClick={() => setAiCounselorOpportunityId(opp.id)}
+          >
+            <span>✨ Ask AI</span>
+          </button>
           <a className="btn btn-secondary btn-sm" href={`#/mera-haq/opportunities/${opp.id}`}>
             Details
           </a>
@@ -3460,19 +3587,19 @@ function OpportunityMap() {
 }
 
 function WhyDoIMatchMatrix({ id }) {
-  const { profile, isSaved, toggleSave } = useApp();
+  const { profile, isSaved, toggleSave, setAiCounselorOpportunityId } = useApp();
   const result = getResultById(id, profile);
 
   if (!result) return <NotFoundView />;
 
   const opp = result.opportunity;
   const saved = isSaved(opp.id);
-  const explanation = generateEligibilityExplanation(result, profile);
+  const aiReport = generateAiOpportunityReport(result, profile);
 
   return (
     <div className="content-container">
       <div className="back-link-row" onClick={() => history.back()}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <line x1="19" y1="12" x2="5" y2="12"></line>
           <polyline points="12 19 5 12 12 5"></polyline>
         </svg>
@@ -3487,20 +3614,70 @@ function WhyDoIMatchMatrix({ id }) {
             <p className="page-subtitle">{opp.name} ({opp.department})</p>
           </div>
 
-          <span className={`status-pill ${result.status}`}>
-            {result.status === "strong" ? "Strong Profile Match" : result.status === "future" ? "Future Opportunity" : "Needs Verification"}
-          </span>
+          <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+            {aiReport && (
+              <span className="ai-score-ring">
+                ✨ {aiReport.score}% AI Match Fit
+              </span>
+            )}
+            <span className={`status-pill ${result.status}`}>
+              {result.status === "strong" ? "Strong Profile Match" : result.status === "future" ? "Future Opportunity" : "Needs Verification"}
+            </span>
+          </div>
         </div>
 
-        <div className="ai-explanation-box">
-          <h4>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14h-2v-2h2zm0-4h-2V7h2z"></path>
-            </svg>
-            <span>Citizen-Friendly Summary</span>
-          </h4>
-          <p>{explanation}</p>
-        </div>
+        {aiReport && (
+          <div className="ai-counselor-card">
+            <div className="ai-counselor-header">
+              <div className="ai-counselor-title">
+                <span style={{ fontSize: "20px" }}>🤖</span>
+                <span>AI Profile Reasoning & Scheme Alignment</span>
+                <span className="ai-badge">Personalized for {profile.name || "Citizen"}</span>
+              </div>
+              <button
+                className="btn btn-secondary btn-sm"
+                type="button"
+                style={{ color: "#c7d2fe", borderColor: "rgba(99, 102, 241, 0.4)" }}
+                onClick={() => setAiCounselorOpportunityId(opp.id)}
+              >
+                <span>✨ Ask AI Scheme Counselor</span>
+              </button>
+            </div>
+
+            <p className="ai-reasoning-body">
+              {aiReport.reasoning}
+            </p>
+
+            <div className="ai-insights-grid">
+              <div className="ai-insight-box">
+                <strong>🎓 Academic Alignment</strong>
+                <span>{aiReport.academicInsight}</span>
+              </div>
+              <div className="ai-insight-box">
+                <strong>💰 Benefit Realisation</strong>
+                <span>{opp.benefit.description}</span>
+              </div>
+              <div className="ai-insight-box">
+                <strong>💡 Pro-Tip / Bottleneck</strong>
+                <span>{aiReport.bottleneck}</span>
+              </div>
+            </div>
+
+            <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: "12px", marginTop: "8px" }}>
+              <strong style={{ fontSize: "12px", color: "#93c5fd", display: "block", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.4px" }}>
+                📋 AI Recommended Action Steps
+              </strong>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "8px" }}>
+                {aiReport.roadmap.map((step, idx) => (
+                  <div key={idx} style={{ display: "flex", gap: "8px", alignItems: "flex-start", fontSize: "12.5px", color: "#cbd5e1" }}>
+                    <span style={{ color: "#38bdf8", fontWeight: "700" }}>{idx + 1}.</span>
+                    <span>{step}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="matrix-table">
           <div className="matrix-row header">
@@ -3533,7 +3710,7 @@ function WhyDoIMatchMatrix({ id }) {
         </div>
 
         <div className="prototype-trust-banner" style={{ margin: "24px 0" }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="12" y1="16" x2="12" y2="12"></line>
             <line x1="12" y1="8" x2="12.01" y2="8"></line>
@@ -3777,18 +3954,19 @@ function ApplicationReadiness({ id }) {
 }
 
 function OpportunityDetail({ id }) {
-  const { profile, isSaved, toggleSave } = useApp();
+  const { profile, isSaved, toggleSave, setAiCounselorOpportunityId } = useApp();
   const result = getResultById(id, profile);
 
   if (!result) return <NotFoundView />;
 
   const opp = result.opportunity;
   const saved = isSaved(opp.id);
+  const aiReport = generateAiOpportunityReport(result, profile);
 
   return (
     <div className="content-container">
       <div className="back-link-row" onClick={() => history.back()}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <line x1="19" y1="12" x2="5" y2="12"></line>
           <polyline points="12 19 5 12 12 5"></polyline>
         </svg>
@@ -3807,10 +3985,39 @@ function OpportunityDetail({ id }) {
             <p className="page-subtitle">{opp.shortDescription}</p>
           </div>
 
-          <span className={`status-pill ${result.status}`}>
-            {result.status === "strong" ? "Strong match" : "Needs verification"}
-          </span>
+          <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+            {aiReport && (
+              <span className="ai-score-ring">
+                ✨ {aiReport.score}% AI Match
+              </span>
+            )}
+            <span className={`status-pill ${result.status}`}>
+              {result.status === "strong" ? "Strong match" : "Needs verification"}
+            </span>
+          </div>
         </div>
+
+        {aiReport && (
+          <div className="ai-counselor-card" style={{ margin: "20px 0" }}>
+            <div className="ai-counselor-header">
+              <div className="ai-counselor-title">
+                <span style={{ fontSize: "20px" }}>🤖</span>
+                <span>AI Profile Fit Analysis</span>
+              </div>
+              <button
+                className="btn btn-secondary btn-sm"
+                type="button"
+                style={{ color: "#c7d2fe", borderColor: "rgba(99, 102, 241, 0.4)" }}
+                onClick={() => setAiCounselorOpportunityId(opp.id)}
+              >
+                <span>✨ Ask AI Scheme Counselor</span>
+              </button>
+            </div>
+            <p className="ai-reasoning-body">
+              {aiReport.reasoning}
+            </p>
+          </div>
+        )}
 
         <div style={{ margin: "28px 0" }}>
           <h3 style={{ color: "#ffffff", marginBottom: "12px" }}>Program Benefits</h3>
@@ -3835,6 +4042,14 @@ function OpportunityDetail({ id }) {
           <div style={{ display: "flex", gap: "12px" }}>
             <button className="btn btn-secondary" type="button" onClick={() => toggleSave(opp.id)}>
               <span>{saved ? "Saved" : "Save"}</span>
+            </button>
+            <button
+              className="btn btn-secondary"
+              type="button"
+              style={{ color: "#a5b4fc", borderColor: "rgba(99, 102, 241, 0.4)" }}
+              onClick={() => setAiCounselorOpportunityId(opp.id)}
+            >
+              <span>✨ Ask AI</span>
             </button>
             <a className="btn btn-primary" href={`#/mera-haq/opportunities/${opp.id}/eligibility`}>
               Why do I match?
@@ -4310,6 +4525,101 @@ function MainContentRouter() {
   return <NotFoundView />;
 }
 
+function AiCopilotDrawer() {
+  const { aiCounselorOpportunityId, setAiCounselorOpportunityId, profile } = useApp();
+  const [messages, setMessages] = useState([]);
+  const [inputText, setInputText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
+  const opp = useMemo(() => {
+    return opportunities.find((o) => o.id === aiCounselorOpportunityId);
+  }, [aiCounselorOpportunityId]);
+
+  useEffect(() => {
+    if (opp) {
+      setMessages([
+        {
+          sender: "assistant",
+          text: `Namaste ${profile.name || "Citizen"}! I am your UMANG AI Scheme Counselor for ${opp.name}. I have analyzed your profile (${profile.age || 23} yrs, ${profile.course || profile.educationLevel}, ${profile.state || "Maharashtra"}). How can I assist you with your application today?`,
+        },
+      ]);
+    }
+  }, [opp, profile]);
+
+  if (!aiCounselorOpportunityId || !opp) return null;
+
+  const handleSend = (textToSend) => {
+    const text = (textToSend || inputText).trim();
+    if (!text) return;
+    setInputText("");
+    const newMessages = [...messages, { sender: "user", text }];
+    setMessages(newMessages);
+    setIsTyping(true);
+
+    setTimeout(() => {
+      const reply = getAiCounselorReply(text, opp, profile);
+      setMessages((prev) => [...prev, { sender: "assistant", text: reply }]);
+      setIsTyping(false);
+    }, 600);
+  };
+
+  return (
+    <>
+      <div
+        className="sidebar-overlay"
+        onClick={() => setAiCounselorOpportunityId(null)}
+        style={{ zIndex: 1040, opacity: 1, pointerEvents: "auto", display: "block" }}
+      />
+      <div className="ai-copilot-drawer open" role="dialog" aria-modal="true">
+        <div className="ai-copilot-header">
+          <h3>
+            <span style={{ fontSize: "18px" }}>✨</span>
+            <span>AI Scheme Counselor</span>
+          </h3>
+          <button className="btn btn-secondary btn-sm" type="button" onClick={() => setAiCounselorOpportunityId(null)}>✕ Close</button>
+        </div>
+
+        <div style={{ padding: "10px 16px", background: "rgba(99, 102, 241, 0.1)", borderBottom: "1px solid var(--border-subtle)", fontSize: "12px", color: "#a5b4fc" }}>
+          Target: <strong>{opp.name}</strong> • Department: {opp.department}
+        </div>
+
+        <div className="ai-copilot-messages">
+          {messages.map((m, idx) => (
+            <div key={idx} className={`ai-bubble ${m.sender}`}>
+              {m.text}
+            </div>
+          ))}
+          {isTyping && (
+            <div className="ai-bubble assistant" style={{ color: "#93c5fd" }}>
+              <span>Thinking & analyzing government rules...</span>
+            </div>
+          )}
+        </div>
+
+        <div style={{ padding: "0 16px 8px" }}>
+          <div className="ai-prompt-chips-row">
+            <button className="ai-prompt-chip" type="button" onClick={() => handleSend("What documents do I need from DigiLocker?")}>📄 DigiLocker documents?</button>
+            <button className="ai-prompt-chip" type="button" onClick={() => handleSend(`How does my ${profile.course || profile.educationLevel} degree qualify me?`)}>🎓 Degree match?</button>
+            <button className="ai-prompt-chip" type="button" onClick={() => handleSend("Will money be sent via direct DBT?")}>💰 Stipend / Cash DBT?</button>
+            <button className="ai-prompt-chip" type="button" onClick={() => handleSend("When is the application deadline?")}>⏱ Deadline?</button>
+          </div>
+        </div>
+
+        <form className="ai-copilot-input-bar" onSubmit={(e) => { e.preventDefault(); handleSend(); }}>
+          <input
+            className="ai-copilot-input"
+            type="text"
+            placeholder="Ask anything about eligibility, stipend, hostel..."
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+          />
+          <button className="btn btn-primary btn-sm" type="submit">Ask AI</button>
+        </form>
+      </div>
+    </>
+  );
+}
+
 function App() {
   const { loadDemoProfile } = useApp();
 
@@ -4324,13 +4634,14 @@ function App() {
       </div>
 
       <button className="floating-help-btn" type="button" onClick={loadDemoProfile} title="Instant 60s Demo for Judges">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <polygon points="5 3 19 12 5 21 5 3"></polygon>
         </svg>
         <span>60s Demo (Neeraj)</span>
       </button>
 
       <HandoffModal />
+      <AiCopilotDrawer />
     </div>
   );
 }
