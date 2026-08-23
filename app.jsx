@@ -2370,7 +2370,13 @@ function AppProvider({ children }) {
   }, []);
 
   const navigate = useCallback((path) => {
-    location.hash = path;
+    const normalized = (path.replace(/^#/, "") || "/mera-haq").replace(/\/$/, "") || "/mera-haq";
+    setCurrentRoute(normalized);
+    setMobileSidebarOpen(false);
+    setModalOpportunityId(null);
+    if (location.hash.replace(/^#/, "") !== normalized) {
+      location.hash = normalized;
+    }
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
@@ -3119,7 +3125,7 @@ function MatchingRadar() {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/mera-haq/opportunities");
-    }, 1300);
+    }, 1100);
     return () => clearTimeout(timer);
   }, [navigate]);
 
@@ -3127,7 +3133,7 @@ function MatchingRadar() {
     <div className="content-container">
       <div className="matching-wrapper">
         <div className="matching-radar-icon">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2">
             <circle cx="12" cy="12" r="10"></circle>
             <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
           </svg>
@@ -3159,6 +3165,19 @@ function MatchingRadar() {
             <span>Mapping free training, scholarships, subsidies, and fee waivers...</span>
           </li>
         </ul>
+
+        <div style={{ marginTop: "24px" }}>
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={() => navigate("/mera-haq/opportunities")}
+          >
+            <span>View Opportunities Map</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );
