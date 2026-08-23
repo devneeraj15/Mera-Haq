@@ -1,116 +1,96 @@
-# Mera Haq on UMANG
+﻿# Mera Haq on UMANG
 
 > *"Government support you may qualify for — without having to know it exists."*
 
-A prototype built for the **"Build What Moves India"** challenge.
+A working prototype built for the **"Build What Moves India"** challenge.
 
 🌐 **Live Deployment:** [https://devneeraj15.github.io/Mera-Haq/](https://devneeraj15.github.io/Mera-Haq/)  
-📦 **GitHub Repository:** [https://github.com/devneeraj15/Mera-Haq](https://github.com/devneeraj15/Mera-Haq)
+📦 **GitHub Repository:** [https://github.com/devneeraj15/Mera-Haq](https://github.com/devneeraj15/Mera-Haq)  
+📄 **Submission Brief & 250-Word Summary:** [`SUBMISSION.md`](./SUBMISSION.md)  
+🔬 **Verifiable Mock Data & Test Documentation:** [`VERIFICATION.md`](./VERIFICATION.md)
 
 ---
 
 ## 🌟 The Core Problem Solved
 
-A citizen can be eligible for government scholarships, training, subsidies, fee support, loans and other programs, but may never discover them because government opportunities are fragmented across multiple portals, ministries, departments, institutions and state systems.
+A citizen can be eligible for government scholarships, training, health coverage, food support, housing subsidies, pensions, and business loans, but may never discover them because government support is fragmented across multiple portals, ministries, departments, and state systems.
 
-In traditional search (e.g. standard UMANG filters), the citizen is asked 10 category questions and often ends with:
+In traditional search (e.g. standard UMANG filters), the citizen is asked 10 generic category questions and often ends with:
 > **"No schemes found based on your preference"**
 
-**Mera Haq reverses the model:**
-1. Citizen creates a lightweight profile
-2. Deterministic engine continuously maps central, state & institutional opportunities
-3. Personalized opportunity map is generated
-4. Citizen inspects signature **"Why Do I Match?"** rule-by-rule breakdowns
-5. Citizen verifies required documents and proceeds to the official application destination
+**Mera Haq reverses this model:**
+1. **Lightweight Profile (60s):** Citizen enters minimal demographics (optionally linked to DigiLocker / APAAR ID).
+2. **Deterministic Discovery:** A client-side deterministic engine maps opportunities across Central ministries, State schemes, and Premier institutions.
+3. **Personalized Opportunity Map:** Grouped by match strength (⭐ Strong matches, 🔍 Verification needed, ⏱ Future opportunities, 🌐 Open to All).
+4. **Signature "Why Do I Match?":** Rule-by-rule published criteria vs. citizen profile audit with plain-language explanations.
+5. **Document Readiness with DigiLocker:** One-tap digital collection of marksheets, caste/income certificates, and academic credentials before safe handoff to official portals.
 
 ---
 
 ## 🚀 Instant 60-Second Demo Path
 
-Open `index.html` in any modern web browser (Edge, Chrome, Firefox, Safari). No dependencies or build steps required.
+Open the live URL or `index.html` in any browser:
 
-1. **Launch**: Open `index.html` (or click **Mera Haq** in the UMANG sidebar).
-2. **Auto-Populate Demo**: Click the orange **"60s Demo (Neeraj)"** floating button or **"Try demo profile (Neeraj, 23)"**.
-3. **Matching Radar**: Watch the scanning animation cross-evaluate Central ministries, Maharashtra state schemes, and IIT/AICTE opportunities.
-4. **Opportunity Map**: View *"We found 6 opportunities for you"* with 3 Strong matches, 2 Need verification, 1 Future opportunity, and estimated potential value (₹1.35L+).
-5. **IIT Dharwad AI Technocrat**: Click **"Why do I match?"** on the top card to see the rule-by-rule published criteria vs. citizen profile audit with plain-language AI explanation.
-6. **Application Readiness**: Click **"Check Application Readiness"** to view the document readiness checklist.
-7. **Official Application Handoff**: Click **"Continue to official application"** to see the disclaimer and safe handoff to the official portal.
-8. **Save Opportunity**: Click **"Save"** to bookmark it into the persistent **Saved** section.
-9. **Problem Contrast**: Click **Schemes** in the left sidebar to experience the existing UMANG filter flow that produces the *"No schemes found"* state.
-10. **Automated Verification**: Click **"Run Automated Tests"** (or visit `#/mera-haq/tests`) to execute all 10 unit test cases live in the browser.
+1. **Launch:** Open `https://devneeraj15.github.io/Mera-Haq/`
+2. **Auto-Populate Demo:** Click the orange **"60s Demo (Neeraj)"** floating button.
+3. **Matching Radar:** Watch the scanning animation cross-evaluate 39 opportunities across 9 government sectors.
+4. **Opportunity Map:** View curated matches with estimated potential value (e.g., ₹1.35L+).
+5. **"Why Do I Match?" Matrix:** Click **"Why do I match?"** on *PM-VIKAS AI Technocrat — IIT Dharwad* to inspect the rule audit table.
+6. **Application Readiness & DigiLocker:** Click **"Check Application Readiness"** and press **"Fetch all from DigiLocker"** to witness simulated digital credential verification.
+7. **Problem Contrast:** Click **Schemes** in the left sidebar to experience the traditional UMANG filter flow that produces the *"No schemes found"* state.
+8. **Automated Verification:** Click **"Run Automated Tests"** (or visit `#/mera-haq/tests`) to execute all 14 unit test cases live in the browser.
 
 ---
 
-## 🏛️ UMANG Shell Integration
+## 📁 Verifiable Mock Files & Dataset Architecture
 
-- **Exact Dark Theme**: Matching the official UMANG web portal (`web.umang.gov.in`) with deep slate backgrounds (`#0c0f17`), elevated surfaces (`#161b29`), and UMANG blue (`#2563eb`).
-- **Sidebar Integration**: Added **Mera Haq** directly underneath **Schemes** in the left navigation sidebar with a `NEW` indicator badge.
-- **Top Header**: Complete with hamburger drawer toggle, UMANG logo, search bar, ISL Chatbot button, accessibility controls, notification badge, and citizen avatar.
-- **Mobile Responsive**: Full drawer sidebar, touch targets, and responsive card layouts across mobile, tablet, and desktop viewports.
+All mock data and schema files are organized under the [`data/`](./data) directory for easy reviewer inspection:
 
----
-
-## 🧠 AI / OpenAI Pipeline Architecture
-
-```
-Government Program Notifications & Gazettes
-                ↓
-    AI-Assisted Rule Extraction (OpenAI / Codex)
-                ↓
-    Structured Opportunity Eligibility Schema
-                ↓
-    Human / Admin Verification & Grounding
-                ↓
-    Deterministic Client-Side Eligibility Engine
-                ↓
-    Plain-Language Citizen Explanation (`generateEligibilityExplanation`)
-```
-
-- **Deterministic Authority**: Final prototype matching is 100% deterministic (evaluated via pure boolean rule logic). AI is utilized for semantic rule normalization, policy summarization, and translating complex bureaucratic eligibility criteria into clear, citizen-friendly explanations.
+| File | Description | Link |
+|---|---|---|
+| [`data/opportunities.json`](./data/opportunities.json) | Complete verified 39-scheme dataset with eligibility rules, financial benefits, required documents, and official source URLs. | [View JSON](./data/opportunities.json) |
+| [`data/mock_profiles.json`](./data/mock_profiles.json) | 6 diverse synthetic citizen personas (Graduate, Rural Student, Farmer, Expectant Mother, Street Vendor, Specially Abled). | [View Personas](./data/mock_profiles.json) |
+| [`data/mock_digilocker.json`](./data/mock_digilocker.json) | Synthetic DigiLocker & Academic Bank of Credits (ABC) vault records and mock API handshakes. | [View DigiLocker Vault](./data/mock_digilocker.json) |
+| [`SUBMISSION.md`](./SUBMISSION.md) | Official challenge submission brief, 250-word summary, and 2-minute video script. | [View Submission](./SUBMISSION.md) |
+| [`VERIFICATION.md`](./VERIFICATION.md) | Test suite verification steps, benchmark personas, and government source references. | [View Verification](./VERIFICATION.md) |
 
 ---
 
-## 📋 Curated Real Opportunities Dataset (17 Schemes)
+## 📋 Comprehensive 39-Scheme Dataset (All 9 Support Sectors)
 
-1. **PM-VIKAS AI Technocrat — IIT Dharwad** (*Central / Training*)
-2. **Maharashtra Minority Professional Education Support** (*Maharashtra / Fee Support*)
-3. **Maharashtra PMKUVA (Pramod Mahajan Kaushalya Vikas Abhiyan)** (*Maharashtra / Training*)
-4. **PMKVY 4.0 Future-Tech Courses** (*Central / Training*)
-5. **PM-Vidyalaxmi Education Loan Support** (*Central / Loan*)
-6. **PM-Vidyalaxmi 3% Interest Subvention Scheme** (*Central / Interest Subsidy*)
-7. **Minority Merit-Cum-Means Scholarship** (*Central / Scholarship*)
-8. **Rajarshi Chhatrapati Shahu Maharaj EBC/EWS Support** (*Maharashtra / Fee Support*)
-9. **Dr Panjabrao Deshmukh Vasatigruh Nirvah Bhatta** (*Maharashtra / Fee Support / Hostel*)
-10. **Maharashtra Foreign Scholarship for Higher Studies** (*Maharashtra / Scholarship*)
-11. **PM-USP Central Sector Scholarship** (*Central / Scholarship*)
-12. **Central Sector Interest Subsidy Scheme (CSIS)** (*Central / Interest Subsidy*)
-13. **AICTE Saksham Scholarship for Specially Abled Students** (*Central / Scholarship*)
-14. **AICTE Swanath Scholarship Scheme** (*Central / Scholarship*)
-15. **AICTE Pragati Scholarship for Girls** (*Central / Scholarship*)
-16. **NAPS-2 Technology Apprenticeship Pathway** (*Central / Training & Stipend*)
-17. **PMEGP Prime Minister Employment Generation Programme** (*Central / Entrepreneurship Subsidy*)
+1. **Health Insurance:** PM-JAY Ayushman Bharat (₹5L/yr cashless), ESIC Health Insurance
+2. **Food Security:** PM Garib Kalyan Anna Yojana (Free grains), NFSA PDS Subsidised Ration
+3. **Housing:** PMAY-Urban CLSS (₹2.67L subsidy), PMAY-Gramin (₹1.3L construction grant)
+4. **Agriculture:** PM-KISAN (₹6,000/yr), Kisan Credit Card (4% interest), PM Fasal Bima Yojana
+5. **Utilities:** PM Ujjwala Yojana (Free LPG connection), Saubhagya Free Electricity
+6. **Women & Child:** Janani Suraksha Yojana, PM Matru Vandana Yojana (PMMVY), Sukanya Samriddhi (8.2% tax-free)
+7. **Employment & Credit:** PM SVANidhi (₹50k micro-credit), Startup India (3-yr tax holiday), PM MUDRA Yojana (₹10L), PMEGP (₹50L subsidy), MGNREGA (100 days work)
+8. **Pensions:** PM Shram Yogi Maan-dhan (₹3,000/mo), Atal Pension Yojana (₹1k-5k/mo), PM Kisan Maan-dhan
+9. **Education & Skills:** IIT Dharwad AI Technocrat, Maha Minority Higher Edu, PMKVY 4.0 Future Tech, PM-Vidyalaxmi (₹10L loan + 3% subvention), CSIS, NSP CSSS, AICTE Pragati / Saksham / Swanath, Maharashtra PMKUVA, NAPS-2 Apprenticeship, ADIP Assistive Devices
 
 ---
 
-## 🧪 Automated Verification Suite (10 Test Cases)
+## 🧪 Live Automated Test Harness (14 Test Cases)
 
 1. `Neeraj demo profile → IIT Dharwad AI Technocrat = Strong Match`
-2. `Underage user (13 yrs) → Age-restricted training = Not Eligible`
+2. `Underage citizen (13 yrs) → Age-restricted training = Not Eligible`
 3. `Male profile → AICTE Pragati (Female only) = Not Eligible with reason`
 4. `Missing income profile → Income-capped support = Needs Verification`
 5. `Non-Maharashtra state (Karnataka) → MahaDBT Support = Not Eligible`
 6. `Minority requirement + Jain community = Match recognized accurately`
 7. `Graduated citizen → Current student scheme = Future Opportunity flag`
 8. `Income boundary test (> ₹8L) → Capped scheme = Not Eligible`
-9. `Multi-opportunity matching returns expected dataset volume (17 schemes)`
+9. `Multi-opportunity dataset volume = 39 schemes (all tiers)`
 10. `Saved opportunity persistence via localStorage`
+11. `Universal opportunity filter (openToAll) accurately isolates non-quota schemes`
+12. `DigiLocker & APAAR ID Academic Registry verification`
+13. `PM-JAY correctly fails for above-BPL income profile (₹5–8L)`
+14. `Life Situation farmer tag correctly matches PM-KISAN for farmer profile`
 
 ---
 
-## 🛡️ Honesty & Disclaimers
+## 🛡️ Honesty & Safe Architecture
 
-- Mera Haq is a prototype built for the *Build What Moves India* challenge and is not an official government website.
-- Opportunity data is curated from publicly published guidelines and gazettes.
-- Synthetic citizen data is used throughout. No Aadhaar, PAN, OTP, or real government logins are requested or accessed.
-- Final eligibility, document acceptance, and selection are determined exclusively by the responsible government departments and premier institutions.
+- **Privacy by Design:** Zero sensitive citizen PII is stored. All matching logic executes client-side on the user's device.
+- **Official Destination Handshaking:** Mera Haq acts purely as an empowering discovery layer and hands off to verified government portals.
+- **Synthetic Data:** Strictly synthetic credentials and demo personas are used in accordance with hackathon rules.

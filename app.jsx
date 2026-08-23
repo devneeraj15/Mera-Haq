@@ -1916,6 +1916,49 @@ const opportunities = [
     lastVerified: "2026-08-23",
     status: "open",
   },
+
+  {
+    id: "pm-mudra-yojana",
+    priority: 39,
+    name: "PM MUDRA Yojana — Micro-Units Development & Refinance",
+    shortDescription: "Collateral-free institutional loans up to ₹10 lakh across Shishu (up to ₹50k), Kishore (₹50k–₹5L), and Tarun (₹5L–₹10L) for non-corporate micro/small enterprises.",
+    governmentLevel: "Central",
+    department: "Ministry of Finance / Department of Financial Services",
+    type: "Loan",
+    category: "employment",
+    openToAll: true,
+    benefit: {
+      type: "credit",
+      amount: 1000000,
+      description: "Collateral-free business loan up to ₹10 lakh with flexible repayment terms through banks, NBFCs, and MFIs.",
+      directAmount: 0,
+      costAvoidedAmount: 0,
+      financingAmount: 1000000,
+      components: [
+        "Shishu: Loans up to ₹50,000 for early-stage micro-ventures",
+        "Kishore: Loans from ₹50,000 up to ₹5,00,000 for equipment & working capital",
+        "Tarun: Loans from ₹5,00,000 up to ₹10,00,000 for established small businesses",
+        "Zero collateral required — credit guarantee provided by GOI",
+        "MUDRA Card provided for cash credit transactions",
+      ],
+    },
+    eligibility: { ageMin: 18, goalsAny: ["Subsidised loans", "Entrepreneurship", "Employment opportunities"] },
+    verificationNotes: [
+      "Citizen must have a viable non-farm business or manufacturing/service proposal.",
+      "Apply through any commercial bank, RRB, Small Finance Bank, or udyamimitra.in portal.",
+    ],
+    requiredDocuments: [
+      { name: "Business Plan / Proposal", status: "attention" },
+      { name: "Aadhaar Card & Identity Proof", status: "ready" },
+      { name: "Bank Account Statement (last 6 months)", status: "ready" },
+    ],
+    deadline: "Always Open — apply at any bank or udyamimitra.in",
+    applicationUrl: "https://www.udyamimitra.in/",
+    sourceName: "MUDRA / Department of Financial Services",
+    sourceUrl: "https://www.mudra.org.in/",
+    lastVerified: "2026-08-23",
+    status: "open",
+  },
 ];
 
 // ============================================================================

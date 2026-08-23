@@ -1,0 +1,96 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MeraHaqDigiLockerMockVault",
+  "description": "Verifiable synthetic DigiLocker academic & identity vault records used for safe offline simulation.",
+  "simulatedCitizen": {
+    "apaarId": "279903493988",
+    "name": "Neeraj Alkesh Karnavat",
+    "dob": "2003-04-14",
+    "gender": "Male",
+    "state": "Maharashtra",
+    "kycStatus": "VERIFIED_AADHAAR_OTP_SYNTHETIC",
+    "academicBankOfCredits": {
+      "abcAccountId": "ABC-2023-MH-994810",
+      "totalCreditsEarned": 164,
+      "institution": "Savitribai Phule Pune University",
+      "degree": "Bachelor of Engineering (Computer Engineering)",
+      "passingYear": 2025,
+      "cgpa": 8.42
+    },
+    "issuedDocuments": [
+      {
+        "docType": "DEGREE_CERTIFICATE",
+        "docName": "Bachelor Degree Certificate (Computer Engineering)",
+        "issuer": "Savitribai Phule Pune University",
+        "issuerId": "IN-SPPU-PUNE",
+        "uri": "in.gov.digilocker.sppu-deg-2025-08194",
+        "issueDate": "2025-07-20",
+        "status": "DIGITALLY_SIGNED",
+        "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "verifiableViaMeraHaq": true
+      },
+      {
+        "docType": "CLASS_10_MARKSHEET",
+        "docName": "Class 10 (SSC) Passing Certificate & Marksheet",
+        "issuer": "Maharashtra State Board of Secondary and Higher Secondary Education",
+        "issuerId": "IN-MSBSHSE-PUNE",
+        "uri": "in.gov.digilocker.msbshse-ssc-2019-74819",
+        "issueDate": "2019-06-12",
+        "status": "DIGITALLY_SIGNED",
+        "verifiableViaMeraHaq": true
+      },
+      {
+        "docType": "CLASS_12_MARKSHEET",
+        "docName": "Class 12 (HSC) Passing Certificate",
+        "issuer": "Maharashtra State Board of Secondary and Higher Secondary Education",
+        "issuerId": "IN-MSBSHSE-PUNE",
+        "uri": "in.gov.digilocker.msbshse-hsc-2021-39410",
+        "issueDate": "2021-07-03",
+        "status": "DIGITALLY_SIGNED",
+        "verifiableViaMeraHaq": true
+      },
+      {
+        "docType": "DOMICILE_CERTIFICATE",
+        "docName": "Domicile / Age & Nationality Certificate (Maharashtra)",
+        "issuer": "Revenue Department, Govt of Maharashtra / Aaple Sarkar",
+        "issuerId": "IN-MAHA-REV-01",
+        "uri": "in.gov.digilocker.maha-dom-2022-849103",
+        "issueDate": "2022-03-15",
+        "status": "DIGITALLY_SIGNED",
+        "verifiableViaMeraHaq": true
+      },
+      {
+        "docType": "MINORITY_SELF_DECLARATION",
+        "docName": "Minority Community Self-Declaration (Jain)",
+        "issuer": "Self-attested electronic affidavit",
+        "uri": "in.gov.digilocker.self-min-jain-2023",
+        "issueDate": "2023-01-10",
+        "status": "SELF_VERIFIED",
+        "verifiableViaMeraHaq": true
+      }
+    ]
+  },
+  "mockApiEndpoints": {
+    "authHandshake": {
+      "endpoint": "POST /mock-api/digilocker/oauth/authorize",
+      "simulationDelayMs": 800,
+      "response": {
+        "status": 200,
+        "tokenType": "Bearer",
+        "consentScope": ["apaar.read", "academic_records.read", "identity.verify"],
+        "apaarId": "279903493988",
+        "verificationSignature": "MOCK_PKI_RSA2048_NEGD_VERIFIED"
+      }
+    },
+    "fetchDocument": {
+      "endpoint": "POST /mock-api/digilocker/documents/fetch",
+      "simulationDelayMs": 1500,
+      "response": {
+        "status": 200,
+        "documentFound": true,
+        "verificationState": "VALID",
+        "sourceIssuer": "Digital India Corporation / NeGD Mock Gateway"
+      }
+    }
+  }
+}

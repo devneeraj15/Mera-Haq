@@ -1,0 +1,2294 @@
+{
+  "title": "Mera Haq 39-Scheme Verified Dataset",
+  "description": "Curated verified dataset of Central, State, and Institutional opportunities mapped by the Mera Haq deterministic engine.",
+  "totalCount": 39,
+  "lastAudited": "2026-08-23",
+  "schemes": [
+    {
+      "id": "ai-technocrat-iit-dharwad",
+      "priority": 1,
+      "name": "AI Technocrat — IIT Dharwad",
+      "shortDescription": "A PM-VIKAS free AI skill-development program for notified minority graduates at IIT Dharwad.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Minority Affairs / IIT Dharwad",
+      "type": "Training",
+      "benefit": {
+        "type": "mixed",
+        "amount": 57000,
+        "description": "Free AI training, ₹1,000/month stipend, hostel where applicable, certification & placement support.",
+        "directAmount": 12000,
+        "costAvoidedAmount": 45000,
+        "financingAmount": 0,
+        "components": [
+          "Free 1-year Artificial Intelligence Technocrat training",
+          "₹1,000/month stipend through Direct Benefit Transfer (DBT)",
+          "Hostel & residential support where applicable",
+          "Government / SSC & IIT Dharwad certification",
+          "Post-placement support subject to scheme norms"
+        ]
+      },
+      "eligibility": {
+        "ageMin": 18,
+        "ageMax": 45,
+        "educationMinRank": 4,
+        "minorities": [
+          "Muslim",
+          "Christian",
+          "Sikh",
+          "Buddhist",
+          "Jain",
+          "Parsi"
+        ],
+        "interestsAny": [
+          "AI",
+          "Technology",
+          "Digital skills",
+          "Product"
+        ],
+        "goalsAny": [
+          "Free training",
+          "Skill development",
+          "Education support"
+        ]
+      },
+      "verificationNotes": [
+        "Selection is based on screening test / interview conducted by IIT Dharwad.",
+        "Seat quota is allocated across recognized minority communities including Jain."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Degree / B.Tech Certificate or Marksheet",
+          "status": "ready",
+          "note": "Verified in demo profile"
+        },
+        {
+          "name": "Class 10 / Birth Certificate for Age Proof",
+          "status": "ready",
+          "note": "Age 23 confirmed"
+        },
+        {
+          "name": "Minority / Community Declaration Certificate",
+          "status": "attention",
+          "note": "Jain minority self-declaration / certificate needed"
+        },
+        {
+          "name": "Valid Identity Proof (Government ID)",
+          "status": "ready",
+          "note": "Required for portal application"
+        },
+        {
+          "name": "Bank Account Passbook / Statement",
+          "status": "attention",
+          "note": "Needed on official portal for DBT stipend"
+        }
+      ],
+      "deadline": "31 Aug 2026",
+      "applicationUrl": "https://pm-vikas.iitdh.ac.in/application/",
+      "sourceName": "IIT Dharwad PM-VIKAS Official Portal",
+      "sourceUrl": "https://pm-vikas.iitdh.ac.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "maharashtra-minority-professional-support",
+      "priority": 2,
+      "name": "Maharashtra Minority Professional Education Scholarship / Support",
+      "shortDescription": "MahaDBT fee waiver support for minority students pursuing higher technical and professional courses.",
+      "governmentLevel": "Maharashtra",
+      "department": "Minority Development Department / DTE Maharashtra",
+      "type": "Fee Support",
+      "benefit": {
+        "type": "fee_waiver",
+        "amount": 50000,
+        "description": "Up to ₹50,000 per year or actual tuition/exam fee waiver for professional degrees.",
+        "directAmount": 0,
+        "costAvoidedAmount": 50000,
+        "futureAmount": 50000,
+        "financingAmount": 0,
+        "components": [
+          "Tuition and examination fee reimbursement up to ₹50,000/year",
+          "Applicable for recognized technical/professional engineering and management courses",
+          "Disbursed through MahaDBT directly to institution/student"
+        ]
+      },
+      "eligibility": {
+        "states": [
+          "Maharashtra"
+        ],
+        "domicileRequired": true,
+        "currentStudent": true,
+        "futureIfCurrentStudent": true,
+        "incomeMax": 800000,
+        "minorities": [
+          "Muslim",
+          "Buddhist",
+          "Christian",
+          "Jain",
+          "Sikh",
+          "Parsi"
+        ],
+        "educationMinRank": 3,
+        "goalsAny": [
+          "Scholarships",
+          "Education support",
+          "Fee Support"
+        ]
+      },
+      "verificationNotes": [
+        "Currently graduated in demo profile; qualifies immediately upon enrollment in higher studies (Master's/PhD).",
+        "Requires Maharashtra domicile and annual family income up to ₹8 lakh."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Maharashtra Domicile Certificate",
+          "status": "ready",
+          "note": "Maharashtra resident"
+        },
+        {
+          "name": "Minority Community Certificate / Affidavit",
+          "status": "attention",
+          "note": "Jain certificate required"
+        },
+        {
+          "name": "Annual Income Certificate (Tehsildar / Sub-Divisional Officer)",
+          "status": "attention",
+          "note": "Income under ₹8L"
+        },
+        {
+          "name": "CAP Allotment Letter / Bonafide Student Certificate",
+          "status": "attention",
+          "note": "Required when enrolled"
+        }
+      ],
+      "deadline": "Academic Year 2026-27 MahaDBT Schedule",
+      "applicationUrl": "https://mahadbt.maharashtra.gov.in/",
+      "sourceName": "MahaDBT State Portal",
+      "sourceUrl": "https://mahadbt.maharashtra.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "verify"
+    },
+    {
+      "id": "maharashtra-pmkuva",
+      "priority": 3,
+      "openToAll": true,
+      "name": "Maharashtra PMKUVA (Pramod Mahajan Kaushalya Vikas Abhiyan)",
+      "shortDescription": "State-funded vocational and advanced technical skill training across Maharashtra districts.",
+      "governmentLevel": "Maharashtra",
+      "department": "Maharashtra State Skill Development Society (MSSDS)",
+      "type": "Training",
+      "benefit": {
+        "type": "training",
+        "amount": 25000,
+        "description": "100% Free NSQF-aligned skill training, assessment, certification and job facilitation.",
+        "directAmount": 0,
+        "costAvoidedAmount": 25000,
+        "financingAmount": 0,
+        "components": [
+          "Zero-cost short term skilling & technology courses",
+          "State government certification from Maharashtra Skill Development Board",
+          "Apprenticeship & employment placement support"
+        ]
+      },
+      "eligibility": {
+        "ageMin": 15,
+        "ageMax": 45,
+        "states": [
+          "Maharashtra"
+        ],
+        "domicileRequired": true,
+        "goalsAny": [
+          "Free training",
+          "Skill development",
+          "Employment opportunities"
+        ],
+        "interestsAny": [
+          "Technology",
+          "AI",
+          "Digital skills",
+          "Product"
+        ]
+      },
+      "verificationNotes": [
+        "Batch enrollment is open through accredited MahaSwayam centers in Maharashtra."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Maharashtra Domicile / Residence Proof",
+          "status": "ready"
+        },
+        {
+          "name": "Educational Qualification Certificate",
+          "status": "ready"
+        },
+        {
+          "name": "MahaSwayam Candidate Registration",
+          "status": "attention"
+        }
+      ],
+      "deadline": "Rolling / Center-based Batches",
+      "applicationUrl": "https://www.kaushalya.mahaswayam.gov.in/users/find_center",
+      "sourceName": "MahaSwayam Portal",
+      "sourceUrl": "https://www.kaushalya.mahaswayam.gov.in/users/find_center",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pmkvy-future-tech",
+      "priority": 4,
+      "openToAll": true,
+      "name": "PMKVY 4.0 — Future Skills & New-Age Tech Courses",
+      "shortDescription": "Skill India initiative offering courses in Artificial Intelligence, Cloud, Drone Tech, and IoT.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Skill Development and Entrepreneurship (MSDE)",
+      "type": "Training",
+      "benefit": {
+        "type": "training",
+        "amount": 20000,
+        "description": "Government-funded Industry 4.0 skilling and NSDC/Skill India digital certification.",
+        "directAmount": 0,
+        "costAvoidedAmount": 20000,
+        "financingAmount": 0,
+        "components": [
+          "Curated curriculum aligned with National Skill Qualification Framework (NSQF)",
+          "Hands-on labs and assessment by Sector Skill Councils",
+          "National Skill India Digital Hub credential badge"
+        ]
+      },
+      "eligibility": {
+        "ageMin": 15,
+        "ageMax": 59,
+        "educationMinRank": 2,
+        "goalsAny": [
+          "Free training",
+          "Skill development",
+          "Employment opportunities"
+        ],
+        "interestsAny": [
+          "AI",
+          "Technology",
+          "Digital skills"
+        ]
+      },
+      "verificationNotes": [
+        "Course availability varies by training partner and location."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Education Marksheet",
+          "status": "ready"
+        },
+        {
+          "name": "Skill India Digital Hub Profile",
+          "status": "attention"
+        }
+      ],
+      "deadline": "Batch-wise Openings 2026",
+      "applicationUrl": "https://www.skillindiadigital.gov.in/",
+      "sourceName": "Skill India Digital Hub",
+      "sourceUrl": "https://www.skillindiadigital.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "verify"
+    },
+    {
+      "id": "pm-vidyalaxmi",
+      "priority": 5,
+      "openToAll": true,
+      "name": "PM-Vidyalaxmi Education Loan Support",
+      "shortDescription": "Collateral-free, guarantor-free education loan pathway for premier Quality Higher Education Institutions.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Education",
+      "type": "Loan",
+      "benefit": {
+        "type": "loan",
+        "amount": 1000000,
+        "description": "Collateral-free, guarantor-free education loan up to ₹10 Lakh for top QHEI admissions.",
+        "directAmount": 0,
+        "costAvoidedAmount": 0,
+        "financingAmount": 1000000,
+        "components": [
+          "Collateral-free and guarantor-free loan up to ₹10 Lakh",
+          "75% Credit guarantee support for loans up to ₹7.5 Lakh",
+          "Single-window digital application across scheduled commercial banks"
+        ]
+      },
+      "eligibility": {
+        "incomeMax": 800000,
+        "goalsAny": [
+          "Subsidised loans",
+          "Education support"
+        ],
+        "requiresAdmission": true,
+        "requiresLoanPlan": true
+      },
+      "verificationNotes": [
+        "Loan is financing, not a cash grant. Requires admission to NIRF-notified top 860 QHEIs."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Admission Offer Letter from Notified QHEI",
+          "status": "attention"
+        },
+        {
+          "name": "Annual Family Income Certificate",
+          "status": "attention"
+        },
+        {
+          "name": "Fee Schedule of the Institution",
+          "status": "attention"
+        }
+      ],
+      "deadline": "Academic Admission Cycle 2026",
+      "applicationUrl": "https://pmvidyalaxmi.co.in/",
+      "sourceName": "PM-Vidyalaxmi Portal / PIB",
+      "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2290079&lang=1&reg=48",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pm-vidyalaxmi-interest-subvention",
+      "priority": 6,
+      "openToAll": true,
+      "name": "PM-Vidyalaxmi 3% Interest Subvention Scheme",
+      "shortDescription": "3% interest subsidy on education loans up to ₹10 Lakh for families with annual income up to ₹8 Lakh.",
+      "governmentLevel": "Central",
+      "department": "Department of Higher Education, MoE",
+      "type": "Interest Subsidy",
+      "benefit": {
+        "type": "interest_subsidy",
+        "amount": 30000,
+        "description": "3% annual interest reduction on education loan during the moratorium & course period.",
+        "directAmount": 0,
+        "costAvoidedAmount": 30000,
+        "financingAmount": 0,
+        "components": [
+          "3% full interest subsidy on education loans up to ₹10 Lakh",
+          "Direct DBT credit into loan account",
+          "Open to students from families with income ≤ ₹8 Lakh not availing other subsidies"
+        ]
+      },
+      "eligibility": {
+        "incomeMax": 800000,
+        "goalsAny": [
+          "Subsidised loans",
+          "Education support"
+        ],
+        "requiresAdmission": true,
+        "requiresLoanPlan": true
+      },
+      "verificationNotes": [
+        "Linked directly to education loans sanctioned under PM-Vidyalaxmi."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Income Certificate (≤ ₹8 Lakh)",
+          "status": "attention"
+        },
+        {
+          "name": "Education Loan Sanction Letter",
+          "status": "attention"
+        },
+        {
+          "name": "QHEI Admission Bonafide",
+          "status": "attention"
+        }
+      ],
+      "deadline": "Bank / Portal Process Schedule",
+      "applicationUrl": "https://pmvidyalaxmi.co.in/",
+      "sourceName": "PIB Notification / PM-Vidyalaxmi",
+      "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2290079&lang=1&reg=48",
+      "lastVerified": "2026-08-23",
+      "status": "verify"
+    },
+    {
+      "id": "minority-merit-cum-means",
+      "priority": 7,
+      "name": "Minority Merit-Cum-Means Scholarship for Professional Courses",
+      "shortDescription": "Central scholarship for minority students pursuing graduate and post-graduate professional/technical degrees.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Minority Affairs",
+      "type": "Scholarship",
+      "benefit": {
+        "type": "cash",
+        "amount": 30000,
+        "description": "₹20,000/year course fee plus maintenance allowance of ₹1,000/month for hostellers.",
+        "directAmount": 30000,
+        "costAvoidedAmount": 0,
+        "futureAmount": 30000,
+        "financingAmount": 0,
+        "components": [
+          "Full course fee reimbursement up to ₹20,000 per annum",
+          "Maintenance allowance up to ₹10,000 per annum",
+          "Covering recognized minority communities: Muslims, Christians, Sikhs, Buddhists, Jains, Parsis"
+        ]
+      },
+      "eligibility": {
+        "minorities": [
+          "Muslim",
+          "Christian",
+          "Sikh",
+          "Buddhist",
+          "Jain",
+          "Parsi"
+        ],
+        "incomeMax": 250000,
+        "currentStudent": true,
+        "futureIfCurrentStudent": true,
+        "educationMinRank": 3,
+        "goalsAny": [
+          "Scholarships",
+          "Education support"
+        ]
+      },
+      "verificationNotes": [
+        "Income limit is ₹2.5 lakh. If family income is higher, this does not match without income criteria adjustment."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Minority Self-Declaration",
+          "status": "attention"
+        },
+        {
+          "name": "Income Certificate (≤ ₹2.5 Lakh)",
+          "status": "attention"
+        },
+        {
+          "name": "Bonafide Student Certificate",
+          "status": "attention"
+        }
+      ],
+      "deadline": "31 Oct 2026 on NSP",
+      "applicationUrl": "https://scholarships.gov.in/",
+      "sourceName": "National Scholarship Portal",
+      "sourceUrl": "https://scholarships.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "rajarshi-shahu-fee-scholarship",
+      "priority": 8,
+      "openToAll": true,
+      "name": "Rajarshi Chhatrapati Shahu Maharaj EBC/EWS Fee Support",
+      "shortDescription": "Maharashtra state fee reimbursement for Economically Backward / EWS students in professional courses.",
+      "governmentLevel": "Maharashtra",
+      "department": "Directorate of Technical Education, Maharashtra",
+      "type": "Fee Support",
+      "benefit": {
+        "type": "fee_waiver",
+        "amount": 50000,
+        "description": "50% tuition and exam fee waiver in government and private-unaided professional colleges.",
+        "directAmount": 0,
+        "costAvoidedAmount": 50000,
+        "futureAmount": 50000,
+        "financingAmount": 0,
+        "components": [
+          "50% tuition fee waiver for eligible students in professional courses",
+          "Income limit up to ₹8 Lakh per annum",
+          "Admission must be through Centralized Admission Process (CAP)"
+        ]
+      },
+      "eligibility": {
+        "states": [
+          "Maharashtra"
+        ],
+        "domicileRequired": true,
+        "currentStudent": true,
+        "futureIfCurrentStudent": true,
+        "incomeMax": 800000,
+        "goalsAny": [
+          "Scholarships",
+          "Education support",
+          "Fee Support"
+        ]
+      },
+      "verificationNotes": [
+        "Requires active student status in an eligible CAP-admitted professional course in Maharashtra."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Maharashtra Domicile Certificate",
+          "status": "ready"
+        },
+        {
+          "name": "Annual Income Certificate (≤ ₹8 Lakh)",
+          "status": "attention"
+        },
+        {
+          "name": "CAP Allotment Letter",
+          "status": "attention"
+        }
+      ],
+      "deadline": "Academic Year 2026-27 MahaDBT Schedule",
+      "applicationUrl": "https://mahadbt.maharashtra.gov.in/",
+      "sourceName": "DTE Maharashtra / MahaDBT",
+      "sourceUrl": "https://dte.maharashtra.gov.in/rajarshi-chhatrapati-shahu-maharaj/",
+      "lastVerified": "2026-08-23",
+      "status": "verify"
+    },
+    {
+      "id": "panjabrao-deshmukh-hostel",
+      "priority": 9,
+      "openToAll": true,
+      "name": "Dr Panjabrao Deshmukh Vasatigruh Nirvah Bhatta",
+      "shortDescription": "Hostel and subsistence living allowance for Maharashtra students pursuing professional courses.",
+      "governmentLevel": "Maharashtra",
+      "department": "Higher & Technical Education Department, Maharashtra",
+      "type": "Fee Support",
+      "benefit": {
+        "type": "cash",
+        "amount": 38000,
+        "description": "Up to ₹30,000 to ₹38,000 per year hostel subsistence allowance based on city tier.",
+        "directAmount": 0,
+        "costAvoidedAmount": 38000,
+        "futureAmount": 38000,
+        "financingAmount": 0,
+        "components": [
+          "Hostel living allowance for students studying outside hometown",
+          "Tier-1 cities (Mumbai, Pune, Nagpur): ₹30,000 - ₹38,000/yr",
+          "Income limit up to ₹8 Lakh per annum"
+        ]
+      },
+      "eligibility": {
+        "states": [
+          "Maharashtra"
+        ],
+        "domicileRequired": true,
+        "currentStudent": true,
+        "futureIfCurrentStudent": true,
+        "incomeMax": 800000,
+        "requiresHostelAdmission": true,
+        "goalsAny": [
+          "Education support",
+          "Scholarships"
+        ]
+      },
+      "verificationNotes": [
+        "Requires proof of hostel admission or registered rent agreement during course."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Hostel Admission Certificate / Rent Agreement",
+          "status": "attention"
+        },
+        {
+          "name": "Maharashtra Domicile Certificate",
+          "status": "ready"
+        },
+        {
+          "name": "Income Certificate (≤ ₹8 Lakh)",
+          "status": "attention"
+        }
+      ],
+      "deadline": "MahaDBT Annual Schedule",
+      "applicationUrl": "https://mahadbt.maharashtra.gov.in/",
+      "sourceName": "DTE Maharashtra",
+      "sourceUrl": "https://dte.maharashtra.gov.in/dr-panjabrao-deshmukh-vastigruh-nirvah-bhatta-yojna/",
+      "lastVerified": "2026-08-23",
+      "status": "verify"
+    },
+    {
+      "id": "maharashtra-foreign-scholarship",
+      "priority": 10,
+      "openToAll": true,
+      "name": "Maharashtra Foreign Scholarship for Higher Studies",
+      "shortDescription": "State financial assistance for Maharashtra students admitted to top 200 QS-ranked world universities.",
+      "governmentLevel": "Maharashtra",
+      "department": "Social Justice & Special Assistance / Higher Education, Maharashtra",
+      "type": "Scholarship",
+      "benefit": {
+        "type": "mixed",
+        "amount": 2500000,
+        "description": "Full tuition fee plus living allowance and economy airfare for Master's/PhD abroad.",
+        "directAmount": 1500000,
+        "costAvoidedAmount": 1000000,
+        "financingAmount": 0,
+        "components": [
+          "Full tuition fee covered directly to international university",
+          "Living allowance in foreign currency for course duration",
+          "Economy return airfare"
+        ]
+      },
+      "eligibility": {
+        "states": [
+          "Maharashtra"
+        ],
+        "domicileRequired": true,
+        "ageMax": 35,
+        "educationMinRank": 4,
+        "incomeMax": 800000,
+        "goalsAny": [
+          "Scholarships",
+          "Fellowships",
+          "Education support"
+        ],
+        "requiresAdmission": true
+      },
+      "verificationNotes": [
+        "Requires unconditional offer from top 200 QS-ranked global university in STEM/management."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Unconditional University Admission Offer (QS Top 200)",
+          "status": "attention"
+        },
+        {
+          "name": "Maharashtra Domicile Certificate",
+          "status": "ready"
+        },
+        {
+          "name": "Degree Transcript & Marks Proof (> 65%)",
+          "status": "ready"
+        },
+        {
+          "name": "Income Certificate (≤ ₹8 Lakh)",
+          "status": "attention"
+        }
+      ],
+      "deadline": "30 Jun 2026 (Annual Application Window)",
+      "applicationUrl": "https://mahadbt.maharashtra.gov.in/",
+      "sourceName": "Maharashtra Higher Education Portal",
+      "sourceUrl": "https://mahadbt.maharashtra.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "verify"
+    },
+    {
+      "id": "nsp-csss",
+      "priority": 11,
+      "openToAll": true,
+      "name": "PM-USP Central Sector Scholarship for College & University Students",
+      "shortDescription": "Merit-cum-means financial assistance for students scoring above 80th percentile in Class 12.",
+      "governmentLevel": "Central",
+      "department": "Department of Higher Education, Ministry of Education",
+      "type": "Scholarship",
+      "benefit": {
+        "type": "cash",
+        "amount": 12000,
+        "description": "₹12,000/year for first 3 years of graduate study and ₹20,000/year at post-graduate level.",
+        "directAmount": 12000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "Direct DBT bank transfer of scholarship amount",
+          "Merit criteria based on Class 12 board examination percentile"
+        ]
+      },
+      "eligibility": {
+        "incomeMax": 450000,
+        "currentStudent": true,
+        "futureIfCurrentStudent": true,
+        "educationMinRank": 2,
+        "goalsAny": [
+          "Scholarships",
+          "Education support"
+        ]
+      },
+      "verificationNotes": [
+        "Income limit is ₹4.5 lakh. Requires active enrollment in a regular degree course."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Class 12 Marksheet with Board Percentile",
+          "status": "ready"
+        },
+        {
+          "name": "Income Certificate (≤ ₹4.5 Lakh)",
+          "status": "attention"
+        },
+        {
+          "name": "Bonafide Student Certificate",
+          "status": "attention"
+        }
+      ],
+      "deadline": "31 Oct 2026 on NSP",
+      "applicationUrl": "https://scholarships.gov.in/",
+      "sourceName": "National Scholarship Portal",
+      "sourceUrl": "https://scholarships.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "csis-interest-subsidy",
+      "priority": 12,
+      "openToAll": true,
+      "name": "Central Sector Interest Subsidy Scheme (CSIS)",
+      "shortDescription": "Full interest subsidy during moratorium period on educational loans for economically weaker sections.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Education",
+      "type": "Interest Subsidy",
+      "benefit": {
+        "type": "interest_subsidy",
+        "amount": 40000,
+        "description": "100% interest waiver during course period plus 1 year on IBA-approved education loans.",
+        "directAmount": 0,
+        "costAvoidedAmount": 40000,
+        "financingAmount": 0,
+        "components": [
+          "Full interest subsidy during moratorium period (course duration + 1 year)",
+          "Applicable for technical & professional courses in India"
+        ]
+      },
+      "eligibility": {
+        "incomeMax": 450000,
+        "goalsAny": [
+          "Subsidised loans",
+          "Education support"
+        ],
+        "requiresAdmission": true,
+        "requiresLoanPlan": true
+      },
+      "verificationNotes": [
+        "Income ceiling is ₹4.5 lakh. Applied directly through the lending bank via Canara Bank portal."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Income Certificate from Authorized Authority (≤ ₹4.5L)",
+          "status": "attention"
+        },
+        {
+          "name": "Education Loan Sanction Letter",
+          "status": "attention"
+        }
+      ],
+      "deadline": "Rolling Bank Scheme",
+      "applicationUrl": "https://www.canarabank.com/csis/",
+      "sourceName": "Ministry of Education / Canara Bank Nodal",
+      "sourceUrl": "https://www.education.gov.in/higher_education",
+      "lastVerified": "2026-08-23",
+      "status": "verify"
+    },
+    {
+      "id": "aicte-saksham",
+      "priority": 13,
+      "name": "AICTE Saksham Scholarship for Specially Abled Students",
+      "shortDescription": "Scholarship for specially abled students (disability ≥ 40%) admitted to AICTE-approved technical degrees.",
+      "governmentLevel": "Central",
+      "department": "All India Council for Technical Education (AICTE)",
+      "type": "Scholarship",
+      "benefit": {
+        "type": "cash",
+        "amount": 50000,
+        "description": "₹50,000 per annum towards college fee, books, equipment and software.",
+        "directAmount": 50000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "₹50,000 annual scholarship for every year of technical study",
+          "Disbursed through NSP portal via Direct Benefit Transfer"
+        ]
+      },
+      "eligibility": {
+        "disabilityRequired": true,
+        "currentStudent": true,
+        "incomeMax": 800000,
+        "educationMinRank": 2,
+        "goalsAny": [
+          "Scholarships",
+          "Education support"
+        ]
+      },
+      "verificationNotes": [
+        "Requires unique disability ID (UDID) or medical board certificate with ≥ 40% disability."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Disability Certificate (UDID Card)",
+          "status": "attention"
+        },
+        {
+          "name": "AICTE Approved Institution Admission Proof",
+          "status": "attention"
+        },
+        {
+          "name": "Income Certificate (≤ ₹8 Lakh)",
+          "status": "attention"
+        }
+      ],
+      "deadline": "31 Oct 2026 on NSP",
+      "applicationUrl": "https://scholarships.gov.in/",
+      "sourceName": "National Scholarship Portal / AICTE",
+      "sourceUrl": "https://scholarships.gov.in/All-Scholarships",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "aicte-swanath",
+      "priority": 14,
+      "name": "AICTE Swanath Scholarship Scheme",
+      "shortDescription": "Financial assistance for orphans, children whose parents died of COVID-19, and wards of Armed Forces martyrs.",
+      "governmentLevel": "Central",
+      "department": "AICTE",
+      "type": "Scholarship",
+      "benefit": {
+        "type": "cash",
+        "amount": 50000,
+        "description": "₹50,000 per year throughout the technical diploma or degree program.",
+        "directAmount": 50000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "₹50,000 annual scholarship for eligible vulnerable students",
+          "No ceiling on the number of scholarships awarded"
+        ]
+      },
+      "eligibility": {
+        "currentStudent": true,
+        "incomeMax": 800000,
+        "educationMinRank": 2,
+        "goalsAny": [
+          "Scholarships",
+          "Education support"
+        ],
+        "specialCategoryRequired": "Swanath"
+      },
+      "verificationNotes": [
+        "Specific eligibility: orphan, parent deceased due to COVID, or martyr ward."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Death / Martyr Certificate / Orphanhood Proof",
+          "status": "attention"
+        },
+        {
+          "name": "AICTE College Admission Proof",
+          "status": "attention"
+        }
+      ],
+      "deadline": "31 Oct 2026 on NSP",
+      "applicationUrl": "https://scholarships.gov.in/",
+      "sourceName": "National Scholarship Portal",
+      "sourceUrl": "https://scholarships.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "aicte-pragati",
+      "priority": 15,
+      "name": "AICTE Pragati Scholarship for Girl Students",
+      "shortDescription": "Scholarship for girl students entering AICTE-approved technical degree or diploma courses.",
+      "governmentLevel": "Central",
+      "department": "AICTE / National Scholarship Portal",
+      "type": "Scholarship",
+      "benefit": {
+        "type": "cash",
+        "amount": 50000,
+        "description": "₹50,000 per year towards tuition fee and educational maintenance.",
+        "directAmount": 50000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "₹50,000 per annum for female technical engineering students",
+          "Up to 2 girls per family eligible"
+        ]
+      },
+      "eligibility": {
+        "genders": [
+          "Female"
+        ],
+        "currentStudent": true,
+        "incomeMax": 800000,
+        "educationMinRank": 2,
+        "goalsAny": [
+          "Scholarships",
+          "Education support"
+        ]
+      },
+      "verificationNotes": [
+        "Dedicated exclusively to female candidates admitted into AICTE technical courses."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "AICTE Approved College Admission Proof",
+          "status": "attention"
+        },
+        {
+          "name": "Family Income Certificate (≤ ₹8 Lakh)",
+          "status": "attention"
+        }
+      ],
+      "deadline": "31 Oct 2026 on NSP",
+      "applicationUrl": "https://scholarships.gov.in/",
+      "sourceName": "National Scholarship Portal / AICTE",
+      "sourceUrl": "https://scholarships.gov.in/All-Scholarships",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "naps-tech-apprenticeship",
+      "priority": 16,
+      "openToAll": true,
+      "name": "NAPS-2 Technology & IT Apprenticeship Pathway",
+      "shortDescription": "Industry on-the-job apprenticeship with direct government stipend support under NAPS.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Skill Development and Entrepreneurship",
+      "type": "Training",
+      "benefit": {
+        "type": "mixed",
+        "amount": 18000,
+        "description": "Earn-while-you-learn industry stipend with government share up to ₹1,500/month.",
+        "directAmount": 18000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "Direct on-the-job training at registered IT & tech enterprises",
+          "Government stipend co-funding up to 25% (₹1,500/month)",
+          "National Apprenticeship Certificate upon completion"
+        ]
+      },
+      "eligibility": {
+        "ageMin": 14,
+        "ageMax": 35,
+        "educationMinRank": 2,
+        "goalsAny": [
+          "Skill development",
+          "Free training",
+          "Employment opportunities"
+        ],
+        "interestsAny": [
+          "Technology",
+          "AI",
+          "Digital skills",
+          "Manufacturing"
+        ]
+      },
+      "verificationNotes": [
+        "Candidates apply to listed corporate apprenticeship vacancies across India."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Education Certificate",
+          "status": "ready"
+        },
+        {
+          "name": "Apprenticeship Portal Candidate Registration",
+          "status": "attention"
+        }
+      ],
+      "deadline": "Opportunity-based / Rolling",
+      "applicationUrl": "https://www.apprenticeshipindia.gov.in/",
+      "sourceName": "National Apprenticeship Training Portal",
+      "sourceUrl": "https://www.apprenticeshipindia.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pmegp-micro-enterprise",
+      "priority": 17,
+      "openToAll": true,
+      "name": "PMEGP Prime Minister Employment Generation Programme",
+      "shortDescription": "Credit-linked capital subsidy for setting up new micro-enterprises and technology startups.",
+      "governmentLevel": "Central",
+      "department": "Ministry of MSME / KVIC",
+      "type": "Entrepreneurship",
+      "benefit": {
+        "type": "mixed",
+        "amount": 500000,
+        "description": "Up to 25%–35% margin money government subsidy on project loans up to ₹50 Lakh.",
+        "directAmount": 0,
+        "costAvoidedAmount": 0,
+        "financingAmount": 2000000,
+        "components": [
+          "Margin money subsidy: 25% (urban general) to 35% (special category/minority/urban/rural)",
+          "Project cost up to ₹50 Lakh for manufacturing, ₹20 Lakh for service/tech",
+          "No income ceiling for new enterprise project assistance"
+        ]
+      },
+      "eligibility": {
+        "ageMin": 18,
+        "goalsAny": [
+          "Entrepreneurship",
+          "Employment opportunities"
+        ],
+        "requiresNewEnterprise": true
+      },
+      "verificationNotes": [
+        "Requires detailed project report (DPR) and bank sanction for new enterprise."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Detailed Project Report (DPR)",
+          "status": "attention"
+        },
+        {
+          "name": "Education Certificate (8th / Graduate)",
+          "status": "ready"
+        },
+        {
+          "name": "Special Category / Minority Proof for 35% subsidy",
+          "status": "attention"
+        }
+      ],
+      "deadline": "Online Portal Open All Year",
+      "applicationUrl": "https://pmegp.msme.gov.in/",
+      "sourceName": "PMEGP Portal / KVIC",
+      "sourceUrl": "https://pmegp.msme.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pm-jay-ayushman-bharat",
+      "priority": 18,
+      "name": "PM-JAY — Ayushman Bharat Health Insurance",
+      "shortDescription": "Cashless health insurance of up to ₹5 lakh per family per year for secondary and tertiary hospitalisation at empanelled hospitals.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Health & Family Welfare / NHA",
+      "type": "Health Insurance",
+      "category": "health",
+      "openToAll": false,
+      "benefit": {
+        "type": "insurance",
+        "amount": 500000,
+        "description": "₹5,00,000 per family per year — cashless hospitalisation at 25,000+ empanelled hospitals.",
+        "directAmount": 0,
+        "costAvoidedAmount": 500000,
+        "financingAmount": 0,
+        "components": [
+          "Cashless treatment up to ₹5 lakh/year",
+          "Covers pre & post-hospitalisation expenses",
+          "All pre-existing conditions covered from Day 1",
+          "Portable across India — use at any empanelled hospital",
+          "No premium payment required for beneficiaries"
+        ]
+      },
+      "eligibility": {
+        "incomeMax": 500000,
+        "goalsAny": [
+          "Health insurance"
+        ]
+      },
+      "requiresBPL": true,
+      "verificationNotes": [
+        "Eligibility verified via SECC 2011 database or state inclusion lists.",
+        "Download Ayushman card from pmjay.gov.in using Aadhaar."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Aadhaar Card / Family ID",
+          "status": "ready"
+        },
+        {
+          "name": "Ration Card / SECC / BPL Certificate",
+          "status": "attention",
+          "note": "Needed to confirm PMJAY beneficiary list inclusion"
+        }
+      ],
+      "deadline": "Always Open",
+      "applicationUrl": "https://pmjay.gov.in/",
+      "sourceName": "National Health Authority — PM-JAY",
+      "sourceUrl": "https://pmjay.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "esic-health-insurance",
+      "priority": 19,
+      "name": "ESIC — Employee State Insurance Corporation",
+      "shortDescription": "Comprehensive health insurance (medical, sickness, maternity, disability, death) for organised sector employees earning up to ₹21,000/month.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Labour & Employment / ESIC",
+      "type": "Health Insurance",
+      "category": "health",
+      "openToAll": false,
+      "benefit": {
+        "type": "insurance",
+        "amount": 0,
+        "description": "Full medical care for employee and family + 70% wage replacement during sickness + maternity benefits.",
+        "directAmount": 0,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "Full OPD, IPD, and specialist medical care for employee and dependants",
+          "Sickness benefit: 70% wages for up to 91 days/year",
+          "Maternity benefit: 26 weeks at full wages",
+          "Disablement and dependent's pension",
+          "Funeral expenses reimbursement"
+        ]
+      },
+      "eligibility": {
+        "goalsAny": [
+          "Health insurance",
+          "Employment opportunities"
+        ]
+      },
+      "requiresOrganizedWorker": true,
+      "verificationNotes": [
+        "Applicable to employees in ESI-covered establishments with monthly wage ≤ ₹21,000.",
+        "Employer registers the establishment; employee gets ESIC card."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Employment / Salary Proof",
+          "status": "attention",
+          "note": "Requires employer registration in ESIC portal"
+        },
+        {
+          "name": "Aadhaar Card",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Ongoing — employer registration required",
+      "applicationUrl": "https://esic.in/",
+      "sourceName": "ESIC Portal",
+      "sourceUrl": "https://esic.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pmgkay-free-food-grains",
+      "priority": 20,
+      "name": "PM Garib Kalyan Anna Yojana (Free Food Grains)",
+      "shortDescription": "5 kg free rice / wheat per person per month for all NFSA/Priority Household (PHH) and Antyodaya (AAY) ration card holders.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Food & Consumer Affairs",
+      "type": "Food Security",
+      "category": "food",
+      "openToAll": false,
+      "benefit": {
+        "type": "subsidy",
+        "amount": 12000,
+        "description": "5 kg free food grain per person per month (estimated ₹1,000+/month per family).",
+        "directAmount": 12000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "5 kg free rice or wheat per person/month",
+          "Delivered through fair price shops (PDS network)",
+          "Applicable to all NFSA beneficiaries (Priority + Antyodaya)",
+          "Portable ration via 'One Nation One Ration Card'"
+        ]
+      },
+      "eligibility": {
+        "incomeMax": 250000,
+        "goalsAny": [
+          "Food & ration support"
+        ]
+      },
+      "requiresBPL": true,
+      "verificationNotes": [
+        "Requires valid Priority Household (PHH) or Antyodaya Anna Yojana (AAY) ration card.",
+        "Beneficiary list maintained by state government Food department."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Ration Card (PHH / AAY)",
+          "status": "attention",
+          "note": "Must be enrolled in state ration card system"
+        },
+        {
+          "name": "Aadhaar seeding with ration card",
+          "status": "attention",
+          "note": "Required for biometric verification at PDS shop"
+        }
+      ],
+      "deadline": "Ongoing — monthly entitlement",
+      "applicationUrl": "https://nfsa.gov.in/",
+      "sourceName": "NFSA Portal",
+      "sourceUrl": "https://nfsa.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "nfsa-pds-ration",
+      "priority": 21,
+      "name": "National Food Security Act — PDS Ration Card",
+      "shortDescription": "Subsidised food grains (rice at ₹3/kg, wheat at ₹2/kg) for income-eligible families through the Public Distribution System.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Food & Consumer Affairs / State Civil Supplies",
+      "type": "Food Security",
+      "category": "food",
+      "openToAll": false,
+      "benefit": {
+        "type": "subsidy",
+        "amount": 6000,
+        "description": "Up to 35 kg subsidised grains/month per AAY family, or 5 kg per person for PHH.",
+        "directAmount": 0,
+        "costAvoidedAmount": 6000,
+        "financingAmount": 0,
+        "components": [
+          "Rice: ₹3/kg | Wheat: ₹2/kg | Coarse grains: ₹1/kg",
+          "Antyodaya (poorest families): 35 kg/month",
+          "Priority Household: 5 kg per member/month",
+          "State portability under One Nation One Ration Card"
+        ]
+      },
+      "eligibility": {
+        "incomeMax": 250000,
+        "goalsAny": [
+          "Food & ration support"
+        ]
+      },
+      "requiresBPL": true,
+      "verificationNotes": [
+        "Apply for new ration card at your state's civil supplies office or state portal.",
+        "Maharashtra: rcms.mahafood.gov.in"
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Proof of Address (domicile)",
+          "status": "ready"
+        },
+        {
+          "name": "Income Certificate / BPL proof",
+          "status": "attention",
+          "note": "State-wise income cap applies"
+        },
+        {
+          "name": "Family Aadhaar details",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Apply any time at civil supplies office",
+      "applicationUrl": "https://rcms.mahafood.gov.in/",
+      "sourceName": "NFSA / MahaFood Portal",
+      "sourceUrl": "https://nfsa.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pmay-urban",
+      "priority": 22,
+      "name": "PMAY-Urban — Pradhan Mantri Awas Yojana (Urban)",
+      "shortDescription": "Interest subsidy on home loans up to ₹2.67 lakh under Credit Linked Subsidy Scheme (CLSS) for EWS / LIG / MIG urban families without a pucca house.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Housing & Urban Affairs",
+      "type": "Housing",
+      "category": "housing",
+      "openToAll": false,
+      "benefit": {
+        "type": "subsidy",
+        "amount": 267000,
+        "description": "One-time credit-linked interest subsidy up to ₹2.67 lakh on home loan (EWS/LIG). MIG: up to ₹2.35 lakh.",
+        "directAmount": 0,
+        "costAvoidedAmount": 267000,
+        "financingAmount": 0,
+        "components": [
+          "EWS (income ≤ ₹3L): 6.5% interest subsidy on loan up to ₹6L",
+          "LIG (income ≤ ₹6L): 6.5% interest subsidy on loan up to ₹6L",
+          "MIG-I (income ≤ ₹12L): 4% on loan up to ₹9L",
+          "MIG-II (income ≤ ₹18L): 3% on loan up to ₹12L",
+          "Subsidy amount credited upfront to reduce EMI"
+        ]
+      },
+      "eligibility": {
+        "incomeMax": 1800000,
+        "goalsAny": [
+          "Housing subsidy"
+        ]
+      },
+      "verificationNotes": [
+        "Beneficiary family must not own a pucca house in India.",
+        "Female ownership / co-ownership preferred for EWS/LIG.",
+        "Apply through empanelled banks / housing finance companies."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Income Certificate / ITR",
+          "status": "attention"
+        },
+        {
+          "name": "Self-declaration of no pucca house",
+          "status": "attention"
+        },
+        {
+          "name": "Aadhaar Card",
+          "status": "ready"
+        },
+        {
+          "name": "Property / Sale agreement",
+          "status": "attention"
+        }
+      ],
+      "deadline": "Scheme ongoing — check pmaymis.gov.in for current sub-scheme",
+      "applicationUrl": "https://pmaymis.gov.in/",
+      "sourceName": "MoHUA / PMAY Urban Portal",
+      "sourceUrl": "https://pmaymis.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pmay-gramin",
+      "priority": 23,
+      "name": "PMAY-Gramin — Pradhan Mantri Awas Yojana (Rural)",
+      "shortDescription": "Direct financial assistance of ₹1.2–1.3 lakh for construction of a pucca house for houseless and kutcha house dwellers in rural areas.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Rural Development",
+      "type": "Housing",
+      "category": "housing",
+      "openToAll": false,
+      "benefit": {
+        "type": "grant",
+        "amount": 130000,
+        "description": "₹1.20 lakh (plains) / ₹1.30 lakh (hilly/NE states) direct cash grant for house construction.",
+        "directAmount": 130000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "₹1.2–1.3 lakh direct transfer for house construction",
+          "Additional ₹12,000 for sanitation (linked with SBM-G)",
+          "90–95 days MGNREGA labour entitlement for unskilled work",
+          "Free LPG connection under Ujjwala Yojana linkage"
+        ]
+      },
+      "eligibility": {
+        "goalsAny": [
+          "Housing subsidy"
+        ]
+      },
+      "requiresRuralResidence": true,
+      "verificationNotes": [
+        "Selected from SECC 2011 permanent wait-list (Awaas+) by Gram Panchayat.",
+        "Check your name on rhreporting.nic.in or contact Gram Sachiv."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "SECC / Awaas+ inclusion list verification",
+          "status": "attention"
+        },
+        {
+          "name": "Aadhaar-linked Bank Account",
+          "status": "ready"
+        },
+        {
+          "name": "No pucca house self-declaration",
+          "status": "attention"
+        }
+      ],
+      "deadline": "Allocated by Gram Panchayat — apply via Awaas+ App",
+      "applicationUrl": "https://rhreporting.nic.in/",
+      "sourceName": "Ministry of Rural Development / PMAY-G Portal",
+      "sourceUrl": "https://pmayg.nic.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pm-kisan",
+      "priority": 24,
+      "name": "PM-KISAN — Direct Income Support for Farmers",
+      "shortDescription": "₹6,000 per year in three instalments of ₹2,000 directly to the bank account of small & marginal farmer families.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Agriculture & Farmers' Welfare",
+      "type": "Agricultural Support",
+      "category": "agriculture",
+      "openToAll": false,
+      "benefit": {
+        "type": "cash",
+        "amount": 6000,
+        "description": "₹6,000/year (₹2,000 × 3 instalments) as income support — direct bank transfer.",
+        "directAmount": 6000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "₹2,000 per 4-month instalment (3 instalments/year)",
+          "Directly credited to Aadhaar-seeded bank account",
+          "No restriction on use of funds",
+          "Check status at pmkisan.gov.in"
+        ]
+      },
+      "eligibility": {
+        "goalsAny": [
+          "Agricultural support"
+        ]
+      },
+      "requiresFarmer": true,
+      "verificationNotes": [
+        "Family must own cultivable agricultural land.",
+        "Institutional land holders, former/current constitutional post holders and income-tax payees are excluded."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Land ownership records / Khata",
+          "status": "attention",
+          "note": "Khasra / Khatauni from revenue records required"
+        },
+        {
+          "name": "Aadhaar-linked Bank Account",
+          "status": "ready"
+        },
+        {
+          "name": "Mobile number linked to Aadhaar",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Always Open — register at pmkisan.gov.in",
+      "applicationUrl": "https://pmkisan.gov.in/",
+      "sourceName": "PM-KISAN Portal",
+      "sourceUrl": "https://pmkisan.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "kisan-credit-card",
+      "priority": 25,
+      "name": "Kisan Credit Card (KCC) — Agricultural Credit",
+      "shortDescription": "Short-term credit up to ₹3 lakh at 4% effective interest (7% with 3% GOI subvention) for crop cultivation, post-harvest, and allied activities.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Agriculture / NABARD / Commercial Banks",
+      "type": "Agricultural Support",
+      "category": "agriculture",
+      "openToAll": false,
+      "benefit": {
+        "type": "credit",
+        "amount": 300000,
+        "description": "Credit limit up to ₹3 lakh at just 4% per annum effective rate (after 3% interest subvention by GOI).",
+        "directAmount": 0,
+        "costAvoidedAmount": 0,
+        "financingAmount": 300000,
+        "components": [
+          "Revolving credit for crop production expenses",
+          "Interest subvention: 7% rate – 3% GOI subvention = 4% effective",
+          "Covers post-harvest, household needs, maintenance of assets",
+          "ATM-enabled RuPay debit card for withdrawals",
+          "Personal accident insurance of ₹50,000 included"
+        ]
+      },
+      "eligibility": {
+        "goalsAny": [
+          "Agricultural support"
+        ]
+      },
+      "requiresFarmer": true,
+      "verificationNotes": [
+        "Apply at nearest bank branch with land records.",
+        "No income / collateral required for credit up to ₹1.60 lakh."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Land Records / Khasra",
+          "status": "attention"
+        },
+        {
+          "name": "Photograph",
+          "status": "ready"
+        },
+        {
+          "name": "Identity Proof (Aadhaar)",
+          "status": "ready"
+        },
+        {
+          "name": "Address Proof",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Always Open at any bank branch",
+      "applicationUrl": "https://www.nabard.org/",
+      "sourceName": "NABARD / Your Bank Branch",
+      "sourceUrl": "https://www.nabard.org/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pm-fasal-bima",
+      "priority": 26,
+      "name": "PM Fasal Bima Yojana — Crop Insurance",
+      "shortDescription": "Comprehensive crop insurance against natural calamities, pests, and diseases at very low farmer-paid premium (2% Kharif, 1.5% Rabi, 5% commercial crops).",
+      "governmentLevel": "Central",
+      "department": "Ministry of Agriculture & Farmers' Welfare",
+      "type": "Agricultural Support",
+      "category": "agriculture",
+      "openToAll": false,
+      "benefit": {
+        "type": "insurance",
+        "amount": 0,
+        "description": "Up to full sum insured (as per state district notification) — covers yield loss, post-harvest, localised disasters.",
+        "directAmount": 0,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "Low farmer premium: 2% (Kharif), 1.5% (Rabi), 5% (horticulture)",
+          "Balance premium paid by Central + State Government",
+          "Covers standing crop, post-harvest losses, prevented sowing",
+          "Smart / remote sensing technology for faster claim settlement"
+        ]
+      },
+      "eligibility": {
+        "goalsAny": [
+          "Agricultural support"
+        ]
+      },
+      "requiresFarmer": true,
+      "verificationNotes": [
+        "Notified crops listed per district before sowing season.",
+        "KCC holders enrolled automatically; non-loanee farmers can opt-in."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Land Records / Khasra for the season",
+          "status": "attention"
+        },
+        {
+          "name": "Sowing certificate",
+          "status": "attention"
+        },
+        {
+          "name": "Bank account details",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Enroll before crop season cut-off at nearest bank / CSC",
+      "applicationUrl": "https://pmfby.gov.in/",
+      "sourceName": "PMFBY Portal",
+      "sourceUrl": "https://pmfby.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pm-ujjwala-lpg",
+      "priority": 27,
+      "name": "PM Ujjwala Yojana — Free LPG Connection",
+      "shortDescription": "Free LPG cooking gas connection + first cylinder + stove to BPL women. Refills at subsidised/market price with first-cylinder free.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Petroleum & Natural Gas",
+      "type": "Utilities",
+      "category": "utilities",
+      "openToAll": false,
+      "benefit": {
+        "type": "grant",
+        "amount": 3500,
+        "description": "Free LPG connection (deposit waiver ~₹1,600) + first refill + stove deposit waiver (total benefit ~₹3,500).",
+        "directAmount": 3500,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "Free LPG connection (security deposit waived)",
+          "First refill cylinder free of cost",
+          "Option for EMI-based repayment of stove / regulator",
+          "Subsidised refills via DBT thereafter"
+        ]
+      },
+      "eligibility": {
+        "genders": [
+          "Female"
+        ],
+        "goalsAny": [
+          "Utilities (LPG/power)"
+        ]
+      },
+      "requiresBPL": true,
+      "verificationNotes": [
+        "Apply at nearest LPG distributor (HP, Bharat Gas, Indane).",
+        "Must not already have an LPG connection in the household."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Aadhaar Card (woman applicant)",
+          "status": "ready"
+        },
+        {
+          "name": "Ration Card / BPL Certificate",
+          "status": "attention"
+        },
+        {
+          "name": "Bank account (for DBT subsidy)",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Apply at LPG distributor any time",
+      "applicationUrl": "https://www.pmuy.gov.in/",
+      "sourceName": "PM Ujjwala Yojana Portal",
+      "sourceUrl": "https://www.pmuy.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "saubhagya-electricity",
+      "priority": 28,
+      "name": "Saubhagya — Free Household Electricity Connection",
+      "shortDescription": "Free electricity connection for BPL households and ₹500 for APL households in rural and urban areas under PM Sahaj Bijli Har Ghar Yojana.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Power / State DISCOMs",
+      "type": "Utilities",
+      "category": "utilities",
+      "openToAll": false,
+      "benefit": {
+        "type": "grant",
+        "amount": 5000,
+        "description": "Free connection cost (estimated ₹4,000–5,000 for BPL households).",
+        "directAmount": 5000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "Free household electricity connection for BPL families",
+          "5 LED bulbs + 1 fan for solar-powered connections in off-grid areas",
+          "5-year repair & maintenance for solar units",
+          "APL households: ₹500 in 10 instalments via electricity bills"
+        ]
+      },
+      "eligibility": {
+        "goalsAny": [
+          "Utilities (LPG/power)"
+        ]
+      },
+      "requiresBPL": true,
+      "verificationNotes": [
+        "Contact local DISCOM/electricity board or nearest CSC.",
+        "Largely completed in most states — check connectivity status at saubhagya.gov.in."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Aadhaar Card",
+          "status": "ready"
+        },
+        {
+          "name": "Ration Card / BPL Certificate",
+          "status": "attention"
+        }
+      ],
+      "deadline": "Contact local electricity board / DISCOM",
+      "applicationUrl": "https://saubhagya.gov.in/",
+      "sourceName": "Saubhagya Portal / MoP",
+      "sourceUrl": "https://saubhagya.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "janani-suraksha-yojana",
+      "priority": 29,
+      "name": "Janani Suraksha Yojana — Safe Motherhood Cash Incentive",
+      "shortDescription": "Cash assistance of ₹1,400 (rural) / ₹1,000 (urban) to pregnant women delivering at government health facilities to promote institutional delivery.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Health & Family Welfare / NHM",
+      "type": "Women & Child",
+      "category": "women-child",
+      "openToAll": false,
+      "benefit": {
+        "type": "cash",
+        "amount": 1400,
+        "description": "₹1,400 cash for rural BPL pregnant women; ₹1,000 urban. ASHA gets ₹300 (rural) / ₹200 (urban) as performance incentive.",
+        "directAmount": 1400,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "₹1,400 cash assistance for rural BPL pregnant women",
+          "₹1,000 for urban BPL women delivering at govt facility",
+          "Covers all pregnancies (no restriction on birth order in low-performing states)",
+          "ASHA facilitator provides doorstep support"
+        ]
+      },
+      "eligibility": {
+        "genders": [
+          "Female"
+        ],
+        "goalsAny": [
+          "Women & child benefits",
+          "Health insurance"
+        ]
+      },
+      "requiresPregnant": true,
+      "verificationNotes": [
+        "Deliver at government health facility or accredited private hospital.",
+        "Register with ASHA worker or sub-centre early in pregnancy."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "MCH (Mother Child Health) Card",
+          "status": "attention",
+          "note": "Obtain from sub-centre / PHC at pregnancy registration"
+        },
+        {
+          "name": "Aadhaar / BPL card",
+          "status": "ready"
+        },
+        {
+          "name": "Bank account for direct transfer",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Register during pregnancy — delivery must be institutional",
+      "applicationUrl": "https://nhm.gov.in/",
+      "sourceName": "National Health Mission",
+      "sourceUrl": "https://nhm.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pmmvy-maternity-benefit",
+      "priority": 30,
+      "name": "PM Matru Vandana Yojana (PMMVY) — Maternity Benefit",
+      "shortDescription": "₹5,000 maternity benefit in two instalments for the first living child, and ₹6,000 for the second child if it's a girl — promoting early antenatal care.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Women & Child Development",
+      "type": "Women & Child",
+      "category": "women-child",
+      "openToAll": false,
+      "benefit": {
+        "type": "cash",
+        "amount": 5000,
+        "description": "₹5,000 in 2 instalments for first child; ₹6,000 one-time for second child (if girl).",
+        "directAmount": 5000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "1st instalment ₹3,000: on early pregnancy registration (within 150 days)",
+          "2nd instalment ₹2,000: after delivery and first vaccination",
+          "2nd child benefit ₹6,000: one-time if child is a girl",
+          "DBT direct to mother's bank account"
+        ]
+      },
+      "eligibility": {
+        "genders": [
+          "Female"
+        ],
+        "goalsAny": [
+          "Women & child benefits"
+        ]
+      },
+      "requiresPregnant": true,
+      "verificationNotes": [
+        "Apply via Anganwadi Centre or health sub-centre within 150 days of last menstrual period.",
+        "Available at pmmvy-cas.nic.in or WCD district office."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "MCP Card (Mother Child Protection)",
+          "status": "attention"
+        },
+        {
+          "name": "Aadhaar Card",
+          "status": "ready"
+        },
+        {
+          "name": "Bank Account Passbook",
+          "status": "ready"
+        },
+        {
+          "name": "Marriage Certificate / Pregnancy proof",
+          "status": "attention"
+        }
+      ],
+      "deadline": "Register within 150 days of last menstrual period",
+      "applicationUrl": "https://pmmvy-cas.nic.in/",
+      "sourceName": "PMMVY / WCD Ministry",
+      "sourceUrl": "https://pmmvy-cas.nic.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "sukanya-samriddhi-yojana",
+      "priority": 31,
+      "name": "Sukanya Samriddhi Yojana — Girl Child Savings Scheme",
+      "shortDescription": "High-interest (currently 8.2% p.a.) tax-free savings account for a girl child (below 10 years) with deduction under 80C. Matures after 21 years.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Finance / India Post / Banks",
+      "type": "Women & Child",
+      "category": "women-child",
+      "openToAll": false,
+      "benefit": {
+        "type": "savings",
+        "amount": 0,
+        "description": "8.2% p.a. interest (tax-free) — highest among small savings schemes. 80C tax benefit on deposits.",
+        "directAmount": 0,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "8.2% interest per annum (compounded yearly) — among highest safe savings rates",
+          "Income tax deduction up to ₹1.5L under Section 80C",
+          "Partial withdrawal (50%) allowed at age 18 for education",
+          "Minimum deposit ₹250/year, maximum ₹1.5L/year",
+          "Account matures after 21 years (or on marriage after 18)"
+        ]
+      },
+      "eligibility": {
+        "goalsAny": [
+          "Women & child benefits",
+          "Scholarships",
+          "Education support"
+        ]
+      },
+      "requiresYoungChildren": true,
+      "verificationNotes": [
+        "Parent / guardian opens account at Post Office or designated bank.",
+        "One account per girl child, max 2 accounts per family."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Girl child birth certificate",
+          "status": "attention"
+        },
+        {
+          "name": "Parent/Guardian Aadhaar & address proof",
+          "status": "ready"
+        },
+        {
+          "name": "Photographs (guardian + girl)",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Open before girl child turns 10 years of age",
+      "applicationUrl": "https://www.indiapost.gov.in/",
+      "sourceName": "India Post / Designated Banks",
+      "sourceUrl": "https://www.indiapost.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "mgnrega-job-card",
+      "priority": 32,
+      "name": "MGNREGA — Guaranteed Rural Employment Job Card",
+      "shortDescription": "100 days of guaranteed wage employment per household per year at government-notified wage rates (₹220–400/day depending on state) for rural adult workers.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Rural Development",
+      "type": "Employment",
+      "category": "employment",
+      "openToAll": false,
+      "benefit": {
+        "type": "wage",
+        "amount": 40000,
+        "description": "100 days guaranteed work per year at ~₹220–400/day (state-specific MGNREGA wage rate).",
+        "directAmount": 40000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "100 days guaranteed wage employment per household",
+          "Work allocated within 15 days of application or unemployment allowance",
+          "Wages deposited in bank / post office accounts",
+          "Additional days in drought / natural calamity notified years",
+          "Women: minimum 1/3rd participation mandated"
+        ]
+      },
+      "eligibility": {
+        "ageMin": 18,
+        "goalsAny": [
+          "Employment opportunities"
+        ]
+      },
+      "requiresRuralResidence": true,
+      "verificationNotes": [
+        "Enroll for Job Card at Gram Panchayat. Free of cost.",
+        "Demand work in writing to Gram Panchayat; work must start within 15 days."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Job Card Application (free at Gram Panchayat)",
+          "status": "attention"
+        },
+        {
+          "name": "Aadhaar Card",
+          "status": "ready"
+        },
+        {
+          "name": "Photograph",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Apply at Gram Panchayat any time",
+      "applicationUrl": "https://nrega.nic.in/",
+      "sourceName": "MGNREGA — Nrega.nic.in",
+      "sourceUrl": "https://nrega.nic.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pm-svanidhi-street-vendor",
+      "priority": 33,
+      "name": "PM SVANidhi — Street Vendor Micro-Credit Loan",
+      "shortDescription": "Collateral-free working capital loans of ₹10,000 → ₹20,000 → ₹50,000 for street vendors, with 7% interest subvention and digital transaction incentives.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Housing & Urban Affairs",
+      "type": "Employment",
+      "category": "employment",
+      "openToAll": false,
+      "benefit": {
+        "type": "credit",
+        "amount": 50000,
+        "description": "₹10,000 (Tier 1) → ₹20,000 (Tier 2) → ₹50,000 (Tier 3) collateral-free loan with 7% interest subvention.",
+        "directAmount": 0,
+        "costAvoidedAmount": 0,
+        "financingAmount": 50000,
+        "components": [
+          "Tier 1: ₹10,000 working capital loan",
+          "Tier 2: ₹20,000 (on timely repayment of Tier 1)",
+          "Tier 3: ₹50,000 (on timely repayment of Tier 2)",
+          "7% interest subvention via DBT (annual)",
+          "Cashback up to ₹100/month on digital transactions",
+          "Credit score building through repayment history"
+        ]
+      },
+      "eligibility": {
+        "goalsAny": [
+          "Entrepreneurship",
+          "Employment opportunities",
+          "Subsidised loans"
+        ]
+      },
+      "requiresStreetVendor": true,
+      "verificationNotes": [
+        "Requires vending certificate or Letter of Recommendation from ULB.",
+        "Apply at banks, MFIs, or pmsvanidhi.mohua.gov.in."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Vending Certificate / Letter of Recommendation from ULB",
+          "status": "attention",
+          "note": "Key eligibility document"
+        },
+        {
+          "name": "Aadhaar Card",
+          "status": "ready"
+        },
+        {
+          "name": "Bank Account",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Always Open — apply at pmsvanidhi.mohua.gov.in",
+      "applicationUrl": "https://pmsvanidhi.mohua.gov.in/",
+      "sourceName": "PM SVANidhi Portal / MoHUA",
+      "sourceUrl": "https://pmsvanidhi.mohua.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "startup-india-recognition",
+      "priority": 34,
+      "name": "Startup India — DPIIT Recognition & Benefits",
+      "shortDescription": "DPIIT startup recognition unlocking tax holidays (3 years), self-certification under labour & environment laws, relaxed IP filing fees (80% discount), and Startup India Seed Fund access.",
+      "governmentLevel": "Central",
+      "department": "DPIIT / Ministry of Commerce & Industry",
+      "type": "Employment",
+      "category": "employment",
+      "openToAll": true,
+      "benefit": {
+        "type": "regulatory",
+        "amount": 0,
+        "description": "3-year income tax holiday, 80% discount on IP fees, ₹20–50 lakh seed fund access (via SISFS).",
+        "directAmount": 0,
+        "costAvoidedAmount": 0,
+        "financingAmount": 5000000,
+        "components": [
+          "Income Tax exemption for 3 consecutive years (Section 80-IAC)",
+          "Capital gains tax exemption on investment (Section 54EE)",
+          "80% concession on patent, trademark filing fees",
+          "Self-certification under 9 Labour and 3 Environment laws",
+          "Startup India Seed Fund Scheme (SISFS): ₹20L–₹50L grant/loan"
+        ]
+      },
+      "eligibility": {
+        "ageMin": 18,
+        "goalsAny": [
+          "Entrepreneurship",
+          "Employment opportunities"
+        ]
+      },
+      "verificationNotes": [
+        "Startup must be incorporated/registered as Private Ltd, LLP, or Partnership.",
+        "Annual turnover should not exceed ₹100 crore for recognition eligibility."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Certificate of Incorporation / LLP Agreement",
+          "status": "attention",
+          "note": "Company must be registered first"
+        },
+        {
+          "name": "Brief pitch deck / business description",
+          "status": "attention"
+        },
+        {
+          "name": "PAN Card",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Always Open — apply at startupindia.gov.in",
+      "applicationUrl": "https://www.startupindia.gov.in/",
+      "sourceName": "Startup India Portal / DPIIT",
+      "sourceUrl": "https://www.startupindia.gov.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pm-shram-yogi-maan-dhan",
+      "priority": 35,
+      "name": "PM Shram Yogi Maan-dhan — Unorganized Worker Pension",
+      "shortDescription": "₹3,000/month assured pension at age 60 for unorganized sector workers (aged 18–40) contributing ₹55–₹200/month matched equally by Government.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Labour & Employment",
+      "type": "Pension",
+      "category": "pension",
+      "openToAll": false,
+      "benefit": {
+        "type": "pension",
+        "amount": 36000,
+        "description": "₹3,000/month (₹36,000/year) guaranteed pension starting at age 60. Government co-contributes equal amount.",
+        "directAmount": 36000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "₹3,000/month guaranteed pension from age 60",
+          "Government matches your contribution 1:1",
+          "Monthly contribution: ₹55 (age 18) to ₹200 (age 40)",
+          "Family pension: 50% to spouse on subscriber's death",
+          "Enroll through CSC / bank with savings account"
+        ]
+      },
+      "eligibility": {
+        "ageMin": 18,
+        "ageMax": 40,
+        "goalsAny": [
+          "Pension & retirement",
+          "Employment opportunities"
+        ]
+      },
+      "requiresUnorganizedWorker": true,
+      "verificationNotes": [
+        "Not eligible if covered by EPFO/ESIC/NPS or income-tax payer.",
+        "Monthly income from unorganized work should be ≤ ₹15,000."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Aadhaar Card",
+          "status": "ready"
+        },
+        {
+          "name": "Savings Bank Account / Jan Dhan Account",
+          "status": "ready"
+        },
+        {
+          "name": "Mobile number",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Always Open — enroll at CSC or maandhan.in",
+      "applicationUrl": "https://maandhan.in/",
+      "sourceName": "PM-SYM / Maandhan Portal",
+      "sourceUrl": "https://maandhan.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "atal-pension-yojana",
+      "priority": 36,
+      "name": "Atal Pension Yojana (APY) — Guaranteed Pension for All",
+      "shortDescription": "Guaranteed monthly pension of ₹1,000–₹5,000 after age 60 for citizens aged 18–40 contributing a fixed amount. Government co-contributed 50% for first 5 years for eligible subscribers.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Finance / PFRDA",
+      "type": "Pension",
+      "category": "pension",
+      "openToAll": true,
+      "benefit": {
+        "type": "pension",
+        "amount": 60000,
+        "description": "₹1,000–₹5,000/month guaranteed pension at 60. Choose your pension level when joining.",
+        "directAmount": 60000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "₹1,000 to ₹5,000/month guaranteed pension — citizen chooses level",
+          "Spouse receives same pension on subscriber's death",
+          "Nominee receives corpus (₹1.7L–₹8.5L) on both deaths",
+          "Income tax benefit under Section 80CCD",
+          "Join through any bank's savings account"
+        ]
+      },
+      "eligibility": {
+        "ageMin": 18,
+        "ageMax": 40,
+        "goalsAny": [
+          "Pension & retirement"
+        ]
+      },
+      "verificationNotes": [
+        "Must have a savings bank account and not be an income tax payer (for full GOI co-contribution).",
+        "Available at all banks — just walk in with Aadhaar & mobile number."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Aadhaar Card",
+          "status": "ready"
+        },
+        {
+          "name": "Savings Bank Account",
+          "status": "ready"
+        },
+        {
+          "name": "Mobile number",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Always Open — apply at any bank",
+      "applicationUrl": "https://www.npscra.nsdl.co.in/",
+      "sourceName": "PFRDA / NPS / Atal Pension Yojana",
+      "sourceUrl": "https://www.npscra.nsdl.co.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pm-kisan-maan-dhan",
+      "priority": 37,
+      "name": "PM Kisan Maan-dhan — Farmer Pension Scheme",
+      "shortDescription": "₹3,000/month guaranteed pension at age 60 for small & marginal farmers aged 18–40, contributing ₹55–₹200/month matched equally by Government.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Agriculture & Farmers' Welfare",
+      "type": "Pension",
+      "category": "pension",
+      "openToAll": false,
+      "benefit": {
+        "type": "pension",
+        "amount": 36000,
+        "description": "₹3,000/month pension at 60 — Government co-contributes equal amount as farmer.",
+        "directAmount": 36000,
+        "costAvoidedAmount": 0,
+        "financingAmount": 0,
+        "components": [
+          "₹3,000/month guaranteed pension after age 60",
+          "Government matches contribution 1:1",
+          "Monthly contribution varies from ₹55 (age 18) to ₹200 (age 40)",
+          "Family pension: 50% to spouse",
+          "Directly linked to PM-KISAN — PM-KISAN instalment can be used for premium"
+        ]
+      },
+      "eligibility": {
+        "ageMin": 18,
+        "ageMax": 40,
+        "goalsAny": [
+          "Pension & retirement",
+          "Agricultural support"
+        ]
+      },
+      "requiresFarmer": true,
+      "verificationNotes": [
+        "Must be a small or marginal farmer (≤ 2 hectares cultivable land).",
+        "Excluded if covered by any other statutory social security scheme."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Land Records / Khata",
+          "status": "attention"
+        },
+        {
+          "name": "Aadhaar Card",
+          "status": "ready"
+        },
+        {
+          "name": "Savings Bank Account",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Always Open — enroll at CSC or maandhan.in",
+      "applicationUrl": "https://maandhan.in/",
+      "sourceName": "PM Kisan Maandhan / Agriculture Ministry",
+      "sourceUrl": "https://maandhan.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "adip-disability-aids",
+      "priority": 38,
+      "name": "ADIP Scheme — Free Assistive Devices for Divyangjan",
+      "shortDescription": "Free or subsidised assistive devices (wheelchairs, hearing aids, artificial limbs, Braille kits, smart canes, etc.) for persons with benchmark disability and income up to ₹20,000/month.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Social Justice & Empowerment / ALIMCO",
+      "type": "Disability Support",
+      "category": "disability",
+      "openToAll": false,
+      "benefit": {
+        "type": "device",
+        "amount": 30000,
+        "description": "Free assistive devices worth ₹5,000–₹30,000+ depending on type (wheelchair, hearing aid, artificial limb, etc.).",
+        "directAmount": 0,
+        "costAvoidedAmount": 30000,
+        "financingAmount": 0,
+        "components": [
+          "Free wheelchair (manual / motorised for severe disability)",
+          "Free hearing aid (digital BTE for hearing impairment)",
+          "Artificial limb / caliper / tricycle",
+          "Braille kits, magnifiers for visual impairment",
+          "Smart cane for blind persons",
+          "Devices distributed at assessment / fitment camps by ALIMCO"
+        ]
+      },
+      "eligibility": {
+        "goalsAny": [
+          "Health insurance",
+          "Employment opportunities"
+        ]
+      },
+      "requiresDisability": true,
+      "verificationNotes": [
+        "Disability must be ≥40% (benchmark disability certificate required).",
+        "Income must be ≤ ₹20,000/month (family income for dependent).",
+        "Assessment camps organized by ALIMCO at district level."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Disability Certificate (≥40% benchmark)",
+          "status": "attention",
+          "note": "Issued by CMHO / district disability board"
+        },
+        {
+          "name": "Income Certificate",
+          "status": "attention"
+        },
+        {
+          "name": "Aadhaar Card",
+          "status": "ready"
+        },
+        {
+          "name": "Photograph",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Apply at ALIMCO camps or district social welfare office",
+      "applicationUrl": "https://www.alimco.in/",
+      "sourceName": "ALIMCO / MoSJE",
+      "sourceUrl": "https://www.alimco.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    },
+    {
+      "id": "pm-mudra-yojana",
+      "priority": 39,
+      "name": "PM MUDRA Yojana — Micro-Units Development & Refinance",
+      "shortDescription": "Collateral-free institutional loans up to ₹10 lakh across Shishu (up to ₹50k), Kishore (₹50k–₹5L), and Tarun (₹5L–₹10L) for non-corporate micro/small enterprises.",
+      "governmentLevel": "Central",
+      "department": "Ministry of Finance / Department of Financial Services",
+      "type": "Loan",
+      "category": "employment",
+      "openToAll": true,
+      "benefit": {
+        "type": "credit",
+        "amount": 1000000,
+        "description": "Collateral-free business loan up to ₹10 lakh with flexible repayment terms through banks, NBFCs, and MFIs.",
+        "directAmount": 0,
+        "costAvoidedAmount": 0,
+        "financingAmount": 1000000,
+        "components": [
+          "Shishu: Loans up to ₹50,000 for early-stage micro-ventures",
+          "Kishore: Loans from ₹50,000 up to ₹5,00,000 for equipment & working capital",
+          "Tarun: Loans from ₹5,00,000 up to ₹10,00,000 for established small businesses",
+          "Zero collateral required — credit guarantee provided by GOI",
+          "MUDRA Card provided for cash credit transactions"
+        ]
+      },
+      "eligibility": {
+        "ageMin": 18,
+        "goalsAny": [
+          "Subsidised loans",
+          "Entrepreneurship",
+          "Employment opportunities"
+        ]
+      },
+      "verificationNotes": [
+        "Citizen must have a viable non-farm business or manufacturing/service proposal.",
+        "Apply through any commercial bank, RRB, Small Finance Bank, or udyamimitra.in portal."
+      ],
+      "requiredDocuments": [
+        {
+          "name": "Business Plan / Proposal",
+          "status": "attention"
+        },
+        {
+          "name": "Aadhaar Card & Identity Proof",
+          "status": "ready"
+        },
+        {
+          "name": "Bank Account Statement (last 6 months)",
+          "status": "ready"
+        }
+      ],
+      "deadline": "Always Open — apply at any bank or udyamimitra.in",
+      "applicationUrl": "https://www.udyamimitra.in/",
+      "sourceName": "MUDRA / Department of Financial Services",
+      "sourceUrl": "https://www.mudra.org.in/",
+      "lastVerified": "2026-08-23",
+      "status": "open"
+    }
+  ]
+}
