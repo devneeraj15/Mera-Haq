@@ -2029,6 +2029,75 @@ function formatMoney(amount) {
   return `₹${amount.toLocaleString("en-IN")}`;
 }
 
+// Documents typically available to UMANG-registered citizens via DigiLocker/UMANG
+const UMANG_VERIFIED_DOCUMENTS = [
+  "Aadhaar Card",
+  "PAN Card",
+  "Class 10 / Birth Certificate for Age Proof",
+  "Class 10 Marksheet",
+  "Class 12 Marksheet",
+  "Degree / B.Tech Certificate or Marksheet",
+  "Educational Qualification Certificate",
+  "Education Marksheet",
+  "Education Certificate",
+  "Degree Transcript & Marks Proof (> 65%)",
+  "Photograph",
+  "Valid Identity Proof (Government ID)",
+  "Identity Proof (Aadhaar)",
+  "Aadhaar Card & Identity Proof",
+  "Aadhaar Card (woman applicant)",
+  "Proof of Address (domicile)",
+  "Address Proof",
+  "Mobile number",
+  "Mobile number linked to Aadhaar",
+  "Family Aadhaar details",
+  "Parent/Guardian Aadhaar & address proof",
+  "Photographs (guardian + girl)",
+  "Aadhaar-linked Bank Account",
+  "Bank Account Passbook / Statement",
+  "Savings Bank Account",
+  "Savings Bank Account / Jan Dhan Account",
+  "Bank account for direct transfer",
+  "Bank account details",
+  "Bank Account",
+  "Bank Account Statement (last 6 months)",
+  "Aadhaar / BPL card",
+  "Saubhagya Aadhaar Card",
+  "Class 12 Marksheet with Board Percentile",
+];
+
+function getDocumentReadiness(opportunity) {
+  const docs = opportunity.requiredDocuments || [];
+  if (!docs.length) return { total: 0, ready: 0, percent: 100, readyDocs: [], pendingDocs: [] };
+  
+  const readyDocs = [];
+  const pendingDocs = [];
+  
+  docs.forEach((doc) => {
+    const docName = doc.name || doc;
+    const isUmangAvailable = UMANG_VERIFIED_DOCUMENTS.some((uDoc) => {
+      const lower1 = docName.toLowerCase();
+      const lower2 = uDoc.toLowerCase();
+      return lower1 === lower2 || lower1.includes(lower2) || lower2.includes(lower1);
+    });
+    const isMarkedReady = doc.status === "ready" || doc.status === "fetched";
+    
+    if (isUmangAvailable || isMarkedReady) {
+      readyDocs.push({ ...doc, source: isUmangAvailable ? "UMANG/DigiLocker" : "Profile" });
+    } else {
+      pendingDocs.push(doc);
+    }
+  });
+  
+  return {
+    total: docs.length,
+    ready: readyDocs.length,
+    percent: Math.round((readyDocs.length / docs.length) * 100),
+    readyDocs,
+    pendingDocs,
+  };
+}
+
 function evaluateOpportunity(opportunity, profile) {
   const checks = [];
   let hardFail = false;
@@ -2409,6 +2478,8 @@ function evaluateOpportunity(opportunity, profile) {
   const missingCriteria = checks.filter((c) => c.status === "missing" || c.status === "verify").map((c) => ({ label: c.label, required: c.required, note: c.note }));
   const failedCriteria = checks.filter((c) => c.status === "fail").map((c) => ({ label: c.label, reason: c.note || c.required }));
 
+  const docReadiness = getDocumentReadiness(opportunity);
+
   return {
     opportunity,
     status,
@@ -2422,6 +2493,7 @@ function evaluateOpportunity(opportunity, profile) {
     matchedCriteria,
     missingCriteria,
     failedCriteria,
+    docReadiness,
   };
 }
 
@@ -2433,6 +2505,10 @@ function getEvaluatedResults(profile) {
       const scoreA = order[a.status] || 2;
       const scoreB = order[b.status] || 2;
       if (scoreA !== scoreB) return scoreA - scoreB;
+      // Within same status, prioritize higher document readiness
+      const docA = a.docReadiness ? a.docReadiness.percent : 0;
+      const docB = b.docReadiness ? b.docReadiness.percent : 0;
+      if (docA !== docB) return docB - docA;
       return a.opportunity.priority - b.opportunity.priority;
     });
 }
@@ -3018,6 +3094,65 @@ function ProfileFlow() {
   const { profile, setProfile, navigate, loadDemoProfile } = useApp();
   const [showAdvancedDetails, setShowAdvancedDetails] = useState(false);
 
+  const LIFE_SITUATIONS = [
+    { key: "farmer", label: "👨\u200d🌾 Farmer / Agricultural", desc: "Own cultivable land" },
+    { key: "bpl-card", label: "📋 BPL Card Holder", desc: "Below poverty line" },
+    { key: "pwd", label: "🦽 PwD / Divyangjan", desc: "Benchmark disability ≥40%" },
+    { key: "pregnant", label: "🤰 Pregnant / Expecting", desc: "Maternity benefits" },
+    { key: "young-children", label: "👶 Young Children (0-6)", desc: "Child welfare schemes" },
+    { key: "street-vendor", label: "🛒 Street Vendor", desc: "Licensed / hawker ID" },
+    { key: "unorganized-worker", label: "👷 Unorganized Worker", desc: "Daily wage / informal" },
+    { key: "organized-worker", label: "🏢 Organized Sector", desc: "ESIC / PF registered" },
+  ];
+
+  const MOCK_PROFILES = {
+    student: {
+      name: "Priya Sharma", age: 19, gender: "Female", state: "Rajasthan",
+      locationType: "STATE", domicile: "Rajasthan", educationLevel: "12th",
+      course: "", currentStudent: true, employmentStatus: "Studying",
+      annualFamilyIncome: 200000, incomeBand: "Under ₹2.5 lakh",
+      category: "OBC", identityTags: ["OBC"], minority: "",
+      disability: false, residenceType: "Rural", apaarId: "", apaarVerified: false,
+      lifeSituation: [], interests: ["Technology"], goals: ["Scholarships", "Education support"],
+    },
+    farmer: {
+      name: "Ramesh Yadav", age: 42, gender: "Male", state: "Uttar Pradesh",
+      locationType: "STATE", domicile: "Uttar Pradesh", educationLevel: "10th",
+      course: "", currentStudent: false, employmentStatus: "Self-employed",
+      annualFamilyIncome: 150000, incomeBand: "Under ₹2.5 lakh",
+      category: "", identityTags: [], minority: "",
+      disability: false, residenceType: "Rural", apaarId: "", apaarVerified: false,
+      lifeSituation: ["farmer"], interests: [], goals: ["Agricultural support", "Subsidised loans"],
+    },
+    woman: {
+      name: "Anita Devi", age: 28, gender: "Female", state: "Bihar",
+      locationType: "STATE", domicile: "Bihar", educationLevel: "10th",
+      course: "", currentStudent: false, employmentStatus: "Looking for work",
+      annualFamilyIncome: 100000, incomeBand: "Under ₹2.5 lakh",
+      category: "SC", identityTags: ["SC"], minority: "",
+      disability: false, residenceType: "Rural", apaarId: "", apaarVerified: false,
+      lifeSituation: ["pregnant", "young-children"], interests: [], goals: ["Health insurance", "Food & ration support"],
+    },
+    pwd: {
+      name: "Vikram Singh", age: 25, gender: "Male", state: "Delhi (NCT)",
+      locationType: "UNION_TERRITORY", domicile: "Delhi (NCT)", educationLevel: "Bachelor's",
+      course: "B.A. Political Science", currentStudent: false, employmentStatus: "Looking for work",
+      annualFamilyIncome: 300000, incomeBand: "₹2.5–5 lakh",
+      category: "", identityTags: ["Person with Disability (PwD / Divyangjan)"], minority: "",
+      disability: true, residenceType: "Urban", apaarId: "", apaarVerified: false,
+      lifeSituation: ["pwd"], interests: ["Technology"], goals: ["Employment opportunities", "Skill development"],
+    },
+    senior: {
+      name: "Lakshmi Bai", age: 62, gender: "Female", state: "Tamil Nadu",
+      locationType: "STATE", domicile: "Tamil Nadu", educationLevel: "10th",
+      course: "", currentStudent: false, employmentStatus: "Looking for work",
+      annualFamilyIncome: 80000, incomeBand: "Under ₹2.5 lakh",
+      category: "", identityTags: [], minority: "",
+      disability: false, residenceType: "Rural", apaarId: "", apaarVerified: false,
+      lifeSituation: ["unorganized-worker"], interests: [], goals: ["Health insurance", "Food & ration support"],
+    },
+  };
+
   const toggleIdentity = (tag) => {
     if (tag === "None" || tag === "Prefer not to say") {
       setProfile({ identityTags: [tag], minority: "", category: "", disability: false });
@@ -3053,8 +3188,49 @@ function ProfileFlow() {
           </div>
         </div>
 
+        {/* Quick Mock Profile Loader */}
+        <div style={{ marginBottom: "20px", padding: "14px 18px", background: "rgba(37, 99, 235, 0.08)", border: "1px solid rgba(59, 130, 246, 0.2)", borderRadius: "var(--radius-md)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
+            <span style={{ fontSize: "14px" }}>🧪</span>
+            <strong style={{ fontSize: "13px", color: "#93c5fd" }}>Try a sample citizen profile:</strong>
+          </div>
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+            {[
+              { key: "student", label: "👩\u200d🎓 Priya (19, Student, Rajasthan)" },
+              { key: "farmer", label: "👨\u200d🌾 Ramesh (42, Farmer, UP)" },
+              { key: "woman", label: "🤰 Anita (28, BPL, Bihar)" },
+              { key: "pwd", label: "🦽 Vikram (25, PwD, Delhi)" },
+              { key: "senior", label: "👴 Lakshmi (62, Unorg. Worker, TN)" },
+            ].map(({ key, label }) => (
+              <button
+                key={key}
+                type="button"
+                className="chip-btn"
+                style={{ fontSize: "11.5px", padding: "5px 10px" }}
+                onClick={() => setProfile(MOCK_PROFILES[key])}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <form className="form-grid" onSubmit={handleSubmit}>
-          {/* 1. Age */}
+          {/* 1. Name */}
+          <div className="field">
+            <label htmlFor="profileName">Your Name</label>
+            <input
+              id="profileName"
+              className="input-control"
+              type="text"
+              placeholder="e.g. Neeraj, Priya, Ramesh"
+              value={profile.name === "Citizen" ? "" : (profile.name || "")}
+              onChange={(e) => setProfile({ name: e.target.value || "Citizen" })}
+            />
+            <span style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>Used for personalizing your opportunity report</span>
+          </div>
+
+          {/* 2. Age */}
           <div className="field">
             <label htmlFor="age">How old are you?</label>
             <input
@@ -3067,9 +3243,10 @@ function ProfileFlow() {
               value={profile.age ?? ""}
               onChange={(e) => setProfile({ age: e.target.value ? Number(e.target.value) : null })}
             />
+            <span style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>Most schemes have age brackets (18–35, 18–45, 60+)</span>
           </div>
 
-          {/* 2. Gender */}
+          {/* 3. Gender */}
           <div className="field">
             <label>Gender</label>
             <div className="gender-select-row">
@@ -3085,9 +3262,10 @@ function ProfileFlow() {
                 </button>
               ))}
             </div>
+            <span style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>Some schemes are gender-specific (e.g. AICTE Pragati for women)</span>
           </div>
 
-          {/* 3. State / Union Territory */}
+          {/* 4. State / Union Territory */}
           <div className="field full">
             <label htmlFor="state">Where are you based? (State / Union Territory)</label>
             <select
@@ -3114,11 +3292,12 @@ function ProfileFlow() {
                 ))}
               </optgroup>
             </select>
+            <span style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>State-specific schemes (MahaDBT, PMKUVA) require domicile match</span>
           </div>
 
-          {/* Optional Quick Context: Education */}
+          {/* 5. Highest Qualification */}
           <div className="field full">
-            <label>Highest Qualification <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 400 }}>(Optional)</span></label>
+            <label>Highest Qualification <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 400 }}>(Optional — unlocks education schemes)</span></label>
             <div className="chip-group">
               {["10th", "12th", "Diploma", "Bachelor's", "B.Tech / B.E.", "Master's"].map((lvl) => (
                 <button
@@ -3134,7 +3313,20 @@ function ProfileFlow() {
             </div>
           </div>
 
-          {/* Optional Quick Context: Activity */}
+          {/* 6. Course / Field of Study */}
+          <div className="field full">
+            <label htmlFor="course">Course / Field of Study <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 400 }}>(Optional)</span></label>
+            <input
+              id="course"
+              className="input-control"
+              type="text"
+              placeholder="e.g. Computer Engineering, B.A. Economics, MBBS, ITI Electrician"
+              value={profile.course || ""}
+              onChange={(e) => setProfile({ course: e.target.value })}
+            />
+          </div>
+
+          {/* 7. Current Status */}
           <div className="field full">
             <label>Current Status <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 400 }}>(Optional)</span></label>
             <div className="chip-group">
@@ -3147,6 +3339,49 @@ function ProfileFlow() {
                   aria-pressed={profile.employmentStatus === status ? "true" : "false"}
                 >
                   {status}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 8. Residence Type */}
+          <div className="field">
+            <label>Residence Type</label>
+            <div className="chip-group">
+              {["Urban", "Rural", "Semi-urban"].map((r) => (
+                <button
+                  key={r}
+                  className="chip-btn"
+                  type="button"
+                  onClick={() => setProfile({ residenceType: r })}
+                  aria-pressed={profile.residenceType === r ? "true" : "false"}
+                >
+                  {r === "Urban" ? "🏙️" : r === "Rural" ? "🌾" : "🏘️"} {r}
+                </button>
+              ))}
+            </div>
+            <span style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>PMAY-Gramin, MGNREGA require rural residence</span>
+          </div>
+
+          {/* 9. Life Situation Tags */}
+          <div className="field full">
+            <label>Life Situation <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 400 }}>(Select all that apply — unlocks targeted schemes)</span></label>
+            <div className="chip-group">
+              {LIFE_SITUATIONS.map(({ key, label, desc }) => (
+                <button
+                  key={key}
+                  className="chip-btn"
+                  type="button"
+                  onClick={() => {
+                    const current = profile.lifeSituation || [];
+                    const next = current.includes(key) ? current.filter((k) => k !== key) : [...current, key];
+                    const disabilityVal = key === "pwd" ? next.includes("pwd") : profile.disability;
+                    setProfile({ lifeSituation: next, disability: disabilityVal });
+                  }}
+                  aria-pressed={(profile.lifeSituation || []).includes(key) ? "true" : "false"}
+                  title={desc}
+                >
+                  {label}
                 </button>
               ))}
             </div>
@@ -3194,6 +3429,7 @@ function ProfileFlow() {
                       <option key={band.label} value={band.label}>{band.label}</option>
                     ))}
                   </select>
+                  <span style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>Income cap determines eligibility for PM-JAY (₹2.5L), NSP (₹4.5L), MahaDBT (₹8L)</span>
                 </div>
 
                 <div className="field full">
@@ -3211,6 +3447,7 @@ function ProfileFlow() {
                       </button>
                     ))}
                   </div>
+                  <span style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>SC/ST/OBC/EWS and Minority tags unlock reservation-based schemes</span>
                 </div>
 
                 {profile.identityTags?.includes("Minority community") && (
@@ -3226,6 +3463,7 @@ function ProfileFlow() {
                         <option key={c} value={c}>{c}</option>
                       ))}
                     </select>
+                    <span style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>Muslim, Christian, Sikh, Buddhist, Jain, Parsi are recognized under National Commission for Minorities Act</span>
                   </div>
                 )}
 
@@ -3440,6 +3678,32 @@ function OpportunityCard({ result }) {
       <div className="card-benefit-highlight">
         {opp.benefit.description}
       </div>
+
+      {/* Document Readiness from UMANG */}
+      {result.docReadiness && result.docReadiness.total > 0 && (
+        <div className="doc-readiness-strip">
+          <div className="doc-readiness-bar-bg">
+            <div
+              className="doc-readiness-bar-fill"
+              style={{ width: `${result.docReadiness.percent}%` }}
+            />
+          </div>
+          <div className="doc-readiness-info">
+            <span className="doc-readiness-icon">📄</span>
+            <span className="doc-readiness-text">
+              <strong>{result.docReadiness.ready}/{result.docReadiness.total}</strong> documents ready via UMANG
+            </span>
+            {result.docReadiness.percent === 100 && (
+              <span className="doc-readiness-badge">✅ Apply-Ready</span>
+            )}
+            {result.docReadiness.percent > 0 && result.docReadiness.percent < 100 && (
+              <span className="doc-readiness-pending">
+                {result.docReadiness.pendingDocs.length} pending
+              </span>
+            )}
+          </div>
+        </div>
+      )}
 
       <ul className="card-matched-criteria-list">
         {matchedBullets.map((c, i) => (
