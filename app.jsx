@@ -178,27 +178,35 @@ const demoProfile = {
 
 const blankProfile = {
   name: "Citizen",
-  age: null,
+  age: 23,
   gender: "Male",
   state: "Maharashtra",
   locationType: "STATE",
   domicile: "Maharashtra",
   educationLevel: "Bachelor's",
-  course: "",
+  course: "Computer Engineering",
   currentStudent: false,
   employmentStatus: "Working",
-  annualFamilyIncome: null,
-  incomeBand: "Prefer to check later",
+  annualFamilyIncome: 800000,
+  incomeBand: "₹5–8 lakh",
   category: "",
-  identityTags: [],
-  minority: "",
+  identityTags: ["Minority community"],
+  minority: "Jain",
   disability: false,
   residenceType: "Urban",
-  apaarId: "",
-  apaarVerified: false,
+  apaarId: "279903493988",
+  apaarVerified: true,
   lifeSituation: [],
-  interests: ["AI", "Technology"],
-  goals: ["Scholarships", "Free training", "Skill development"],
+  interests: ["AI", "Technology", "Product", "Skill development"],
+  goals: [
+    "Scholarships",
+    "Free training",
+    "Education support",
+    "Subsidised loans",
+    "Fellowships",
+    "Skill development",
+    "Entrepreneurship",
+  ],
 };
 
 // ============================================================================
@@ -3051,6 +3059,29 @@ function LandingView() {
             </div>
             <button className="btn btn-accent btn-sm" type="button" onClick={loadDemoProfile}>Launch Demo</button>
           </div>
+
+          {/* Live Platform Impact Stats */}
+          <div style={{ marginTop: "20px", padding: "16px 20px", background: "rgba(16, 185, 129, 0.05)", border: "1px solid rgba(16, 185, 129, 0.15)", borderRadius: "var(--radius-md)" }}>
+            <div style={{ fontSize: "11px", color: "#34d399", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "10px" }}>📊 Platform Impact (Mock Data)</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: "12px" }}>
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>39</div>
+                <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>Verified Schemes</div>
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontSize: "20px", fontWeight: 800, color: "#60a5fa" }}>12</div>
+                <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>Sectors Covered</div>
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontSize: "20px", fontWeight: 800, color: "#c084fc" }}>36</div>
+                <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>States & UTs</div>
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontSize: "20px", fontWeight: 800, color: "#fbbf24" }}>₹1.35L+</div>
+                <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>Avg. Citizen Value</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="hero-card-col">
@@ -3514,27 +3545,66 @@ function ProfileReview() {
 
         <div className="review-summary-grid">
           <div className="review-card">
-            <div className="review-card-label">Location & Age</div>
-            <div className="review-card-value">{profile.state || "Maharashtra"}, {profile.age || 23} yrs</div>
-            <div className="review-card-detail">{profile.gender || "Citizen"}</div>
+            <div className="review-card-label">👤 Citizen</div>
+            <div className="review-card-value">{profile.name || "Citizen"}, {profile.age || 23} yrs</div>
+            <div className="review-card-detail">{profile.gender || "Male"} • {profile.residenceType || "Urban"}</div>
           </div>
 
           <div className="review-card">
-            <div className="review-card-label">Education</div>
+            <div className="review-card-label">📍 Location</div>
+            <div className="review-card-value">{profile.state || "Maharashtra"}</div>
+            <div className="review-card-detail">{profile.locationType === "UNION_TERRITORY" ? "Union Territory" : "State"} • Domicile: {profile.domicile || profile.state || "Maharashtra"}</div>
+          </div>
+
+          <div className="review-card">
+            <div className="review-card-label">🎓 Education</div>
             <div className="review-card-value">{profile.educationLevel || "Bachelor's"}</div>
-            <div className="review-card-detail">{profile.course || "General"}</div>
+            <div className="review-card-detail">{profile.course || "General"} • {profile.currentStudent ? "Currently studying" : "Graduated / Professional"}</div>
           </div>
 
           <div className="review-card">
-            <div className="review-card-label">Employment</div>
+            <div className="review-card-label">💼 Employment</div>
             <div className="review-card-value">{profile.employmentStatus || "Working"}</div>
-            <div className="review-card-detail">{profile.currentStudent ? "Currently studying" : "Graduated / Professional"}</div>
+            <div className="review-card-detail">{profile.currentStudent ? "Currently studying" : "In workforce"}</div>
           </div>
 
           <div className="review-card">
-            <div className="review-card-label">Community & Identity</div>
+            <div className="review-card-label">💰 Family Income</div>
+            <div className="review-card-value">{profile.incomeBand || "Not specified"}</div>
+            <div className="review-card-detail">{profile.annualFamilyIncome ? `₹${(profile.annualFamilyIncome / 100000).toFixed(1)}L per annum` : "Income not provided — some schemes may show as Potential Match"}</div>
+          </div>
+
+          <div className="review-card">
+            <div className="review-card-label">🏷 Community & Identity</div>
             <div className="review-card-value">{profile.minority || profile.category || "General"}</div>
-            <div className="review-card-detail">{(profile.identityTags || []).join(", ") || "None"}</div>
+            <div className="review-card-detail">{(profile.identityTags || []).join(", ") || "None specified"}{profile.disability ? " • PwD/Divyangjan" : ""}</div>
+          </div>
+        </div>
+
+        {/* Life Situation Tags */}
+        {(profile.lifeSituation || []).length > 0 && (
+          <div style={{ marginTop: "16px", padding: "14px 18px", background: "rgba(37, 99, 235, 0.06)", border: "1px solid rgba(59, 130, 246, 0.15)", borderRadius: "var(--radius-md)" }}>
+            <div style={{ fontSize: "12px", color: "#93c5fd", fontWeight: 600, marginBottom: "6px" }}>🏷 Life Situation Tags</div>
+            <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+              {profile.lifeSituation.map((ls) => (
+                <span key={ls} style={{ fontSize: "12px", padding: "3px 10px", background: "rgba(99, 102, 241, 0.15)", border: "1px solid rgba(99, 102, 241, 0.3)", borderRadius: "var(--radius-pill)", color: "#a5b4fc" }}>{ls}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* APAAR / DigiLocker Status */}
+        <div style={{ marginTop: "16px", padding: "14px 18px", background: profile.apaarVerified ? "rgba(16, 185, 129, 0.06)" : "rgba(251, 191, 36, 0.06)", border: `1px solid ${profile.apaarVerified ? "rgba(16, 185, 129, 0.2)" : "rgba(251, 191, 36, 0.2)"}`, borderRadius: "var(--radius-md)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <span style={{ fontSize: "16px" }}>{profile.apaarVerified ? "✅" : "⚠️"}</span>
+            <div>
+              <div style={{ fontSize: "13px", fontWeight: 600, color: profile.apaarVerified ? "#34d399" : "#fbbf24" }}>
+                {profile.apaarVerified ? `DigiLocker Linked — APAAR ID: ${profile.apaarId}` : "DigiLocker Not Linked"}
+              </div>
+              <div style={{ fontSize: "11.5px", color: "var(--text-muted)", marginTop: "2px" }}>
+                {profile.apaarVerified ? "Documents like Aadhaar, PAN, marksheets, and degree certificates can be auto-fetched for application readiness." : "Link DigiLocker to auto-verify documents and boost application readiness scores."}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -3556,7 +3626,7 @@ function ProfileReview() {
 }
 
 function MatchingRadar() {
-  const { navigate } = useApp();
+  const { navigate, profile } = useApp();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -3576,8 +3646,8 @@ function MatchingRadar() {
         </div>
 
         <span className="eyebrow-badge"><span className="dot"></span>Deterministic Engine Active</span>
-        <h2 className="page-title">Finding opportunities for you...</h2>
-        <p className="page-subtitle">Evaluating published eligibility parameters across national and state systems.</p>
+        <h2 className="page-title">Finding opportunities for {profile.name || "you"}...</h2>
+        <p className="page-subtitle">Evaluating published eligibility parameters for a {profile.age || 23}-year-old {profile.gender || "Male"} citizen in {profile.state || "Maharashtra"} with {profile.educationLevel || "Bachelor's"} qualification.</p>
 
         <div className="matching-progress-bar">
           <div className="matching-progress-fill"></div>
@@ -3586,20 +3656,32 @@ function MatchingRadar() {
         <ul className="matching-checklist">
           <li className="matching-check-item">
             <div className="check-spinner"></div>
-            <span>Checking Central Government & Ministries (Minority Affairs, MSDE, MoE)...</span>
+            <span>Scanning Central Government & Ministries (Minority Affairs, MSDE, MoE, MoHFW, MoRD)...</span>
           </li>
           <li className="matching-check-item">
             <div className="check-spinner"></div>
-            <span>Checking Maharashtra Government portals (MahaDBT, MSSDS, DTE)...</span>
+            <span>Scanning {profile.state || "Maharashtra"} State portals ({profile.state === "Maharashtra" ? "MahaDBT, MSSDS, DTE" : profile.state === "Uttar Pradesh" ? "SSPY, PFMS" : profile.state === "Bihar" ? "RTPS, e-Kalyan" : profile.state === "Rajasthan" ? "SSO, e-Mitra" : "State DBT, e-Services"})...</span>
           </li>
           <li className="matching-check-item">
             <div className="check-spinner"></div>
-            <span>Checking premier institutions (IIT Dharwad, AICTE)...</span>
+            <span>Checking premier institutions (IIT Dharwad, AICTE, UGC, Skill India Digital Hub)...</span>
           </li>
           <li className="matching-check-item">
             <div className="check-spinner"></div>
-            <span>Mapping free training, scholarships, subsidies, and fee waivers...</span>
+            <span>Mapping scholarships, free training, subsidies, health insurance & housing for {profile.incomeBand || "your income bracket"}...</span>
           </li>
+          {profile.apaarVerified && (
+            <li className="matching-check-item">
+              <div className="check-spinner"></div>
+              <span>Cross-referencing UMANG/DigiLocker documents (APAAR ID: {profile.apaarId}) for application readiness...</span>
+            </li>
+          )}
+          {profile.minority && (
+            <li className="matching-check-item">
+              <div className="check-spinner"></div>
+              <span>Checking {profile.minority} minority community schemes (MOMA, NCM, State Minority Commission)...</span>
+            </li>
+          )}
         </ul>
 
         <div style={{ marginTop: "24px" }}>
@@ -3842,6 +3924,7 @@ function ProgressiveEnrichmentModal({ onClose }) {
                 </button>
               ))}
             </div>
+            <span style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px", display: "block" }}>Unlocks: AICTE Saksham, NSP CSSS, IIT programs, and education-specific scholarships</span>
           </div>
 
           {/* Question 2: Income */}
@@ -3860,6 +3943,7 @@ function ProgressiveEnrichmentModal({ onClose }) {
                 <option key={band.label} value={band.label}>{band.label}</option>
               ))}
             </select>
+            <span style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px", display: "block" }}>Key thresholds: ₹2.5L (BPL/PM-JAY), ₹4.5L (NSP/CSSS), ₹8L (MahaDBT/Rajarshi Shahu)</span>
           </div>
 
           {/* Question 3: Minority community */}
@@ -3882,6 +3966,7 @@ function ProgressiveEnrichmentModal({ onClose }) {
                 <option key={c} value={c}>{c}</option>
               ))}
             </select>
+            <span style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "4px", display: "block" }}>Unlocks: Minority Merit-cum-Means Scholarship, PM-VIKAS IIT fellowship, MahaDBT Minority Professional Support</span>
           </div>
 
           <div className="field full" style={{ marginTop: "16px", display: "flex", gap: "10px", justifyContent: "flex-end" }}>
@@ -4687,8 +4772,16 @@ function HandoffModal() {
 
           <ul className="modal-detail-list">
             <li><strong>Opportunity:</strong> {opp.name}</li>
+            <li><strong>Department:</strong> {opp.department} ({opp.governmentLevel} Government)</li>
+            <li><strong>Type:</strong> {opp.type}</li>
             <li><strong>Destination:</strong> {opp.sourceName}</li>
+            <li><strong>Benefit:</strong> {opp.benefit?.description || "See official portal"}</li>
             <li><strong>Application Deadline:</strong> {opp.deadline || "Verify on official portal"}</li>
+            <li><strong>Your Profile:</strong> {profile.name || "Citizen"}, {profile.age || 23} yrs, {profile.state || "Maharashtra"}</li>
+            <li><strong>Match Status:</strong> {result.status === "LIKELY_ELIGIBLE" ? "✅ Likely Eligible" : result.status === "POTENTIAL_MATCH" ? "⚡ Potential Match" : "Check on portal"}</li>
+            {result.docReadiness && (
+              <li><strong>Document Readiness:</strong> 📄 {result.docReadiness.ready}/{result.docReadiness.total} documents ready via UMANG{result.docReadiness.percent === 100 ? " — ✅ Apply-Ready" : ""}</li>
+            )}
           </ul>
 
           <p style={{ fontSize: "12.5px", color: "var(--text-muted)" }}>
@@ -4733,12 +4826,30 @@ function SavedOpportunities() {
           </div>
         ) : (
           <div style={{ textAlign: "center", padding: "48px 20px" }}>
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5" style={{ marginBottom: "14px" }}>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="1.5" style={{ marginBottom: "14px" }}>
               <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
             </svg>
             <h3 style={{ color: "#ffffff" }}>No saved opportunities yet</h3>
             <p style={{ color: "var(--text-muted)", margin: "8px 0 24px" }}>Explore your matched map and bookmark programs to track their deadlines.</p>
-            <a className="btn btn-primary" href="#/mera-haq/opportunities">View Matched Opportunities</a>
+
+            {/* Mock Suggested Opportunities to Save */}
+            <div style={{ textAlign: "left", marginTop: "20px", padding: "16px 20px", background: "rgba(99, 102, 241, 0.06)", border: "1px solid rgba(99, 102, 241, 0.15)", borderRadius: "var(--radius-md)" }}>
+              <div style={{ fontSize: "12px", color: "#a5b4fc", fontWeight: 600, marginBottom: "10px" }}>💡 Suggested opportunities to bookmark:</div>
+              {[
+                { name: "IIT Dharwad AI Technocrat Program", type: "Fellowship", benefit: "₹12,000 annual stipend + free AI training" },
+                { name: "PM Vidya Laxmi Education Loan", type: "Education Support", benefit: "Up to ₹10L collateral-free education loan" },
+                { name: "Maharashtra PMKUVA Skill Training", type: "Training", benefit: "100% free skill training + placement support" },
+              ].map((item, i) => (
+                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: i < 2 ? "1px solid var(--border-subtle)" : "none" }}>
+                  <div>
+                    <div style={{ fontSize: "13px", color: "#e2e8f0", fontWeight: 600 }}>{item.name}</div>
+                    <div style={{ fontSize: "11.5px", color: "var(--text-muted)" }}>{item.type} • {item.benefit}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <a className="btn btn-primary" href="#/mera-haq/opportunities" style={{ marginTop: "20px" }}>View Matched Opportunities</a>
           </div>
         )}
       </div>
@@ -5125,10 +5236,12 @@ function AiCopilotDrawer() {
 
   useEffect(() => {
     if (opp) {
+      const result = getResultById(opp.id, profile);
+      const docInfo = result && result.docReadiness ? `I see you have ${result.docReadiness.ready}/${result.docReadiness.total} required documents ready via UMANG/DigiLocker.` : "";
       setMessages([
         {
           sender: "assistant",
-          text: `Namaste ${profile.name || "Citizen"}! I am your UMANG AI Scheme Counselor for ${opp.name}. I have analyzed your profile (${profile.age || 23} yrs, ${profile.course || profile.educationLevel}, ${profile.state || "Maharashtra"}). How can I assist you with your application today?`,
+          text: `Namaste ${profile.name || "Citizen"}! 🙏\n\nI am your UMANG AI Scheme Counselor for **${opp.name}**.\n\n📋 Profile Summary: ${profile.age || 23} yrs, ${profile.gender || "Male"}, ${profile.state || "Maharashtra"}, ${profile.educationLevel || "Bachelor's"}${profile.course ? ` (${profile.course})` : ""}, ${profile.employmentStatus || "Working"}${profile.minority ? `, ${profile.minority} minority` : ""}${profile.incomeBand && profile.incomeBand !== "Prefer to check later" ? `, Income: ${profile.incomeBand}` : ""}.\n\n${docInfo}\n\nHow can I help you with your application today? You can ask about eligibility criteria, required documents, application deadlines, or benefit amounts.`,
         },
       ]);
     }
@@ -5168,7 +5281,7 @@ function AiCopilotDrawer() {
         </div>
 
         <div style={{ padding: "10px 16px", background: "rgba(99, 102, 241, 0.1)", borderBottom: "1px solid var(--border-subtle)", fontSize: "12px", color: "#a5b4fc" }}>
-          Target: <strong>{opp.name}</strong> • Department: {opp.department}
+          Target: <strong>{opp.name}</strong> • Department: {opp.department} • {opp.governmentLevel} Govt.
         </div>
 
         <div className="ai-copilot-messages">
@@ -5186,10 +5299,12 @@ function AiCopilotDrawer() {
 
         <div style={{ padding: "0 16px 8px" }}>
           <div className="ai-prompt-chips-row">
-            <button className="ai-prompt-chip" type="button" onClick={() => handleSend("What documents do I need from DigiLocker?")}>📄 DigiLocker documents?</button>
+            <button className="ai-prompt-chip" type="button" onClick={() => handleSend("What documents do I need from DigiLocker?")}>📄 DigiLocker docs?</button>
             <button className="ai-prompt-chip" type="button" onClick={() => handleSend(`How does my ${profile.course || profile.educationLevel} degree qualify me?`)}>🎓 Degree match?</button>
             <button className="ai-prompt-chip" type="button" onClick={() => handleSend("Will money be sent via direct DBT?")}>💰 Stipend / Cash DBT?</button>
             <button className="ai-prompt-chip" type="button" onClick={() => handleSend("When is the application deadline?")}>⏱ Deadline?</button>
+            <button className="ai-prompt-chip" type="button" onClick={() => handleSend("Am I eligible as a " + (profile.minority || "general") + " category citizen?")}>🏷 Category eligibility?</button>
+            <button className="ai-prompt-chip" type="button" onClick={() => handleSend("What is the step-by-step application process?")}>📝 Application steps?</button>
           </div>
         </div>
 
@@ -5197,7 +5312,7 @@ function AiCopilotDrawer() {
           <input
             className="ai-copilot-input"
             type="text"
-            placeholder="Ask anything about eligibility, stipend, hostel..."
+            placeholder={`Ask anything about ${opp.name}...`}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
           />
