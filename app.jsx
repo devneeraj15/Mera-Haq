@@ -177,7 +177,7 @@ const demoProfile = {
 };
 
 const blankProfile = {
-  name: "Citizen",
+  name: "Neeraj",
   age: 23,
   gender: "Male",
   state: "Maharashtra",
@@ -2683,7 +2683,14 @@ function AppProvider({ children }) {
   const [profile, setProfileState] = useState(() => {
     try {
       const raw = localStorage.getItem(STORAGE_PROFILE);
-      return raw ? { ...blankProfile, ...JSON.parse(raw) } : { ...demoProfile };
+      const parsed = raw ? JSON.parse(raw) : null;
+      if (parsed) {
+        if (!parsed.name || parsed.name === "Citizen") parsed.name = "Neeraj";
+        if (!parsed.age) parsed.age = 23;
+        if (!parsed.course) parsed.course = "Computer Engineering";
+        return { ...blankProfile, ...parsed };
+      }
+      return { ...demoProfile };
     } catch {
       return { ...demoProfile };
     }
@@ -2850,16 +2857,6 @@ function UmangHeader() {
       </div>
 
       <div className="header-right">
-        <button
-          className="btn btn-accent btn-sm"
-          type="button"
-          onClick={loadDemoProfile}
-          title="Auto-load verified demo profile (Neeraj, 23, Male, Maharashtra, B.Tech)"
-          style={{ marginRight: "6px", fontWeight: "700", display: "inline-flex", alignItems: "center", gap: "6px" }}
-        >
-          <span>🚀 Launch Demo</span>
-        </button>
-
         <button className="isl-chatbot-btn" type="button" title="Indian Sign Language Bot">
           <span>ISL Chatbot</span>
           <span className="isl-badge-icon" aria-hidden="true">
@@ -2893,7 +2890,12 @@ function UmangHeader() {
           </svg>
         </button>
 
-        <div className="user-profile-badge" title="Citizen Profile">
+        <div
+          className="user-profile-badge"
+          title="View Citizen Profile"
+          onClick={() => navigate("/mera-haq/profile")}
+          style={{ cursor: "pointer" }}
+        >
           <div className="user-avatar">{profile.name ? profile.name.charAt(0) : "N"}</div>
           <span>{profile.name || "Neeraj"}</span>
         </div>
@@ -3051,37 +3053,6 @@ function LandingView() {
               <span>Find my opportunities</span>
             </a>
           </div>
-
-          <div className="demo-trigger-banner">
-            <div className="demo-trigger-info">
-              <strong>Quick 60-Second Demo:</strong>
-              <span>Click "Launch Demo" to auto-populate Neeraj (23, Male, Maharashtra, B.Tech) and explore 10–20 personalized opportunities across central and state systems.</span>
-            </div>
-            <button className="btn btn-accent btn-sm" type="button" onClick={loadDemoProfile}>Launch Demo</button>
-          </div>
-
-          {/* Live Platform Impact Stats */}
-          <div style={{ marginTop: "20px", padding: "16px 20px", background: "rgba(16, 185, 129, 0.05)", border: "1px solid rgba(16, 185, 129, 0.15)", borderRadius: "var(--radius-md)" }}>
-            <div style={{ fontSize: "11px", color: "#34d399", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "10px" }}>📊 Platform Impact (Mock Data)</div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: "12px" }}>
-              <div style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>39</div>
-                <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>Verified Schemes</div>
-              </div>
-              <div style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "20px", fontWeight: 800, color: "#60a5fa" }}>12</div>
-                <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>Sectors Covered</div>
-              </div>
-              <div style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "20px", fontWeight: 800, color: "#c084fc" }}>36</div>
-                <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>States & UTs</div>
-              </div>
-              <div style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "20px", fontWeight: 800, color: "#fbbf24" }}>₹1.35L+</div>
-                <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>Avg. Citizen Value</div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="hero-card-col">
@@ -3136,54 +3107,6 @@ function ProfileFlow() {
     { key: "organized-worker", label: "🏢 Organized Sector", desc: "ESIC / PF registered" },
   ];
 
-  const MOCK_PROFILES = {
-    student: {
-      name: "Priya Sharma", age: 19, gender: "Female", state: "Rajasthan",
-      locationType: "STATE", domicile: "Rajasthan", educationLevel: "12th",
-      course: "", currentStudent: true, employmentStatus: "Studying",
-      annualFamilyIncome: 200000, incomeBand: "Under ₹2.5 lakh",
-      category: "OBC", identityTags: ["OBC"], minority: "",
-      disability: false, residenceType: "Rural", apaarId: "", apaarVerified: false,
-      lifeSituation: [], interests: ["Technology"], goals: ["Scholarships", "Education support"],
-    },
-    farmer: {
-      name: "Ramesh Yadav", age: 42, gender: "Male", state: "Uttar Pradesh",
-      locationType: "STATE", domicile: "Uttar Pradesh", educationLevel: "10th",
-      course: "", currentStudent: false, employmentStatus: "Self-employed",
-      annualFamilyIncome: 150000, incomeBand: "Under ₹2.5 lakh",
-      category: "", identityTags: [], minority: "",
-      disability: false, residenceType: "Rural", apaarId: "", apaarVerified: false,
-      lifeSituation: ["farmer"], interests: [], goals: ["Agricultural support", "Subsidised loans"],
-    },
-    woman: {
-      name: "Anita Devi", age: 28, gender: "Female", state: "Bihar",
-      locationType: "STATE", domicile: "Bihar", educationLevel: "10th",
-      course: "", currentStudent: false, employmentStatus: "Looking for work",
-      annualFamilyIncome: 100000, incomeBand: "Under ₹2.5 lakh",
-      category: "SC", identityTags: ["SC"], minority: "",
-      disability: false, residenceType: "Rural", apaarId: "", apaarVerified: false,
-      lifeSituation: ["pregnant", "young-children"], interests: [], goals: ["Health insurance", "Food & ration support"],
-    },
-    pwd: {
-      name: "Vikram Singh", age: 25, gender: "Male", state: "Delhi (NCT)",
-      locationType: "UNION_TERRITORY", domicile: "Delhi (NCT)", educationLevel: "Bachelor's",
-      course: "B.A. Political Science", currentStudent: false, employmentStatus: "Looking for work",
-      annualFamilyIncome: 300000, incomeBand: "₹2.5–5 lakh",
-      category: "", identityTags: ["Person with Disability (PwD / Divyangjan)"], minority: "",
-      disability: true, residenceType: "Urban", apaarId: "", apaarVerified: false,
-      lifeSituation: ["pwd"], interests: ["Technology"], goals: ["Employment opportunities", "Skill development"],
-    },
-    senior: {
-      name: "Lakshmi Bai", age: 62, gender: "Female", state: "Tamil Nadu",
-      locationType: "STATE", domicile: "Tamil Nadu", educationLevel: "10th",
-      course: "", currentStudent: false, employmentStatus: "Looking for work",
-      annualFamilyIncome: 80000, incomeBand: "Under ₹2.5 lakh",
-      category: "", identityTags: [], minority: "",
-      disability: false, residenceType: "Rural", apaarId: "", apaarVerified: false,
-      lifeSituation: ["unorganized-worker"], interests: [], goals: ["Health insurance", "Food & ration support"],
-    },
-  };
-
   const toggleIdentity = (tag) => {
     if (tag === "None" || tag === "Prefer not to say") {
       setProfile({ identityTags: [tag], minority: "", category: "", disability: false });
@@ -3214,35 +3137,8 @@ function ProfileFlow() {
             <span className="eyebrow-badge"><span className="dot"></span>Discovery Profile • Stage 1</span>
             <h2 className="card-title" style={{ marginTop: "6px" }}>Tell us a little about yourself</h2>
             <p style={{ color: "var(--text-secondary)", fontSize: "13.5px", marginTop: "4px" }}>
-              Answer 3 basic questions to instantly discover 10–20 central and state opportunities you may qualify for.
+              Your profile is prefilled with your verified citizen credentials. Review or update details below to discover your personalized opportunities.
             </p>
-          </div>
-        </div>
-
-        {/* Quick Mock Profile Loader */}
-        <div style={{ marginBottom: "20px", padding: "14px 18px", background: "rgba(37, 99, 235, 0.08)", border: "1px solid rgba(59, 130, 246, 0.2)", borderRadius: "var(--radius-md)" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
-            <span style={{ fontSize: "14px" }}>🧪</span>
-            <strong style={{ fontSize: "13px", color: "#93c5fd" }}>Try a sample citizen profile:</strong>
-          </div>
-          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-            {[
-              { key: "student", label: "👩\u200d🎓 Priya (19, Student, Rajasthan)" },
-              { key: "farmer", label: "👨\u200d🌾 Ramesh (42, Farmer, UP)" },
-              { key: "woman", label: "🤰 Anita (28, BPL, Bihar)" },
-              { key: "pwd", label: "🦽 Vikram (25, PwD, Delhi)" },
-              { key: "senior", label: "👴 Lakshmi (62, Unorg. Worker, TN)" },
-            ].map(({ key, label }) => (
-              <button
-                key={key}
-                type="button"
-                className="chip-btn"
-                style={{ fontSize: "11.5px", padding: "5px 10px" }}
-                onClick={() => setProfile(MOCK_PROFILES[key])}
-              >
-                {label}
-              </button>
-            ))}
           </div>
         </div>
 
@@ -3254,9 +3150,9 @@ function ProfileFlow() {
               id="profileName"
               className="input-control"
               type="text"
-              placeholder="e.g. Neeraj, Priya, Ramesh"
-              value={profile.name === "Citizen" ? "" : (profile.name || "")}
-              onChange={(e) => setProfile({ name: e.target.value || "Citizen" })}
+              placeholder="e.g. Neeraj"
+              value={profile.name || "Neeraj"}
+              onChange={(e) => setProfile({ name: e.target.value })}
             />
             <span style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>Used for personalizing your opportunity report</span>
           </div>
@@ -3271,7 +3167,7 @@ function ProfileFlow() {
               min="14"
               max="99"
               placeholder="e.g. 23"
-              value={profile.age ?? ""}
+              value={profile.age ?? 23}
               onChange={(e) => setProfile({ age: e.target.value ? Number(e.target.value) : null })}
             />
             <span style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>Most schemes have age brackets (18–35, 18–45, 60+)</span>
@@ -3352,7 +3248,7 @@ function ProfileFlow() {
               className="input-control"
               type="text"
               placeholder="e.g. Computer Engineering, B.A. Economics, MBBS, ITI Electrician"
-              value={profile.course || ""}
+              value={profile.course || "Computer Engineering"}
               onChange={(e) => setProfile({ course: e.target.value })}
             />
           </div>
@@ -3546,7 +3442,7 @@ function ProfileReview() {
         <div className="review-summary-grid">
           <div className="review-card">
             <div className="review-card-label">👤 Citizen</div>
-            <div className="review-card-value">{profile.name || "Citizen"}, {profile.age || 23} yrs</div>
+            <div className="review-card-value">{profile.name || "Neeraj"}, {profile.age || 23} yrs</div>
             <div className="review-card-detail">{profile.gender || "Male"} • {profile.residenceType || "Urban"}</div>
           </div>
 
@@ -3646,7 +3542,7 @@ function MatchingRadar() {
         </div>
 
         <span className="eyebrow-badge"><span className="dot"></span>Deterministic Engine Active</span>
-        <h2 className="page-title">Finding opportunities for {profile.name || "you"}...</h2>
+        <h2 className="page-title">Finding opportunities for {profile.name || "Neeraj"}...</h2>
         <p className="page-subtitle">Evaluating published eligibility parameters for a {profile.age || 23}-year-old {profile.gender || "Male"} citizen in {profile.state || "Maharashtra"} with {profile.educationLevel || "Bachelor's"} qualification.</p>
 
         <div className="matching-progress-bar">
@@ -4294,7 +4190,11 @@ function WhyDoIMatchMatrix({ id }) {
               </span>
             )}
             <span className={`status-pill ${result.status}`}>
-              {result.status === "strong" ? "Strong Profile Match" : result.status === "future" ? "Future Opportunity" : "Needs Verification"}
+              {result.status === "LIKELY_ELIGIBLE" || result.status === "strong"
+                ? "Likely Eligible Match"
+                : result.status === "POTENTIAL_MATCH" || result.status === "future" || result.status === "check"
+                  ? "Potential Match"
+                  : "Not Eligible"}
             </span>
           </div>
         </div>
@@ -4665,7 +4565,11 @@ function OpportunityDetail({ id }) {
               </span>
             )}
             <span className={`status-pill ${result.status}`}>
-              {result.status === "strong" ? "Strong match" : "Needs verification"}
+              {result.status === "LIKELY_ELIGIBLE" || result.status === "strong"
+                ? "Likely eligible"
+                : result.status === "POTENTIAL_MATCH" || result.status === "future" || result.status === "check"
+                  ? "Potential match"
+                  : "Not eligible"}
             </span>
           </div>
         </div>
@@ -4777,7 +4681,7 @@ function HandoffModal() {
             <li><strong>Destination:</strong> {opp.sourceName}</li>
             <li><strong>Benefit:</strong> {opp.benefit?.description || "See official portal"}</li>
             <li><strong>Application Deadline:</strong> {opp.deadline || "Verify on official portal"}</li>
-            <li><strong>Your Profile:</strong> {profile.name || "Citizen"}, {profile.age || 23} yrs, {profile.state || "Maharashtra"}</li>
+            <li><strong>Your Profile:</strong> {profile.name || "Neeraj"}, {profile.age || 23} yrs, {profile.state || "Maharashtra"}</li>
             <li><strong>Match Status:</strong> {result.status === "LIKELY_ELIGIBLE" ? "✅ Likely Eligible" : result.status === "POTENTIAL_MATCH" ? "⚡ Potential Match" : "Check on portal"}</li>
             {result.docReadiness && (
               <li><strong>Document Readiness:</strong> 📄 {result.docReadiness.ready}/{result.docReadiness.total} documents ready via UMANG{result.docReadiness.percent === 100 ? " — ✅ Apply-Ready" : ""}</li>
@@ -4831,25 +4735,7 @@ function SavedOpportunities() {
             </svg>
             <h3 style={{ color: "#ffffff" }}>No saved opportunities yet</h3>
             <p style={{ color: "var(--text-muted)", margin: "8px 0 24px" }}>Explore your matched map and bookmark programs to track their deadlines.</p>
-
-            {/* Mock Suggested Opportunities to Save */}
-            <div style={{ textAlign: "left", marginTop: "20px", padding: "16px 20px", background: "rgba(99, 102, 241, 0.06)", border: "1px solid rgba(99, 102, 241, 0.15)", borderRadius: "var(--radius-md)" }}>
-              <div style={{ fontSize: "12px", color: "#a5b4fc", fontWeight: 600, marginBottom: "10px" }}>💡 Suggested opportunities to bookmark:</div>
-              {[
-                { name: "IIT Dharwad AI Technocrat Program", type: "Fellowship", benefit: "₹12,000 annual stipend + free AI training" },
-                { name: "PM Vidya Laxmi Education Loan", type: "Education Support", benefit: "Up to ₹10L collateral-free education loan" },
-                { name: "Maharashtra PMKUVA Skill Training", type: "Training", benefit: "100% free skill training + placement support" },
-              ].map((item, i) => (
-                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: i < 2 ? "1px solid var(--border-subtle)" : "none" }}>
-                  <div>
-                    <div style={{ fontSize: "13px", color: "#e2e8f0", fontWeight: 600 }}>{item.name}</div>
-                    <div style={{ fontSize: "11.5px", color: "var(--text-muted)" }}>{item.type} • {item.benefit}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <a className="btn btn-primary" href="#/mera-haq/opportunities" style={{ marginTop: "20px" }}>View Matched Opportunities</a>
+            <a className="btn btn-primary" href="#/mera-haq/opportunities">View Matched Opportunities</a>
           </div>
         )}
       </div>
@@ -5241,7 +5127,7 @@ function AiCopilotDrawer() {
       setMessages([
         {
           sender: "assistant",
-          text: `Namaste ${profile.name || "Citizen"}! 🙏\n\nI am your UMANG AI Scheme Counselor for **${opp.name}**.\n\n📋 Profile Summary: ${profile.age || 23} yrs, ${profile.gender || "Male"}, ${profile.state || "Maharashtra"}, ${profile.educationLevel || "Bachelor's"}${profile.course ? ` (${profile.course})` : ""}, ${profile.employmentStatus || "Working"}${profile.minority ? `, ${profile.minority} minority` : ""}${profile.incomeBand && profile.incomeBand !== "Prefer to check later" ? `, Income: ${profile.incomeBand}` : ""}.\n\n${docInfo}\n\nHow can I help you with your application today? You can ask about eligibility criteria, required documents, application deadlines, or benefit amounts.`,
+          text: `Namaste ${profile.name || "Neeraj"}! 🙏\n\nI am your UMANG AI Scheme Counselor for **${opp.name}**.\n\n📋 Profile Summary: ${profile.age || 23} yrs, ${profile.gender || "Male"}, ${profile.state || "Maharashtra"}, ${profile.educationLevel || "Bachelor's"}${profile.course ? ` (${profile.course})` : ""}, ${profile.employmentStatus || "Working"}${profile.minority ? `, ${profile.minority} minority` : ""}${profile.incomeBand && profile.incomeBand !== "Prefer to check later" ? `, Income: ${profile.incomeBand}` : ""}.\n\n${docInfo}\n\nHow can I help you with your application today? You can ask about eligibility criteria, required documents, application deadlines, or benefit amounts.`,
         },
       ]);
     }
