@@ -11,6 +11,12 @@ A production-grade, DPI 2.0 (Digital Public Infrastructure) reference architectu
 [![Gazette Store](https://img.shields.io/badge/Scheme%20Store-Structured%20Markdown%20%2B%20YAML-f59e0b?style=for-the-badge)](file:///c:/Users/devne/OneDrive/Desktop/Side-projects/Mera%20Haq/schemes/)
 [![Evals](https://img.shields.io/badge/Guardrails-N--Gram%20Overlap%20%2B%20Zero--Hallucination-8b5cf6?style=for-the-badge)](file:///c:/Users/devne/OneDrive/Desktop/Side-projects/Mera%20Haq/backend_rag_service.py)
 
+🌐 **Live Deployment:** [https://devneeraj15.github.io/Mera-Haq/](https://devneeraj15.github.io/Mera-Haq/)  
+📊 **PMO & Technocrat Presentation Deck (PPTX):** [`Mera_Haq_Proactive_Entitlement_Discovery.pptx`](./Mera_Haq_Proactive_Entitlement_Discovery.pptx)  
+📄 **Executive Architecture Brief (PDF):** [`Mera_Haq_Proactive_Entitlement_Discovery.pdf`](./Mera_Haq_Proactive_Entitlement_Discovery.pdf)  
+📝 **Submission Brief & 250-Word Summary:** [`SUBMISSION.md`](./SUBMISSION.md)  
+🔬 **Verifiable Mock Data & Test Documentation:** [`VERIFICATION.md`](./VERIFICATION.md)
+
 ---
 
 ## 📑 Table of Contents
@@ -355,6 +361,8 @@ Executing Hybrid BM25 + Voyage AI vector search test...
 
 ```
 Mera Haq/
+├── Mera_Haq_Proactive_Entitlement_Discovery.pptx # Master Technocrat / PMO Presentation Deck
+├── Mera_Haq_Proactive_Entitlement_Discovery.pdf  # Executive Architecture Brief & Slide Deck PDF
 ├── index.html                   # HTML entry point with React 18, ReactDOM, and Babel Standalone
 ├── app.jsx                      # Complete React Application (Components, State, Engine, UI)
 ├── styles.css                   # Enterprise UMANG Dark Theme CSS, Balance Sheet & RAG Modal styling
