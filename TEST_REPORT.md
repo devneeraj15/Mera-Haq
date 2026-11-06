@@ -8,7 +8,7 @@ Run on 2026-11-06 on Windows 11, Node 22.11.0, Python 3.11.4, Chrome (stable cha
 |---|---|---|
 | Engine, API contract and impact-model unit tests | `npm run test:unit` | **37 / 37 passed** (26 engine, 6 API contract, 5 impact model) |
 | Pipeline unit tests | `npm run test:pipeline` | **16 / 16 passed** (includes CAG quote verification) |
-| End-to-end (Playwright, desktop 1280×800 + Pixel 5 mobile) | `npx playwright test` | **24 / 24 passed** (12 journeys × 2 viewports) |
+| End-to-end (Playwright, desktop 1280×800 + Pixel 5 mobile) | `npx playwright test` | **26 / 26 passed** (13 journeys × 2 viewports) |
 | Real-data dry run (18 personas × 66 schemes) | `npm run dryrun` | **210 oracle checks, 0 mismatches, 0 failed evaluations**. 5 suspected false positives flagged, reviewed and found to be heuristic false alarms |
 | Production build | `npm run build` | passes. `app.js` 213.6 KiB (67.2 KiB gzip) |
 | Data pipeline (offline) | `npm run data:offline` | 66 records: 978 / 978 evidence quotes found in source snapshots (7 VERIFIED, 56 PARTIALLY_VERIFIED, 3 NEEDS_REVIEW) |
@@ -41,6 +41,7 @@ Bugs these tests found and that were fixed during the run:
 - The skip link was not the first Tab stop because focus moved to `<h1>` on first load.
 - The consent checkbox vanished after being ticked, so consent could not be withdrawn.
 - The Saved nav link's accessible name ran its count badge into the label ("Saved Schemes1").
+- **Router race (found by CI):** filter changes made before the browser delivered `hashchange` reused the previous query, so "Clear all filters" followed quickly by a filter change brought the old search back (CI showed `?q=zzzz-no-such-scheme&level=STATE`, 0 results). Fixed by updating route state synchronously in `navigate()` and merging filters into the live URL. A regression test delays `hashchange` by 400 ms; it fails on the old build and passes on the fix.
 
 ## 4. Real-data dry run (Phase 10.5)
 

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Engine from "../engine/eligibility.js";
 import Locations from "../engine/locations.js";
-import { apiBase, useApp } from "./store.jsx";
+import { apiBase, parseHash, useApp } from "./store.jsx";
 import {
   Badge, CATEGORY_LABELS, Dialog, EmptyState, ENUM_LABELS, ErrorState, FieldInput, formatDate, formatINR,
   LevelBadge, LoadingList, locName, Notice, OUTCOME_UI, OutcomeBadge, VerificationBadge,
@@ -349,7 +349,8 @@ export function Eligible() {
 export function FindSchemes() {
   const { data, route, navigate, resultById, profile, onboarded } = useApp();
   const q = route.query;
-  const set = (patch) => navigate("/mera-haq/find", { ...q, page: undefined, ...patch }, { replace: true });
+  // Merge into the query currently in the address bar (never a stale render's copy).
+  const set = (patch) => navigate("/mera-haq/find", { ...parseHash(window.location.hash).query, page: undefined, ...patch }, { replace: true });
   const [text, setText] = useState(q.q || "");
   useEffect(() => setText(q.q || ""), [q.q]);
   useEffect(() => {

@@ -50,6 +50,10 @@ function useHashRoute() {
     const h = buildHash(path, query);
     if (opts && opts.replace) window.location.replace(h);
     else if (window.location.hash !== h) window.location.hash = h;
+    // Update route state now instead of waiting for the asynchronous
+    // hashchange event, so a handler that runs before that event (for example
+    // a filter changed right after "Clear all filters") never reads a stale query.
+    setRoute(parseHash(h));
   }, []);
   return [route, navigate];
 }

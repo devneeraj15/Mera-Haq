@@ -262,3 +262,22 @@ test("Impact page: official CAG context and a transparent, validated model", asy
   await expect(page.getByText("₹5 crore").first()).toBeVisible();
   await expect(page.getByText("5,000", { exact: true })).toBeVisible();
 });
+
+test("Regression: filters never reuse a stale query when hashchange is slow", async ({ page }) => {
+  // Reproduces the CI race: delay every hashchange event so a filter can be
+  // changed before the browser reports the previous navigation.
+  await page.addInitScript(() => {
+    const add = window.addEventListener.bind(window);
+    window.addEventListener = (type, fn, opts) => add(type, type === "hashchange" ? (e) => setTimeout(() => fn(e), 400) : fn, opts);
+  });
+  await onboard(page);
+  await page.goto("#/mera-haq/find");
+  await page.locator("#find-q").fill("zzzz-no-such-scheme");
+  await expect(page.getByText("No schemes match these filters")).toBeVisible();
+  await page.getByRole("button", { name: "Clear all filters" }).click();
+  await page.getByLabel("Government").selectOption("STATE");
+  await expect(page).toHaveURL(/level=STATE/);
+  await expect(page).not.toHaveURL(/q=zzzz/);
+  await expect(page.locator("#find-q")).toHaveValue("");
+  await expect(page.getByRole("status").filter({ hasText: "found" })).toContainText(/page 1 of \d+/);
+});
