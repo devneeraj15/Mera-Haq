@@ -1,0 +1,2 @@
+# Ingestion pipeline. Everything else uses the Python standard library.
+pypdf==5.1.0

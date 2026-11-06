@@ -1,0 +1,6 @@
+app.js 213.6KiB gzip 67.2KiB
+styles.css 16.6KiB gzip 4.0KiB
+data/schemes.json 440.7KiB gzip 51.4KiB
+index.html 1.1KiB gzip 0.6KiB
+evaluateAll real(66) ms 1.66 | replicated 9900 ms 105.9
+search over 9900 records ms/query 4.28

@@ -1,0 +1,226 @@
+{
+ "description": "Synthetic test PERSONAS for the real-data dry run (people only; never schemes). Not real individuals.",
+ "personas": [
+  {
+   "id": "p01",
+   "description": "23M, Maharashtra, graduate, salaried (prompt example; income not given)",
+   "profile": {
+    "age": 23,
+    "gender": "MALE",
+    "state": "MH",
+    "educationLevel": "UNDERGRADUATE",
+    "employmentStatus": "EMPLOYED",
+    "occupation": "SALARIED"
+   }
+  },
+  {
+   "id": "p02",
+   "description": "19F, Maharashtra, Class 12 student, OBC, income 1.8L",
+   "profile": {
+    "age": 19,
+    "gender": "FEMALE",
+    "state": "MH",
+    "domicileState": "MH",
+    "educationLevel": "CLASS_12",
+    "studentLevel": "UNDERGRADUATE",
+    "employmentStatus": "STUDENT",
+    "socialCategory": "OBC",
+    "annualFamilyIncome": 180000
+   }
+  },
+  {
+   "id": "p03",
+   "description": "36M, Maharashtra, farmer, OBC, income 1.4L",
+   "profile": {
+    "age": 36,
+    "gender": "MALE",
+    "state": "MH",
+    "domicileState": "MH",
+    "educationLevel": "CLASS_10",
+    "employmentStatus": "SELF_EMPLOYED",
+    "occupation": "FARMER",
+    "socialCategory": "OBC",
+    "annualFamilyIncome": 140000,
+    "residence": "RURAL"
+   }
+  },
+  {
+   "id": "p04",
+   "description": "24F, Bihar, homemaker, SC, income 1.2L",
+   "profile": {
+    "age": 24,
+    "gender": "FEMALE",
+    "state": "BR",
+    "employmentStatus": "HOMEMAKER",
+    "socialCategory": "SC",
+    "annualFamilyIncome": 120000,
+    "residence": "RURAL"
+   }
+  },
+  {
+   "id": "p05",
+   "description": "29M, Delhi, street vendor, General, income 2.2L",
+   "profile": {
+    "age": 29,
+    "gender": "MALE",
+    "state": "DL",
+    "employmentStatus": "SELF_EMPLOYED",
+    "occupation": "STREET_VENDOR",
+    "socialCategory": "GENERAL",
+    "annualFamilyIncome": 220000,
+    "residence": "URBAN"
+   }
+  },
+  {
+   "id": "p06",
+   "description": "21F, Karnataka, diploma student, disability 45%",
+   "profile": {
+    "age": 21,
+    "gender": "FEMALE",
+    "state": "KA",
+    "studentLevel": "DIPLOMA",
+    "employmentStatus": "STUDENT",
+    "socialCategory": "GENERAL",
+    "disability": true,
+    "disabilityPercent": 45,
+    "annualFamilyIncome": 280000
+   }
+  },
+  {
+   "id": "p07",
+   "description": "45M, Tamil Nadu, artisan, self-employed",
+   "profile": {
+    "age": 45,
+    "gender": "MALE",
+    "state": "TN",
+    "employmentStatus": "SELF_EMPLOYED",
+    "occupation": "ARTISAN_CRAFTSPERSON",
+    "annualFamilyIncome": 300000
+   }
+  },
+  {
+   "id": "p08",
+   "description": "17M, Uttar Pradesh, school student (minor)",
+   "profile": {
+    "age": 17,
+    "gender": "MALE",
+    "state": "UP",
+    "employmentStatus": "STUDENT",
+    "studentLevel": "CLASS_11_12"
+   }
+  },
+  {
+   "id": "p09",
+   "description": "18F, Gujarat, student (age boundary 18)",
+   "profile": {
+    "age": 18,
+    "gender": "FEMALE",
+    "state": "GJ",
+    "employmentStatus": "STUDENT"
+   }
+  },
+  {
+   "id": "p10",
+   "description": "40M, West Bengal, trader (age boundary 40)",
+   "profile": {
+    "age": 40,
+    "gender": "MALE",
+    "state": "WB",
+    "employmentStatus": "SELF_EMPLOYED",
+    "occupation": "BUSINESS_OWNER",
+    "socialCategory": "GENERAL"
+   }
+  },
+  {
+   "id": "p11",
+   "description": "41M, Kerala, trader (one year above 40)",
+   "profile": {
+    "age": 41,
+    "gender": "MALE",
+    "state": "KL",
+    "employmentStatus": "SELF_EMPLOYED",
+    "occupation": "BUSINESS_OWNER",
+    "socialCategory": "GENERAL"
+   }
+  },
+  {
+   "id": "p12",
+   "description": "60F, Punjab, retired",
+   "profile": {
+    "age": 60,
+    "gender": "FEMALE",
+    "state": "PB",
+    "employmentStatus": "RETIRED"
+   }
+  },
+  {
+   "id": "p13",
+   "description": "70M, Rajasthan, retired (age boundary 70)",
+   "profile": {
+    "age": 70,
+    "gender": "MALE",
+    "state": "RJ",
+    "employmentStatus": "RETIRED",
+    "occupation": "OTHER"
+   }
+  },
+  {
+   "id": "p14",
+   "description": "71F, Ladakh (UT), retired",
+   "profile": {
+    "age": 71,
+    "gender": "FEMALE",
+    "state": "LA",
+    "employmentStatus": "RETIRED"
+   }
+  },
+  {
+   "id": "p15",
+   "description": "30 transgender, Jammu and Kashmir (UT), ST, unemployed",
+   "profile": {
+    "age": 30,
+    "gender": "TRANSGENDER",
+    "state": "JK",
+    "socialCategory": "ST",
+    "employmentStatus": "UNEMPLOYED"
+   }
+  },
+  {
+   "id": "p16",
+   "description": "25, gender not given, Andaman and Nicobar Islands, unemployed",
+   "profile": {
+    "age": 25,
+    "state": "AN",
+    "employmentStatus": "UNEMPLOYED"
+   }
+  },
+  {
+   "id": "p17",
+   "description": "22M, Maharashtra domicile, SC, UG student, income exactly 2,50,000",
+   "profile": {
+    "age": 22,
+    "gender": "MALE",
+    "state": "MH",
+    "domicileState": "MH",
+    "socialCategory": "SC",
+    "studentLevel": "UNDERGRADUATE",
+    "employmentStatus": "STUDENT",
+    "annualFamilyIncome": 250000
+   }
+  },
+  {
+   "id": "p18",
+   "description": "22M, Maharashtra domicile, OBC, UG student, income 2,50,001",
+   "profile": {
+    "age": 22,
+    "gender": "MALE",
+    "state": "MH",
+    "domicileState": "MH",
+    "socialCategory": "OBC",
+    "studentLevel": "UNDERGRADUATE",
+    "employmentStatus": "STUDENT",
+    "annualFamilyIncome": 250001
+   }
+  }
+ ]
+}

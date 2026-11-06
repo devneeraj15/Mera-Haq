@@ -1,0 +1,23 @@
+{
+ "syncedAt": "2026-11-06T05:19:18Z",
+ "added": [],
+ "changed": {
+  "mh-post-matric-tuition-fee-and-examination-fee-freeship": [
+   "criteria"
+  ],
+  "mh-tuition-fee-exam-fee-for-tribal-students-freeship": [
+   "criteria"
+  ],
+  "mh-scholarship-scheme-for-state-minority-communities-pursuing-higher-professional-education-a": [
+   "criteria"
+  ],
+  "mh-minority-scholarship": [
+   "criteria"
+  ],
+  "mh-scholarship-for-student-communities-pursuing-higher-and-professional-courses-mcaer": [
+   "criteria"
+  ]
+ },
+ "keptPrevious": [],
+ "missingFromLatestRun": []
+}

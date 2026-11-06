@@ -6,8 +6,24 @@ desktop.ini
 # Logs
 *.log
 
-# Node (if added later)
+# Node
 node_modules/
 dist/
+
+# Secrets (never commit)
 .env
-.env.local
+.env.*
+*.pem
+
+# Test / build artefacts
+test-results/
+playwright-report/
+data/build/
+data/reports/e2e-results.json
+data/sources/intermediate-cas.pem
+__pycache__/
+*.pyc
+
+# Local tooling
+.claude/launch.json
+

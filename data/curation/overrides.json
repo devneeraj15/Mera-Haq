@@ -1,0 +1,154 @@
+{
+ "description": "Human-reviewed corrections applied on top of automatically extracted records (normalize_schemes.py). Each added criterion needs a verbatim quote from the record's own source. Use 'needsReview' to send a record to the review queue.",
+ "reviewer": "Mera Haq data curation (Claude Code session, 2026-11-06)",
+ "reviewedAt": "2026-11-06",
+ "portalNotices": {
+  "MH": {
+   "applicationUrl": "https://mahadbt2.maharashtra.gov.in/",
+   "evidence": {
+    "quote": "Fresh and renewal applications for the Academic Year 2026-27 will be accepted only through the MahaDBT 2.0 Portal."
+   },
+   "notes": "Every MahaDBT scheme page shows this portal-wide notice. Applications for AY 2026-27 go to MahaDBT 2.0. The scheme page stays the information source."
+  }
+ },
+ "overrides": [
+  {
+   "idPrefix": "mh-post-matric-scholarship-to-the-girls-belonging-to-other-backward-classes",
+   "addCriteria": [
+    {
+     "id": "h-gender",
+     "field": "gender",
+     "op": "in",
+     "value": [
+      "FEMALE"
+     ],
+     "label": "Applicant is a girl / woman",
+     "evidence": {
+      "source": 0,
+      "quote": "Scholarship benefits include Tuition Fees, Examination Fees, and Maintenance Allowance for eligible OBC girl students."
+     }
+    }
+   ]
+  },
+  {
+   "idPrefix": "mh-payment-of-tuition-fees-and-examination-fees-to-obc-girls",
+   "addCriteria": [
+    {
+     "id": "h-gender",
+     "field": "gender",
+     "op": "in",
+     "value": [
+      "FEMALE"
+     ],
+     "label": "Applicant is a girl / woman",
+     "evidence": {
+      "source": 0,
+      "quote": "Reimbursement of all compulsory fees, such as Tuition Fees and Examination Fees, to eligible OBC girls."
+     }
+    }
+   ]
+  },
+  {
+   "idPrefix": "mh-reimbursement-of-tuition-fee-and-examination-fee-for-girls",
+   "needsReview": true,
+   "reviewFlags": [
+    "The scheme title says 'for girls', but neither the Eligibility section nor the Overview states a gender condition. Not inferred from the title. Needs review."
+   ]
+  },
+  {
+   "idPrefix": "mh-minority-scholarship",
+   "addCriteria": [
+    {
+     "id": "h-minority",
+     "field": "religion",
+     "op": "in",
+     "value": [
+      "MUSLIM",
+      "BUDDHIST",
+      "CHRISTIAN",
+      "JAIN",
+      "SIKH",
+      "PARSI",
+      "JEWISH"
+     ],
+     "label": "Belongs to a notified minority community (Muslim, Buddhist, Christian, Jain, Sikh, Parsi, Jewish)",
+     "evidence": {
+      "source": 0,
+      "quote": "This scheme is belongs to Muslim, Buddha, Christian, Jain ,Sikh , Parsi , Jews religion."
+     }
+    }
+   ]
+  },
+  {
+   "idPrefix": "mh-scholarship-scheme-for-state-minority-communities",
+   "addCriteria": [
+    {
+     "id": "h-minority",
+     "field": "religion",
+     "op": "in",
+     "value": [
+      "MUSLIM",
+      "BUDDHIST",
+      "CHRISTIAN",
+      "JAIN",
+      "SIKH",
+      "PARSI",
+      "JEWISH"
+     ],
+     "label": "Belongs to a minority community (Muslim, Buddhist, Christian, Sikh, Parsi, Jain, Jewish)",
+     "evidence": {
+      "source": 0,
+      "quote": "meritorious students belonging to Minority Communities ( Muslim , Buddhist, Christian , Sikh , Parsi , Jain & Jews Community )"
+     }
+    }
+   ]
+  },
+  {
+   "idPrefix": "mh-scholarship-for-student-communities-pursuing-higher-and-professional-courses-mcaer",
+   "addCriteria": [
+    {
+     "id": "h-minority",
+     "field": "religion",
+     "op": "in",
+     "value": [
+      "MUSLIM",
+      "BUDDHIST",
+      "CHRISTIAN",
+      "JAIN",
+      "SIKH",
+      "PARSI",
+      "JEWISH"
+     ],
+     "label": "Belongs to a minority community (Muslim, Buddhist, Christian, Jain, Sikh, Parsi, Jewish)",
+     "evidence": {
+      "source": 0,
+      "quote": "This scheme belongs to Muslim, Buddha, Christian, Jain, Sikh, Parsi, Jews religions."
+     }
+    }
+   ]
+  },
+  {
+   "idPrefix": "mh-state-minority-scholarship-part-ii",
+   "needsReview": true,
+   "reviewFlags": [
+    "The page says the scheme is for 'minority students' but does not list the communities on this page, so the community list is not inferred. Needs review against the GR dated 14.10.2011."
+   ]
+  },
+  {
+   "idPrefix": "mh-tuition-fee-exam-fee-for-tribal-students-freeship",
+   "addCriteria": [
+    {
+     "id": "h-income-min",
+     "field": "annualFamilyIncome",
+     "op": "gt",
+     "value": 250000,
+     "label": "Annual family income above ₹2,50,000",
+     "evidence": {
+      "source": 0,
+      "quote": "Applicant who's parent income limit are more than 2.5 lakhs can apply of the scheme."
+     }
+    }
+   ]
+  }
+ ]
+}

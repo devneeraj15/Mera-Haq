@@ -1,0 +1,28 @@
+{
+  "name": "mera-haq",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Mera Haq on UMANG: profile-first discovery of government schemes, backed by source-verified official data.",
+  "license": "UNLICENSED",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node scripts/build-api.mjs && node scripts/build.mjs",
+    "serve": "node scripts/serve.mjs",
+    "test": "npm run test:unit && npm run test:pipeline",
+    "test:unit": "node --test \"tests/unit/**/*.test.js\"",
+    "test:pipeline": "python -m unittest discover -s tests/pipeline",
+    "test:e2e": "playwright test",
+    "dryrun": "node scripts/dry-run.mjs",
+    "data:offline": "python scripts/pipeline/run_all.py --offline",
+    "data:sync": "python scripts/pipeline/run_all.py",
+    "audit": "npm audit --omit=dev"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.55.1",
+    "esbuild": "0.25.0"
+  }
+}
