@@ -245,3 +245,19 @@ test("Open Data API page reads live metadata through the API contract", async ({
   expect(requests).toContain("/api/v1/schemes/index.json");
   expect(requests).not.toContain("/data/schemes.json");
 });
+
+test("Impact page: official CAG context and a transparent, validated model", async ({ page }) => {
+  await page.goto("#/mera-haq/impact");
+  await expect(page.getByText("₹4,21,925.85 crore").first()).toBeVisible();
+  await expect(page.getByText(/What these figures do not say/)).toBeVisible();
+  await page.locator("#imp-allocationCrore").fill("1000");
+  await page.locator("#imp-spentCrore").fill("1200");
+  await page.getByRole("button", { name: "Calculate" }).click();
+  await expect(page.getByText(/Spend is above the allocation/)).toBeVisible();
+  await page.locator("#imp-spentCrore").fill("800");
+  await page.locator("#imp-avgBenefitRupees").fill("10000");
+  await page.getByRole("button", { name: "Calculate" }).click();
+  await expect(page.getByText("₹200 crore").first()).toBeVisible();
+  await expect(page.getByText("₹5 crore").first()).toBeVisible();
+  await expect(page.getByText("5,000", { exact: true })).toBeVisible();
+});

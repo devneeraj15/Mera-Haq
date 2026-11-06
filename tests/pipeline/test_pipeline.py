@@ -116,3 +116,14 @@ class Validation(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ImpactEvidence(unittest.TestCase):
+    def test_fiscal_context_quotes_found_in_cag_snapshot(self):
+        from snapshot_store import load_snapshot
+        ctx = json.loads((ROOT / "data" / "impact" / "fiscal-context.json").read_text(encoding="utf-8"))
+        snap = load_snapshot(ctx["sources"][0]["url"])
+        self.assertIsNotNone(snap, "CAG press-release snapshot missing")
+        text = normalize_for_match(snap["text"])
+        for f in ctx["facts"]:
+            self.assertIn(normalize_for_match(f["evidence"]["quote"]), text, f["id"])

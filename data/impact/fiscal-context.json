@@ -1,0 +1,40 @@
+{
+  "description": "Official fiscal context for the impact model. Every figure is quoted verbatim from its source and re-checked against the stored snapshot by tests/pipeline/test_pipeline.py. Amounts are in crore rupees.",
+  "facts": [
+    {
+      "id": "fy2425-overall",
+      "label": "Union Government appropriations, FY 2024-25 (all grants)",
+      "approvedCrore": 14754642.48,
+      "spentCrore": 14263339.67,
+      "savingsCrore": 491302.81,
+      "evidence": { "source": 0, "quote": "The Parliament approved appropriations of ₹1,47,54,642.48 crore, against which Government spent ₹1,42,63,339.67 crore leading to o verall savings of ₹4,91,302.81 crore." }
+    },
+    {
+      "id": "fy2425-voted",
+      "label": "Voted provision, FY 2024-25 (excludes charged items such as debt servicing)",
+      "approvedCrore": 4706865.39,
+      "spentCrore": 4284939.54,
+      "savingsCrore": 421925.85,
+      "evidence": { "source": 0, "quote": "The total voted provision was ₹47,06,865.39 crore and actual expenditure was ₹42,84,939.54 crore with savings of ₹4,21,925.85 crore." }
+    },
+    {
+      "id": "fy2425-persistent",
+      "label": "Large and persistent savings",
+      "approvedCrore": null,
+      "spentCrore": null,
+      "savingsCrore": null,
+      "evidence": { "source": 0, "quote": "there were savings of ₹5,000 crore or more in 19 Grants/ Appropriations during FY 2024 -25 against which seven Grants/ Appropriations had persistent savings in last three FYs." }
+    }
+  ],
+  "caveat": "These are aggregate savings across all of government. They have many causes (procurement and project delays, re-appropriation, budgeting practice), and CAG does not attribute them to low citizen uptake. The share caused by eligible citizens not applying is NOT known and must be estimated scheme by scheme from department data during a pilot.",
+  "sources": [
+    {
+      "title": "CAG Report No. 6 of 2026 on Accounts of the Union Government for 2024-25: press release, 2 April 2026",
+      "publisher": "Comptroller and Auditor General of India",
+      "url": "https://d1jmc0u14z2tmp.cloudfront.net/uploads/PressRelease/PR-Press-Release-on-Report-no-6-of-2026-in-english-069ce58face4518-40869759.pdf",
+      "linkedFrom": "https://cag.gov.in/",
+      "documentType": "OFFICIAL_DEPARTMENT_CIRCULAR",
+      "publicationDate": "2026-04-02"
+    }
+  ]
+}

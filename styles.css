@@ -105,6 +105,8 @@ code { font-size: 0.9em; word-break: break-all; }
 .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; }
 .stat-value { font-size: 1.75rem; font-weight: 800; }
 .stat-label { color: var(--text-muted); font-size: 0.875rem; }
+.stat-grid-money { margin-top: 16px; }
+.stat-grid-money .stat-value { font-size: 1.3rem; white-space: nowrap; }
 .progress { height: 10px; background: var(--surface-2); border-radius: 999px; overflow: hidden; margin: 8px 0 12px; border: 1px solid var(--border); }
 .progress-bar { height: 100%; background: var(--primary); }
 
@@ -208,6 +210,7 @@ table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
 th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--border); }
 thead th { background: var(--surface-2); }
 
+.quote { margin: 8px 0; padding: 8px 12px; border-left: 3px solid var(--accent); background: var(--surface-2); font-size: 0.9rem; }
 .code-block { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; overflow: auto; max-height: 420px; font-size: 0.8rem; line-height: 1.45; }
 
 /* ---------- dialog ---------- */
