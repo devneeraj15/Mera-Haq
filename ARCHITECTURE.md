@@ -17,9 +17,11 @@
  scripts/pipeline/sync_schemes.py      ─► data/schemes.json  (published, versioned) + data/history/*.json
  scripts/pipeline/generate_data_report.py ─► DATA_QUALITY_REPORT.md
         ▼
+ scripts/build-api.mjs ─► api/v1/ (static POC of the proposed Open Schemes API, docs/api/openapi.yaml)
+        ▼
  Static site (GitHub Pages)
    index.html ─ app.js (esbuild bundle: React 18.3.1 + src/app/* + src/engine/*) ─ styles.css
-   fetch("data/schemes.json") ─► src/engine/eligibility.js (deterministic, runs in the browser)
+   fetch(<merahaq-api-base>/schemes/index.json) ─► src/engine/eligibility.js (deterministic, runs in the browser)
    profile/saved/checklist ─► sessionStorage (default) or localStorage (opt-in)
 ```
 

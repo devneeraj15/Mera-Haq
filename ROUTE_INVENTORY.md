@@ -13,6 +13,7 @@ Hash routing (`#/path?query`). Hash routes survive refresh and deep links on Git
 | `#/mera-haq/profile` | `Profile` | Shell | profile | header avatar, sidebar, "Edit answers" | eligible | – | inline errors | `#/mera-haq/profile/review` → here |
 | `#/mera-haq/documents?scheme=:id` | `Documents` | Shell | dataset, saved, checklist | sidebar, scheme detail | scheme detail | skeleton | "No schemes selected"; unknown scheme → not found | – |
 | `#/mera-haq/resources` | `Resources` | Shell | dataset | sidebar, landing | official portals (new tab) | skeleton | dataset error | – |
+| `#/mera-haq/developers` | `Developers` | Shell | `api/v1/meta.json`, dataset | sidebar ("Open Data API"), Resources notice | raw API files (new tab) | skeleton | meta load error notice | – |
 | `#/mera-haq/help` | `Help` | Shell | – | sidebar, privacy links | delete-data dialog | – | – | `#/mera-haq/tests` → here |
 | `#/schemes` | `UmangSchemes` | Shell | – | sidebar | `#/mera-haq` | – | – | – |
 | `#/home`, `#/services`, `#/digilocker`, `#/jobs`, `#/dashboard`, `#/maharashtra` | `UmangPlaceholder` | Shell | – | sidebar | Mera Haq, official UMANG | – | – | – |
