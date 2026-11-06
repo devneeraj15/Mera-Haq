@@ -1,0 +1,39 @@
+{
+  "description": "Reviewed entry points for ingestion. 'listings' are index pages expanded by discover_sources.py; 'pages' are fetched directly by ingest_schemes.py. Every URL must be on an ALLOWED host in domains.json.",
+  "listings": [
+    {
+      "url": "https://mahadbt.maharashtra.gov.in/",
+      "linkPattern": "^/SchemeData/SchemeData\\?str=[0-9A-F]+$",
+      "jurisdiction": "MH",
+      "notes": "MahaDBT home page lists every scheme on the portal, each linked to a public scheme-detail page."
+    }
+  ],
+  "pages": [
+    "https://scholarships.gov.in/scholarshipEligibility",
+    "https://www.pmuy.gov.in/about.html",
+    "https://www.pmuy.gov.in/faq.html",
+    "https://pmsvanidhi.mohua.gov.in/Home/Schemes",
+    "https://pmvishwakarma.gov.in/Home/FAQ",
+    "https://pmvishwakarma.gov.in/cdn/MiscFiles/eng_v30.0_PM_Vishwakarma_Guidelines_final.pdf",
+    "https://www.standupmitra.in/Home/SchemeGuidelines",
+    "https://www.standupmitra.in/Home/FAQs",
+    "https://www.mudra.org.in/FAQ",
+    "https://www.startupindia.gov.in/content/sih/en/startup-scheme.html",
+    "https://www.startupindia.gov.in/content/sih/en/government-schemes.html",
+    "https://pmjdy.gov.in/scheme",
+    "https://jansuraksha.gov.in/FAQ.aspx",
+    "https://maandhan.in/",
+    "https://wcd.gov.in/offerings/schemes-and-services",
+    "https://financialservices.gov.in/schemes-and-services",
+    "https://pmsvanidhi.mohua.gov.in/Default/ViewFile/?id=FAQEng.pdf&path=MiscFiles",
+    "https://financialservices.gov.in/atal-pension-yojana-apy",
+    "https://financialservices.gov.in/pradhan-mantri-jan-dhan-yojana-pmjdy",
+    "https://financialservices.gov.in/pradhan-mantri-jeevan-jyoti-bima-yojana-pmjjby",
+    "https://financialservices.gov.in/pradhan-mantri-suraksha-bima-yojana-pmsby",
+    "https://financialservices.gov.in/pradhan-mantri-mudra-yojana-pmmy",
+    "https://financialservices.gov.in/stand-india-scheme-supi",
+    "https://wcd.gov.in/offerings/mission-shakti-guidelines-for-implementation",
+    "https://wcd.gov.in/offerings/mission-vatsalya",
+    "https://tribal.nic.in/ScholarshiPh.aspx"
+  ]
+}

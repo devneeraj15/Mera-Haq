@@ -1,0 +1,1039 @@
+{
+ "description": "Human-curated Central Government scheme records. Each criterion, benefit and document carries a verbatim evidence quote from the cited source (sources[evidence.source]). validate_schemes.py re-checks every quote against the stored snapshot; a missing quote downgrades the record. Do not add a field without a quote.",
+ "reviewer": "Mera Haq data curation (Claude Code session, 2026-11-06)",
+ "reviewedAt": "2026-11-06",
+ "schemes": [
+  {
+   "id": "pmuy-ujjwala",
+   "name": "Pradhan Mantri Ujjwala Yojana (PMUY)",
+   "altNames": [
+    "Ujjwala 2.0"
+   ],
+   "description": "Deposit-free LPG connection for adult women from deprived households, introduced by the Ministry of Petroleum and Natural Gas in May 2016.",
+   "category": "SOCIAL_WELFARE",
+   "subcategory": "Clean cooking fuel",
+   "level": "CENTRAL",
+   "jurisdictions": [
+    "ALL"
+   ],
+   "ministry": "Ministry of Petroleum and Natural Gas",
+   "department": "Ministry of Petroleum and Natural Gas",
+   "implementingAuthority": "Oil Marketing Companies (IOCL, BPCL, HPCL)",
+   "targetBeneficiaries": "Adult women from deprived households",
+   "criteria": [
+    {
+     "id": "gender",
+     "field": "gender",
+     "op": "in",
+     "value": [
+      "FEMALE"
+     ],
+     "label": "Applicant is a woman",
+     "evidence": {
+      "source": 0,
+      "quote": "Adult woman belonging to any of the following categories."
+     }
+    },
+    {
+     "id": "age",
+     "field": "age",
+     "op": "gte",
+     "value": 18,
+     "label": "Age at least 18 years",
+     "evidence": {
+      "source": 0,
+      "quote": "Applicant must have attained 18 years of age."
+     }
+    },
+    {
+     "id": "household",
+     "op": "manual",
+     "label": "Household belongs to one of the listed categories (SC/ST households, PMAY-G, Most Backward Classes, AAY, tea garden tribes, forest dwellers, island residents, SECC households, or poor household as per 14-point declaration)",
+     "evidence": {
+      "source": 0,
+      "quote": "Poor Household as per 14-point declaration"
+     }
+    },
+    {
+     "id": "no-lpg",
+     "op": "manual",
+     "label": "No other LPG connection in the same household",
+     "evidence": {
+      "source": 0,
+      "quote": "There should not be any other LPG connections in the same household."
+     }
+    }
+   ],
+   "benefits": [
+    {
+     "text": "Cash assistance of Rs. 1600 for a 14.2 kg cylinder connection (Rs. 1150 for a 5 kg cylinder), covering security deposit, regulator, hose, consumer card and installation charges.",
+     "amount": 1600,
+     "frequency": "ONE_TIME",
+     "evidence": {
+      "source": 0,
+      "quote": "Cash assistance for PMUY connections is provided by Government of India - Rs. 1600 (for a connection 14.2kg cylinder/ Rs. 1150 for a 5 kg cylinder)."
+     }
+    },
+    {
+     "text": "First LPG refill and stove (hotplate) free of cost, with the deposit-free connection.",
+     "amount": null,
+     "frequency": "ONE_TIME",
+     "evidence": {
+      "source": 0,
+      "quote": "Additionally, All PMUY beneficiaries will be provided with first LPG refill and Stove (hotplate) both free of cost along with their deposit free connection by the Oil Marketing Companies (OMCs)."
+     }
+    }
+   ],
+   "documents": [
+    {
+     "name": "Know Your Customer (KYC) form",
+     "evidence": {
+      "source": 0,
+      "quote": "Know Your Customer(KYC)"
+     }
+    },
+    {
+     "name": "Ration card or other State Government document certifying family composition (self-declaration for migrants)",
+     "evidence": {
+      "source": 0,
+      "quote": "Ration Card issued by the State from which application is being made/ other State Govt. document certifying family composition/ Self-Declaration as per Annexure I (for migrant applicants)"
+     }
+    },
+    {
+     "name": "Aadhaar of beneficiary and adult family members",
+     "evidence": {
+      "source": 0,
+      "quote": "Aadhaar of beneficiary and adult family members appearing in document at Sl. 2"
+     }
+    },
+    {
+     "name": "Bank account number and IFSC",
+     "evidence": {
+      "source": 0,
+      "quote": "Bank Account Number and IFSC"
+     }
+    }
+   ],
+   "applicationProcess": [
+    "Apply online through the PMUY portal ('Apply for New PMUY Connection'), or submit the KYC form and documents at the nearest LPG distributor."
+   ],
+   "applicationMode": "BOTH",
+   "applicationUrl": "https://www.pmuy.gov.in/",
+   "infoUrl": "https://www.pmuy.gov.in/about.html",
+   "contact": "Ujjwala Helpline 14438; Toll-free 14428; LPG Emergency 1906",
+   "status": "ACTIVE",
+   "sources": [
+    {
+     "title": "About PMUY",
+     "publisher": "Ministry of Petroleum and Natural Gas",
+     "url": "https://www.pmuy.gov.in/about.html",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "Eligibility Criteria, Documents Required and PMUY Benefits blocks on the page."
+    },
+    {
+     "title": "PMUY FAQs",
+     "publisher": "Ministry of Petroleum and Natural Gas",
+     "url": "https://www.pmuy.gov.in/faq.html",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "Q1 and Q2 define the eligible beneficiary and the deprivation declaration."
+    }
+   ]
+  },
+  {
+   "id": "pm-sym",
+   "name": "Pradhan Mantri Shram Yogi Maandhan (PM-SYM)",
+   "altNames": [
+    "PM-SYM"
+   ],
+   "description": "Voluntary and contributory pension scheme for old-age protection and social security of unorganised workers.",
+   "category": "PENSION",
+   "subcategory": "Unorganised workers",
+   "level": "CENTRAL",
+   "jurisdictions": [
+    "ALL"
+   ],
+   "ministry": "Ministry of Labour & Employment",
+   "department": "Ministry of Labour & Employment",
+   "implementingAuthority": "Ministry of Labour & Employment (enrolment through Common Service Centres)",
+   "targetBeneficiaries": "Unorganised workers",
+   "criteria": [
+    {
+     "id": "age-min",
+     "field": "age",
+     "op": "gte",
+     "value": 18,
+     "label": "Entry age at least 18 years",
+     "evidence": {
+      "source": 0,
+      "quote": "Entry Age between 18 to 40 years"
+     }
+    },
+    {
+     "id": "age-max",
+     "field": "age",
+     "op": "lte",
+     "value": 40,
+     "label": "Entry age at most 40 years",
+     "evidence": {
+      "source": 0,
+      "quote": "Entry Age between 18 to 40 years"
+     }
+    },
+    {
+     "id": "uw",
+     "op": "manual",
+     "label": "You are an unorganised worker",
+     "evidence": {
+      "source": 0,
+      "quote": "For Unorganized Workers (UW)"
+     }
+    },
+    {
+     "id": "monthly-income",
+     "op": "manual",
+     "label": "Your monthly income is up to Rs 15,000 (this is personal monthly income, not annual family income)",
+     "evidence": {
+      "source": 0,
+      "quote": "Monthly Income up to Rs 15000/-"
+     }
+    }
+   ],
+   "benefits": [
+    {
+     "text": "Assured pension of Rs. 3000 per month from age 60, with a matching contribution by the Government of India.",
+     "amount": 3000,
+     "frequency": "MONTHLY",
+     "evidence": {
+      "source": 0,
+      "quote": "Pradhan Mantri Shram Yogi Maandhan Yojana provides assured 3000 monthly pension to Unorganised workers at age of 60 years."
+     }
+    }
+   ],
+   "documents": [],
+   "applicationProcess": [
+    "Enrol through the Maandhan portal or at a Common Service Centre (CSC)."
+   ],
+   "applicationMode": "BOTH",
+   "applicationUrl": "https://maandhan.in/",
+   "infoUrl": "https://maandhan.in/",
+   "contact": "Helpline 14434 / 1800 267 6888",
+   "status": "ACTIVE",
+   "reviewFlags": [
+    "Exclusion conditions in the PM-SYM FAQ (for example EPFO/ESIC/NPS membership) were not captured because maandhan.in/shramyogi returned HTTP 404. Confirm them on the official portal."
+   ],
+   "sources": [
+    {
+     "title": "MAANDHAN - Pension for Unorganised Labour (home page)",
+     "publisher": "Ministry of Labour & Employment",
+     "url": "https://maandhan.in/",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "PM-SYM 'Eligibility' and 'Features' blocks."
+    }
+   ]
+  },
+  {
+   "id": "nps-traders",
+   "name": "National Pension Scheme for Traders",
+   "altNames": [
+    "NPS-Traders"
+   ],
+   "description": "Pension scheme for old-age protection and social security of shopkeepers, retail traders and self-employed persons.",
+   "category": "PENSION",
+   "subcategory": "Traders and self-employed",
+   "level": "CENTRAL",
+   "jurisdictions": [
+    "ALL"
+   ],
+   "ministry": "Ministry of Labour & Employment",
+   "department": "Ministry of Labour & Employment",
+   "implementingAuthority": "Ministry of Labour & Employment",
+   "targetBeneficiaries": "Self-employed shop owners, retail owners and other vyaparis",
+   "criteria": [
+    {
+     "id": "age-min",
+     "field": "age",
+     "op": "gte",
+     "value": 18,
+     "label": "Entry age at least 18 years",
+     "evidence": {
+      "source": 0,
+      "quote": "Entry Age between 18 to 40 years"
+     }
+    },
+    {
+     "id": "age-max",
+     "field": "age",
+     "op": "lte",
+     "value": 40,
+     "label": "Entry age at most 40 years",
+     "evidence": {
+      "source": 0,
+      "quote": "Entry Age between 18 to 40 years"
+     }
+    },
+    {
+     "id": "self-employed",
+     "field": "employmentStatus",
+     "op": "in",
+     "value": [
+      "SELF_EMPLOYED"
+     ],
+     "label": "Self-employed (shop owner, retail owner or other trader)",
+     "evidence": {
+      "source": 0,
+      "quote": "For self employed shop owners, retail owners and other vyaparis"
+     }
+    },
+    {
+     "id": "turnover",
+     "op": "manual",
+     "label": "Annual business turnover does not exceed Rs 1.5 crore",
+     "evidence": {
+      "source": 0,
+      "quote": "Annual turnover should not exceed Rs 1.5 crore"
+     }
+    }
+   ],
+   "benefits": [
+    {
+     "text": "Assured pension of Rs. 3000 per month from age 60, with a matching contribution by the Government of India.",
+     "amount": 3000,
+     "frequency": "MONTHLY",
+     "evidence": {
+      "source": 0,
+      "quote": "National Pension Scheme provides assured 3000 monthly pension to Traders and Self - Employed persons at age of 60 years."
+     }
+    }
+   ],
+   "documents": [],
+   "applicationProcess": [
+    "Enrol through the Maandhan portal or at a Common Service Centre (CSC)."
+   ],
+   "applicationMode": "BOTH",
+   "applicationUrl": "https://maandhan.in/",
+   "infoUrl": "https://maandhan.in/",
+   "contact": "Helpline 14434 / 1800 267 6888",
+   "status": "ACTIVE",
+   "sources": [
+    {
+     "title": "MAANDHAN - National Pension Scheme for Traders",
+     "publisher": "Ministry of Labour & Employment",
+     "url": "https://maandhan.in/",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "NPS for Traders 'Eligibility' and 'Features' blocks on the home page."
+    }
+   ]
+  },
+  {
+   "id": "apy",
+   "name": "Atal Pension Yojana (APY)",
+   "altNames": [
+    "APY"
+   ],
+   "description": "Defined pension scheme that encourages unorganised-sector workers to save voluntarily for retirement.",
+   "category": "PENSION",
+   "subcategory": null,
+   "level": "CENTRAL",
+   "jurisdictions": [
+    "ALL"
+   ],
+   "ministry": "Ministry of Finance",
+   "department": "Department of Financial Services",
+   "implementingAuthority": "Pension Fund Regulatory and Development Authority (through banks and post offices)",
+   "targetBeneficiaries": "Workers in the unorganised sector",
+   "criteria": [
+    {
+     "id": "age-min",
+     "field": "age",
+     "op": "gte",
+     "value": 18,
+     "label": "Joining age at least 18 years",
+     "evidence": {
+      "source": 0,
+      "quote": "The minimum age of joining APY is 18 years and maximum age is 40 years."
+     }
+    },
+    {
+     "id": "age-max",
+     "field": "age",
+     "op": "lte",
+     "value": 40,
+     "label": "Joining age at most 40 years",
+     "evidence": {
+      "source": 0,
+      "quote": "The minimum age of joining APY is 18 years and maximum age is 40 years."
+     }
+    }
+   ],
+   "benefits": [
+    {
+     "text": "Guaranteed minimum pension of Rs. 1000, 2000, 3000, 4000 or 5000 per month from age 60, depending on contributions.",
+     "amount": 5000,
+     "frequency": "MONTHLY",
+     "evidence": {
+      "source": 0,
+      "quote": "Under APY, the subscribers would receive the fixed minimum pension of Rs. 1000 per month, Rs. 2000 per month, Rs. 3000 per month, Rs. 4000 per month and Rs. 5000 per month at the age of 60 years depending on their contributions"
+     }
+    }
+   ],
+   "documents": [],
+   "applicationProcess": [
+    "Contributions can be made monthly, quarterly or half-yearly."
+   ],
+   "applicationMode": "OFFLINE",
+   "applicationUrl": null,
+   "infoUrl": "https://financialservices.gov.in/atal-pension-yojana-apy",
+   "status": "ACTIVE",
+   "reviewFlags": [
+    "The DFS page does not list the bank-account or income-tax-payer conditions. Confirm them with your bank or post office before enrolling."
+   ],
+   "sources": [
+    {
+     "title": "Atal Pension Yojana (APY)",
+     "publisher": "Department of Financial Services, Ministry of Finance",
+     "url": "https://financialservices.gov.in/atal-pension-yojana-apy",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "Scheme description paragraph."
+    }
+   ]
+  },
+  {
+   "id": "pmjjby",
+   "name": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
+   "altNames": [
+    "PMJJBY"
+   ],
+   "description": "One-year life insurance scheme, renewable every year, that covers death due to any reason.",
+   "category": "INSURANCE",
+   "subcategory": "Life insurance",
+   "level": "CENTRAL",
+   "jurisdictions": [
+    "ALL"
+   ],
+   "ministry": "Ministry of Finance",
+   "department": "Department of Financial Services",
+   "implementingAuthority": "Life Insurance Corporation and other life insurers through banks",
+   "targetBeneficiaries": "Bank account holders aged 18 to 50",
+   "criteria": [
+    {
+     "id": "age-min",
+     "field": "age",
+     "op": "gte",
+     "value": 18,
+     "label": "Age at least 18 years",
+     "evidence": {
+      "source": 0,
+      "quote": "is available to people in the age group of 18 to 50 years having a bank account."
+     }
+    },
+    {
+     "id": "age-max",
+     "field": "age",
+     "op": "lte",
+     "value": 50,
+     "label": "Age at most 50 years",
+     "evidence": {
+      "source": 0,
+      "quote": "is available to people in the age group of 18 to 50 years having a bank account."
+     }
+    },
+    {
+     "id": "bank",
+     "op": "manual",
+     "label": "You have a bank account (premium is auto-debited)",
+     "evidence": {
+      "source": 0,
+      "quote": "It involves convenient bank account linked enrolment and premium payment through auto-debit from the bank account of the subscriber;"
+     }
+    }
+   ],
+   "benefits": [
+    {
+     "text": "Life cover of Rs. 2 lakh for death due to any reason, for an annual premium of Rs. 436.",
+     "amount": 200000,
+     "frequency": "ANNUAL_COVER",
+     "evidence": {
+      "source": 0,
+      "quote": "It offers coverage of Rs. Two lacs for death due to any reason"
+     }
+    }
+   ],
+   "documents": [],
+   "applicationProcess": [
+    "Enrol through your bank. The premium is auto-debited from your account."
+   ],
+   "applicationMode": "OFFLINE",
+   "applicationUrl": null,
+   "infoUrl": "https://financialservices.gov.in/pradhan-mantri-jeevan-jyoti-bima-yojana-pmjjby",
+   "status": "ACTIVE",
+   "sources": [
+    {
+     "title": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
+     "publisher": "Department of Financial Services, Ministry of Finance",
+     "url": "https://financialservices.gov.in/pradhan-mantri-jeevan-jyoti-bima-yojana-pmjjby",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "Scheme description and features list."
+    }
+   ]
+  },
+  {
+   "id": "pmsby",
+   "name": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
+   "altNames": [
+    "PMSBY"
+   ],
+   "description": "One-year personal accident insurance scheme, renewable every year, covering death or disability due to an accident.",
+   "category": "INSURANCE",
+   "subcategory": "Accident insurance",
+   "level": "CENTRAL",
+   "jurisdictions": [
+    "ALL"
+   ],
+   "ministry": "Ministry of Finance",
+   "department": "Department of Financial Services",
+   "implementingAuthority": "Public sector and other general insurance companies through banks",
+   "targetBeneficiaries": "Bank account holders aged 18 to 70",
+   "criteria": [
+    {
+     "id": "age-min",
+     "field": "age",
+     "op": "gte",
+     "value": 18,
+     "label": "Age at least 18 years",
+     "evidence": {
+      "source": 0,
+      "quote": "is available to people in the age group of 18 to 70 years having a bank account and who give their consent to join and enable auto-debit."
+     }
+    },
+    {
+     "id": "age-max",
+     "field": "age",
+     "op": "lte",
+     "value": 70,
+     "label": "Age at most 70 years",
+     "evidence": {
+      "source": 0,
+      "quote": "is available to people in the age group of 18 to 70 years having a bank account and who give their consent to join and enable auto-debit."
+     }
+    },
+    {
+     "id": "bank",
+     "op": "manual",
+     "label": "You have a bank account and consent to auto-debit of the premium",
+     "evidence": {
+      "source": 0,
+      "quote": "having a bank account and who give their consent to join and enable auto-debit."
+     }
+    }
+   ],
+   "benefits": [
+    {
+     "text": "Rs. 2 lakh on accidental death or permanent total disability; Rs. 1 lakh on partial disability. Premium Rs 20 per year.",
+     "amount": 200000,
+     "frequency": "ANNUAL_COVER",
+     "evidence": {
+      "source": 0,
+      "quote": "Benefit of Rs. 2 Lakh payable on death or permanent total disability and Rs. 1 Lakh on partial disability."
+     }
+    }
+   ],
+   "documents": [],
+   "applicationProcess": [
+    "Enrol through your bank. The premium is auto-debited from your account."
+   ],
+   "applicationMode": "OFFLINE",
+   "applicationUrl": null,
+   "infoUrl": "https://financialservices.gov.in/pradhan-mantri-suraksha-bima-yojana-pmsby",
+   "status": "ACTIVE",
+   "sources": [
+    {
+     "title": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
+     "publisher": "Department of Financial Services, Ministry of Finance",
+     "url": "https://financialservices.gov.in/pradhan-mantri-suraksha-bima-yojana-pmsby",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "Scheme description and features list."
+    }
+   ]
+  },
+  {
+   "id": "pmjdy",
+   "name": "Pradhan Mantri Jan Dhan Yojana (PMJDY)",
+   "altNames": [
+    "PMJDY",
+    "Jan Dhan"
+   ],
+   "description": "National Mission for Financial Inclusion: a basic savings bank deposit account with no minimum balance for people who do not have a bank account.",
+   "category": "FINANCIAL_INCLUSION",
+   "subcategory": "Banking",
+   "level": "CENTRAL",
+   "jurisdictions": [
+    "ALL"
+   ],
+   "ministry": "Ministry of Finance",
+   "department": "Department of Financial Services",
+   "implementingAuthority": "Banks and Business Correspondents (Bank Mitras)",
+   "targetBeneficiaries": "Unbanked persons",
+   "criteria": [
+    {
+     "id": "unbanked",
+     "op": "manual",
+     "label": "You do not already have a bank account",
+     "evidence": {
+      "source": 0,
+      "quote": "by persons not having any other account."
+     }
+    }
+   ],
+   "benefits": [
+    {
+     "text": "Basic savings bank account with no minimum balance, and interest on deposits.",
+     "amount": null,
+     "frequency": null,
+     "evidence": {
+      "source": 0,
+      "quote": "There is no requirement to maintain any minimum balance in PMJDY accounts."
+     }
+    },
+    {
+     "text": "RuPay debit card with accident insurance cover (Rs. 2 lakh for accounts opened after 28.8.2018).",
+     "amount": 200000,
+     "frequency": null,
+     "evidence": {
+      "source": 0,
+      "quote": "Accident Insurance Cover of Rs.1 lakh (enhanced to Rs. 2 lakh to new PMJDY accounts opened after 28.8.2018) is available with RuPay card issued to the PMJDY account holders."
+     }
+    },
+    {
+     "text": "Overdraft facility up to Rs. 10,000 for eligible account holders.",
+     "amount": 10000,
+     "frequency": null,
+     "evidence": {
+      "source": 0,
+      "quote": "An overdraft (OD) facility up to Rs. 10,000 to eligible account holders is available."
+     }
+    }
+   ],
+   "documents": [],
+   "applicationProcess": [
+    "Open the account at any bank branch or Business Correspondent (Bank Mitra) outlet."
+   ],
+   "applicationMode": "OFFLINE",
+   "applicationUrl": null,
+   "infoUrl": "https://pmjdy.gov.in/scheme",
+   "contact": "National toll-free 1800 11 0001 / 1800 180 1111",
+   "status": "ACTIVE",
+   "sources": [
+    {
+     "title": "PMJDY Scheme Details",
+     "publisher": "Department of Financial Services, Ministry of Finance",
+     "url": "https://pmjdy.gov.in/scheme",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "'Scheme Details' and 'Benefits under PMJDY'."
+    },
+    {
+     "title": "Pradhan Mantri Jan Dhan Yojana (PMJDY)",
+     "publisher": "Department of Financial Services, Ministry of Finance",
+     "url": "https://financialservices.gov.in/pradhan-mantri-jan-dhan-yojana-pmjdy",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "Scheme overview (extension to every unbanked adult)."
+    }
+   ]
+  },
+  {
+   "id": "pmmy-mudra",
+   "name": "Pradhan Mantri MUDRA Yojana (PMMY)",
+   "altNames": [
+    "MUDRA loan",
+    "Shishu",
+    "Kishore",
+    "Tarun",
+    "Tarun Plus"
+   ],
+   "description": "Collateral-free institutional credit for non-agricultural micro enterprises, including activities allied to agriculture.",
+   "category": "ENTREPRENEURSHIP",
+   "subcategory": "Micro-enterprise credit",
+   "level": "CENTRAL",
+   "jurisdictions": [
+    "ALL"
+   ],
+   "ministry": "Ministry of Finance",
+   "department": "Department of Financial Services",
+   "implementingAuthority": "Member Lending Institutions (banks, RRBs, SFBs, NBFCs, MFIs)",
+   "targetBeneficiaries": "Micro enterprises",
+   "criteria": [
+    {
+     "id": "purpose",
+     "op": "manual",
+     "label": "The loan is for a non-agricultural micro enterprise (allied activities such as poultry, dairy and beekeeping are included)",
+     "evidence": {
+      "source": 0,
+      "quote": "Purposes: Non-agricultural, including activities allied to agriculture such as poultry, dairy, beekeeping etc."
+     }
+    },
+    {
+     "id": "tarun-plus",
+     "op": "manual",
+     "label": "Tarun Plus (above Rs. 10 lakh) only for borrowers who availed and repaid a previous Tarun loan",
+     "mandatory": false,
+     "evidence": {
+      "source": 0,
+      "quote": "Tarun Plus- Above Rs.10 lakh and upto Rs.20 lakh (for those entrepreneurs who have availed and successfully repaid previous loans under the ‘Tarun’ Category w.e.f 24.10.2024)."
+     }
+    }
+   ],
+   "benefits": [
+    {
+     "text": "Collateral-free loans: Shishu up to Rs. 50,000; Kishore up to Rs. 5 lakh; Tarun up to Rs. 10 lakh; Tarun Plus up to Rs. 20 lakh.",
+     "amount": 2000000,
+     "frequency": "LOAN",
+     "evidence": {
+      "source": 0,
+      "quote": "Shishu – upto Rs.50,000;"
+     }
+    }
+   ],
+   "documents": [],
+   "applicationProcess": [
+    "Apply at a Member Lending Institution (bank, RRB, SFB, NBFC or MFI)."
+   ],
+   "applicationMode": "OFFLINE",
+   "applicationUrl": null,
+   "infoUrl": "https://financialservices.gov.in/pradhan-mantri-mudra-yojana-pmmy",
+   "status": "ACTIVE",
+   "sources": [
+    {
+     "title": "Pradhan Mantri MUDRA Yojana (PMMY)",
+     "publisher": "Department of Financial Services, Ministry of Finance",
+     "url": "https://financialservices.gov.in/pradhan-mantri-mudra-yojana-pmmy",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "'Features' list."
+    },
+    {
+     "title": "MUDRA FAQs",
+     "publisher": "Micro Units Development & Refinance Agency Ltd.",
+     "url": "https://www.mudra.org.in/FAQ",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "Supplementary FAQs."
+    }
+   ]
+  },
+  {
+   "id": "stand-up-india",
+   "name": "Stand-Up India Scheme (SUPI)",
+   "altNames": [
+    "Stand Up India"
+   ],
+   "description": "Bank loans between Rs. 10 lakh and Rs. 1 crore for SC, ST and women entrepreneurs setting up greenfield enterprises.",
+   "category": "ENTREPRENEURSHIP",
+   "subcategory": "SC/ST and women entrepreneurs",
+   "level": "CENTRAL",
+   "jurisdictions": [
+    "ALL"
+   ],
+   "ministry": "Ministry of Finance",
+   "department": "Department of Financial Services",
+   "implementingAuthority": "Scheduled Commercial Banks; SIDBI (Stand-Up India portal)",
+   "targetBeneficiaries": "SC, ST and women entrepreneurs",
+   "criteria": [
+    {
+     "id": "age",
+     "field": "age",
+     "op": "gte",
+     "value": 18,
+     "label": "Age 18 years or above",
+     "evidence": {
+      "source": 0,
+      "quote": "Composite Loan between Rs.10 lakh and Rs.1 crore to entrepreneurs above 18 years of age, through Scheduled Commercial Banks (SCBs);"
+     }
+    },
+    {
+     "id": "group",
+     "label": "SC or ST entrepreneur, or a woman entrepreneur",
+     "anyOf": [
+      {
+       "field": "socialCategory",
+       "op": "in",
+       "value": [
+        "SC",
+        "ST"
+       ],
+       "label": "SC/ST"
+      },
+      {
+       "field": "gender",
+       "op": "in",
+       "value": [
+        "FEMALE"
+       ],
+       "label": "Woman"
+      }
+     ],
+     "evidence": {
+      "source": 0,
+      "quote": "The Stand-up India Scheme was launched on 5th April, 2016 to promote entrepreneurship among the Scheduled Castes/ Scheduled Tribes and Women."
+     }
+    },
+    {
+     "id": "greenfield",
+     "op": "manual",
+     "label": "Loan is for a new (greenfield) project in manufacturing, services, trading or agri-allied activities",
+     "evidence": {
+      "source": 0,
+      "quote": "For setting up greenfield projects in manufacturing, services or trading sector and activities allied to agriculture;"
+     }
+    }
+   ],
+   "benefits": [
+    {
+     "text": "Composite loan between Rs. 10 lakh and Rs. 1 crore, repayable over up to 7 years with an 18-month moratorium.",
+     "amount": 10000000,
+     "frequency": "LOAN",
+     "evidence": {
+      "source": 0,
+      "quote": "Repayment of the loan in a span of upto seven years including moratorium period of 18 months;"
+     }
+    }
+   ],
+   "documents": [],
+   "applicationProcess": [
+    "Apply at a bank branch, through the Stand-Up India portal (www.standupmitra.in), or through the Lead District Manager."
+   ],
+   "applicationMode": "BOTH",
+   "applicationUrl": "https://www.standupmitra.in/",
+   "infoUrl": "https://financialservices.gov.in/stand-india-scheme-supi",
+   "applicationWindow": {
+    "opens": null,
+    "closes": "2025-03-31",
+    "evidence": {
+     "source": 0,
+     "quote": "the SUPI Scheme is upto 31.03.2025, in line with the 15th Finance Commission."
+    }
+   },
+   "status": "ACTIVE",
+   "reviewFlags": [
+    "DFS says SUPI runs up to 31.03.2025 and a successor scheme was announced in Budget 2025-26. Shown as not currently open until a newer official notice is captured."
+   ],
+   "sources": [
+    {
+     "title": "Stand Up India Scheme (SUPI)",
+     "publisher": "Department of Financial Services, Ministry of Finance",
+     "url": "https://financialservices.gov.in/stand-india-scheme-supi",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "'Features' list and the note on scheme tenure."
+    },
+    {
+     "title": "Stand-Up India Scheme Guidelines",
+     "publisher": "SIDBI / Department of Financial Services",
+     "url": "https://www.standupmitra.in/Home/SchemeGuidelines",
+     "documentType": "GOVERNMENT_GUIDELINE",
+     "evidenceNotes": "Nature of loan, margin money, 51% shareholding rule for non-individual enterprises."
+    }
+   ]
+  },
+  {
+   "id": "pm-vishwakarma",
+   "name": "PM Vishwakarma",
+   "altNames": [
+    "Pradhan Mantri Vishwakarma"
+   ],
+   "description": "Recognition, skill training, toolkit support and collateral-free credit for artisans and craftspeople in specified family-based traditional trades.",
+   "category": "SKILL_DEVELOPMENT",
+   "subcategory": "Artisans and craftspeople",
+   "level": "CENTRAL",
+   "jurisdictions": [
+    "ALL"
+   ],
+   "ministry": "Ministry of Micro, Small and Medium Enterprises",
+   "department": "Ministry of MSME",
+   "implementingAuthority": "Ministry of MSME, MSDE and Department of Financial Services",
+   "targetBeneficiaries": "Artisans and craftspeople in the 18 specified traditional trades",
+   "criteria": [
+    {
+     "id": "artisan",
+     "field": "occupation",
+     "op": "in",
+     "value": [
+      "ARTISAN_CRAFTSPERSON"
+     ],
+     "label": "Artisan or craftsperson in a family-based traditional trade",
+     "evidence": {
+      "source": 0,
+      "quote": "An artisan or craftsperson working with hands and tools and engaged in one of the family-based traditional trades specified in Para 2.3, in the unorganized or informal sector, on self-employment basis, shall be eligible for registration under PM Vishwakarma."
+     }
+    },
+    {
+     "id": "age",
+     "field": "age",
+     "op": "gte",
+     "value": 18,
+     "label": "Age at least 18 years on the date of registration",
+     "evidence": {
+      "source": 0,
+      "quote": "(i) The minimum age of the beneficiary should be 18 years on the date of registration."
+     }
+    },
+    {
+     "id": "no-similar-loan",
+     "op": "manual",
+     "label": "Engaged in the trade, and has not taken loans under similar Central or State self-employment credit schemes in the past 5 years (fully repaid MUDRA and SVANidhi loans are allowed)",
+     "evidence": {
+      "source": 0,
+      "quote": "(ii) The beneficiary should be engaged in the trades concerned on the date of registration and should not have availed loans under similar credit-based schemes of Central Government or State Government for self-employment"
+     }
+    },
+    {
+     "id": "one-per-family",
+     "op": "manual",
+     "label": "Only one member of the family (husband, wife and unmarried children) can register",
+     "evidence": {
+      "source": 0,
+      "quote": "(iii) The registration and benefits under the Scheme shall be restricted to one member of the family."
+     }
+    },
+    {
+     "id": "no-govt-service",
+     "op": "manual",
+     "label": "Neither you nor your family members are in government service",
+     "evidence": {
+      "source": 0,
+      "quote": "(iv) A person in government service and his/her family members shall not be eligible under the Scheme."
+     }
+    }
+   ],
+   "benefits": [
+    {
+     "text": "Training stipend of Rs. 500 per day during Basic and Advanced Training.",
+     "amount": 500,
+     "frequency": "DAILY_DURING_TRAINING",
+     "evidence": {
+      "source": 0,
+      "quote": "Each beneficiary will be eligible to receive a training stipend of Rs. 500 per day while undergoing the Basic and Advanced Training programmes."
+     }
+    },
+    {
+     "text": "Collateral-free credit support, with a first tranche of up to Rs 1 lakh after skill assessment and basic training, at concessional interest.",
+     "amount": 100000,
+     "frequency": "LOAN",
+     "evidence": {
+      "source": 0,
+      "quote": "The beneficiary must have undergone Skill Assessment and completed Basic Training to be eligible to avail first tranche of credit support of upto Rs 1 lakh under the Scheme."
+     }
+    }
+   ],
+   "documents": [
+    {
+     "name": "Aadhaar, mobile number, bank details and ration card (Aadhaar of all family members if there is no ration card)",
+     "evidence": {
+      "source": 0,
+      "quote": "The beneficiary needs to produce documents like Aadhaar, mobile number, bank details, ration card for the registration."
+     }
+    }
+   ],
+   "applicationProcess": [
+    "Register through a Common Service Centre (CSC). Details are verified by the Gram Panchayat / Urban Local Body."
+   ],
+   "applicationMode": "OFFLINE",
+   "applicationUrl": "https://pmvishwakarma.gov.in/",
+   "infoUrl": "https://pmvishwakarma.gov.in/Home/FAQ",
+   "guidelinesUrl": "https://pmvishwakarma.gov.in/cdn/MiscFiles/eng_v30.0_PM_Vishwakarma_Guidelines_final.pdf",
+   "status": "ACTIVE",
+   "sources": [
+    {
+     "title": "PM Vishwakarma Scheme Guidelines (v30.0)",
+     "publisher": "Ministry of MSME",
+     "url": "https://pmvishwakarma.gov.in/cdn/MiscFiles/eng_v30.0_PM_Vishwakarma_Guidelines_final.pdf",
+     "documentType": "GOVERNMENT_GUIDELINE",
+     "evidenceNotes": "Section 4 'Eligibility', 3.2.3 training stipend, credit support, 5.1 enrolment documents."
+    },
+    {
+     "title": "PM Vishwakarma FAQ",
+     "publisher": "Ministry of MSME",
+     "url": "https://pmvishwakarma.gov.in/Home/FAQ",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "Supplementary FAQs."
+    }
+   ]
+  },
+  {
+   "id": "pm-svanidhi",
+   "name": "PM Street Vendor's AtmaNirbhar Nidhi (PM SVANidhi)",
+   "altNames": [
+    "PM SVANidhi"
+   ],
+   "description": "Micro-credit facility that gives street vendors affordable working-capital loans.",
+   "category": "ENTREPRENEURSHIP",
+   "subcategory": "Street vendors",
+   "level": "CENTRAL",
+   "jurisdictions": [
+    "ALL"
+   ],
+   "ministry": "Ministry of Housing and Urban Affairs",
+   "department": "Ministry of Housing and Urban Affairs",
+   "implementingAuthority": "Urban Local Bodies and lending institutions",
+   "targetBeneficiaries": "Street vendors / hawkers in urban areas",
+   "criteria": [
+    {
+     "id": "vendor",
+     "field": "occupation",
+     "op": "in",
+     "value": [
+      "STREET_VENDOR"
+     ],
+     "label": "Street vendor / hawker",
+     "evidence": {
+      "source": 0,
+      "quote": "Street vendors/ hawkers vending in urban areas, as on or before March 24, 2020, including the vendors of surrounding peri-urban and rural areas."
+     }
+    },
+    {
+     "id": "date",
+     "op": "manual",
+     "label": "Vending in urban areas on or before 24 March 2020 (or holding a Letter of Recommendation from the ULB/TVC)",
+     "evidence": {
+      "source": 0,
+      "quote": "Street vendors/ hawkers vending in urban areas, as on or before March 24, 2020"
+     }
+    }
+   ],
+   "benefits": [
+    {
+     "text": "Initial working-capital loan of up to Rs 10,000 for one year, 7% interest subsidy on timely repayment, and cash-back on digital transactions.",
+     "amount": 10000,
+     "frequency": "LOAN",
+     "evidence": {
+      "source": 0,
+      "quote": "The Initial working capital loan is upto `10,000/- for a tenure of one year."
+     }
+    }
+   ],
+   "documents": [],
+   "applicationProcess": [
+    "Apply online on the PM SVANidhi portal or through a Banking Correspondent / MFI agent."
+   ],
+   "applicationMode": "BOTH",
+   "applicationUrl": "https://pmsvanidhi.mohua.gov.in/",
+   "infoUrl": "https://pmsvanidhi.mohua.gov.in/Home/Schemes",
+   "status": "UNKNOWN",
+   "reviewFlags": [
+    "The only eligibility source captured is an older FAQ that says 'The Scheme shall be implemented up to March, 2022.' The portal lists newer operational guidelines, but they are not yet ingested. Needs review before it can be shown as confirmed."
+   ],
+   "sources": [
+    {
+     "title": "PM SVANidhi FAQs (English)",
+     "publisher": "Ministry of Housing and Urban Affairs",
+     "url": "https://pmsvanidhi.mohua.gov.in/Default/ViewFile/?id=FAQEng.pdf&path=MiscFiles",
+     "documentType": "OFFICIAL_SCHEME_PAGE",
+     "evidenceNotes": "Generic FAQ 5 (target beneficiary) and Beneficiary FAQ 1 (loan amount)."
+    },
+    {
+     "title": "PM SVANidhi Scheme Instructions",
+     "publisher": "Ministry of Housing and Urban Affairs",
+     "url": "https://pmsvanidhi.mohua.gov.in/Home/Schemes",
+     "documentType": "OFFICIAL_APPLICATION_PORTAL",
+     "evidenceNotes": "Index of current operational guidelines (PDFs not yet ingested)."
+    }
+   ],
+   "needsReview": true
+  }
+ ]
+}
