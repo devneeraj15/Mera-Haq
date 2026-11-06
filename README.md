@@ -23,9 +23,12 @@ Every eligibility rule, benefit and document in `data/schemes.json` carries the 
 - **Scheme detail**: conditions met, not met, unknown and to confirm yourself, each with its source quote; benefits; documents; how to apply; official sources with capture dates; verification status.
 - **Saved Schemes** and a **Documents Checklist** (ticks only, no uploads).
 - **Government Resources** (official portals, per-State/UT coverage table) and **Help, FAQs and Privacy** (including "Delete all my data").
+- **Impact**: official CAG figures on unspent funds (FY 2024-25) plus a transparent, unit-tested model of how much less money could go unspent when more eligible citizens apply, with every assumption explicit.
 - **Open Data API (proposal)**: the app reads data only through a proposed Open Government Schemes API (OpenAPI 3.1, [`docs/api/openapi.yaml`](./docs/api/openapi.yaml)), served statically at `api/v1/`. Pointing `<meta name="merahaq-api-base">` at an official endpoint switches the data source.
 
 ## Proposal to government
+
+Share together: [`docs/PROPOSAL.md`](./docs/PROPOSAL.md) (the proposal, including the fiscal case for reducing unspent scheme funds) and [`docs/POC_WALKTHROUGH.md`](./docs/POC_WALKTHROUGH.md) (an illustrated tour of the POC with a 10-minute demo script).
 
 Scraping myScheme is not permitted, so the path to national coverage is for government to adopt this. [`docs/PROPOSAL.md`](./docs/PROPOSAL.md) sets out two options: (A) integrate Mera Haq into UMANG, or (B) publish an open, read-only Schemes API. It covers governance, privacy (DPDP Act), a phased roadmap and the specific asks. A matching pitch deck accompanies it.
 

@@ -6,9 +6,9 @@ Run on 2026-11-06 on Windows 11, Node 22.11.0, Python 3.11.4, Chrome (stable cha
 
 | Suite | Command | Result |
 |---|---|---|
-| Engine unit + API contract tests | `npm run test:unit` | **32 / 32 passed** (26 engine, 6 API contract) |
-| Pipeline unit tests | `npm run test:pipeline` | **15 / 15 passed** |
-| End-to-end (Playwright, desktop 1280×800 + Pixel 5 mobile) | `npx playwright test` | **22 / 22 passed** (11 journeys × 2 viewports) |
+| Engine, API contract and impact-model unit tests | `npm run test:unit` | **37 / 37 passed** (26 engine, 6 API contract, 5 impact model) |
+| Pipeline unit tests | `npm run test:pipeline` | **16 / 16 passed** (includes CAG quote verification) |
+| End-to-end (Playwright, desktop 1280×800 + Pixel 5 mobile) | `npx playwright test` | **24 / 24 passed** (12 journeys × 2 viewports) |
 | Real-data dry run (18 personas × 66 schemes) | `npm run dryrun` | **210 oracle checks, 0 mismatches, 0 failed evaluations**. 5 suspected false positives flagged, reviewed and found to be heuristic false alarms |
 | Production build | `npm run build` | passes. `app.js` 213.6 KiB (67.2 KiB gzip) |
 | Data pipeline (offline) | `npm run data:offline` | 66 records: 978 / 978 evidence quotes found in source snapshots (7 VERIFIED, 56 PARTIALLY_VERIFIED, 3 NEEDS_REVIEW) |
@@ -34,6 +34,7 @@ Rule extraction (inclusive ceilings, ambiguous `>` text, conditional "For …" l
 | 10 | Unknown route, unknown and script-injected scheme IDs, empty saved, no profile; API returns 503 → error + retry recovers | ✅ | ✅ |
 | – | Random/hostile input: negative, decimal, exponent, HTML and SQL-like ages rejected; age 0 + Lakshadweep accepted; `<script>` display name and `?q=<img onerror>` inert; tampered storage re-validated | ✅ | ✅ |
 | – | Accessibility: skip link is the first Tab stop; every input/select is labelled; dialog traps focus; delete-data works | ✅ | ✅ |
+| – | Impact page: CAG figures shown with caveat; spend above allocation rejected; ₹1,000 cr / ₹800 cr / 10% / 25% / ₹10,000 gives ₹5 cr and 5,000 beneficiaries | ✅ | ✅ |
 | – | Open Data API page: live metadata via `api/v1/meta.json`; app loads data only through `api/v1/schemes/index.json` | ✅ | ✅ |
 
 Bugs these tests found and that were fixed during the run:

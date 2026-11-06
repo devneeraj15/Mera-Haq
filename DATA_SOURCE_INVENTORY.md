@@ -35,6 +35,15 @@ Investigated 2026-11-06 from the ingestion host with User-Agent `MeraHaq-SchemeI
 | eshram.gov.in | MoLE | HTTP 504 | Not ingested |
 | pmayg.nic.in, nsap.nic.in, www.pmkvyofficial.org, www.npscra.nsdl.co.in | various | DNS failure | Host not resolvable from the ingestion host |
 
+## 2a. Fiscal sources (impact model)
+
+| Host | Status | Notes |
+|---|---|---|
+| cag.gov.in + its document CDN (d1jmc0u14z2tmp.cloudfront.net) | **Ingested** | Press release on CAG Report No. 6 of 2026 (Union Government accounts FY 2024-25), linked from cag.gov.in. Figures quoted in `data/impact/fiscal-context.json` and verified against the snapshot by a test |
+| www.indiabudget.gov.in | BLOCKED_BY_WAF | HTTP 403 to automated requests, including robots.txt. Scheme-wise BE / Actuals must be downloaded by a person |
+| www.pib.gov.in, www.sansad.in | BLOCKED_BY_WAF | HTTP 403 to automated requests |
+| cga.nic.in, rajyasabha.nic.in | SOURCE_UNAVAILABLE | Connection timed out |
+
 ## 3. Directly seeded pages (latest snapshot)
 
 | URL | Type | Text chars | Captured | Cited by records |

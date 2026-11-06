@@ -34,12 +34,49 @@ Mera Haq is a working, tested prototype of a **profile-first discovery layer ins
 | Privacy by design | Answers stay on the device. Session-only storage by default. Consent before sensitive questions. No Aadhaar or document uploads |
 | Hands off to the official portal | Destination shown before leaving. Never claims to submit an application |
 | Works for all 28 States and 8 UTs | Canonical registry. State/UT data so far for Maharashtra (55 MahaDBT schemes) + 11 Central schemes |
-| Quality assurance | 32 unit and contract tests, 15 pipeline tests, 22 end-to-end tests (desktop and mobile), and a dry run of 18 personas × 66 schemes with 210 independently written expected outcomes (0 mismatches) |
+| Quality assurance | 77 automated tests (37 unit, 16 pipeline, 24 end-to-end on desktop and mobile), and a dry run of 18 personas × 66 schemes with 210 independently written expected outcomes (0 mismatches) |
 | Already speaks a proposed API | The app reads data only through `api/v1/` (OpenAPI 3.1, `docs/api/openapi.yaml`) |
 
 **What the POC cannot do alone:** national coverage. That needs the government's data, which is the point of this proposal.
 
-## 3. Two ways to adopt it (not mutually exclusive)
+## 3. The fiscal case: less money left unspent
+
+Money Parliament votes for still goes unspent. CAG Report No. 6 of 2026 (Accounts of the Union Government, FY 2024-25; press release of 2 April 2026) states:
+
+> "The total voted provision was ₹47,06,865.39 crore and actual expenditure was ₹42,84,939.54 crore with savings of ₹4,21,925.85 crore."
+
+> "there were savings of ₹5,000 crore or more in 19 Grants/ Appropriations during FY 2024 -25 against which seven Grants/ Appropriations had persistent savings in last three FYs."
+
+**What this does and does not show.** These savings have many causes (project and procurement delays, re-appropriation, budgeting practice), and CAG does not attribute them to low citizen uptake. For **citizen-benefit schemes**, though, part of any underspend is demand-side: eligible people never learn of the scheme, are unsure they qualify, or are rejected for missing documents. That is the part Mera Haq addresses.
+
+**Model (implemented and unit-tested in `src/engine/impact.js`, live at `#/mera-haq/impact`):**
+
+`reduction in unspent funds = (allocation − actual spend) × A × B`
+
+- **A**: share of the scheme's unspent amount caused by eligible citizens not applying
+- **B**: share of that missed demand that proactive discovery converts into successful applications
+
+Per ₹1,000 crore of unspent allocation, illustrative arithmetic only:
+
+| A \ B | 10% | 25% | 50% |
+|---|---|---|---|
+| 5% | ₹5 cr | ₹12.5 cr | ₹25 cr |
+| 10% | ₹10 cr | ₹25 cr | ₹50 cr |
+| 25% | ₹25 cr | ₹62.5 cr | ₹125 cr |
+
+A and B are **not known today**. The pilot (§8) is designed to measure them from department application data. Before a meeting, replace the grid with one or two real schemes from the relevant ministry's Expenditure Budget (BE vs Actuals) **[to source]**. indiabudget.gov.in blocks automated access, so those figures must be downloaded by a person.
+
+**Levers and how each is measured:**
+
+| Cause of low uptake | What Mera Haq does | Pilot metric |
+|---|---|---|
+| Citizen doesn't know the scheme exists | Shows schemes after 3 questions | Users shown at least one relevant scheme |
+| Unsure if they qualify | Explains each condition with the official text | Hand-offs to official portals per 100 users |
+| Rejected for missing documents | Scheme-specific checklist before applying | Rejection rate of referred applicants |
+| Helpers use outdated rules | Versioned records and a change feed | Days from GR change to updated record |
+| Deadline missed | Shows published application windows | Applications filed before the last two weeks |
+
+## 4. Two ways to adopt it (not mutually exclusive)
 
 ### Option A: Integrate Mera Haq into UMANG
 UMANG adds a "Mera Haq" entry under Schemes that runs the open engine on myScheme's existing catalogue.
@@ -57,7 +94,7 @@ myScheme (or API Setu) publishes the catalogue as a read-only, versioned API und
 
 **Recommendation:** start with **Option B in read-only form** (it unlocks everyone, including UMANG), then do **Option A** as UMANG's own front end on top of it.
 
-## 4. Proposed API at a glance
+## 5. Proposed API at a glance
 
 | Endpoint | Purpose |
 |---|---|
@@ -77,7 +114,7 @@ Conditions that cannot be machine-checked are published as `"op": "manual"` with
 
 Deliberately **not** included: any endpoint that accepts a citizen's profile.
 
-## 5. Governance and data stewardship
+## 6. Governance and data stewardship
 
 | Role | Responsibility |
 |---|---|
@@ -88,12 +125,12 @@ Deliberately **not** included: any endpoint that accepts a citizen's profile.
 
 Proposed controls: every published field cites a document; record status (VERIFIED / PARTIALLY_VERIFIED / NEEDS_REVIEW / OUTDATED / INACTIVE); a 180-day re-verification cycle; a public changelog.
 
-## 6. Privacy and compliance
+## 7. Privacy and compliance
 - **DPDP Act, 2023:** the API processes no personal data. Option A processes it inside UMANG under UMANG's existing consent and notice framework. The POC already shows purpose limitation, consent for sensitive attributes, and deletion on request.
 - **Data minimisation:** onboarding needs three non-sensitive fields. Sensitive attributes (income, category, religion, disability) are optional and asked only when a scheme needs them.
 - **No profiling outside the device** in the open-API model.
 
-## 7. Phased roadmap (proposal)
+## 8. Phased roadmap (proposal)
 
 | Phase | Scope | Exit criteria |
 |---|---|---|
@@ -102,20 +139,21 @@ Proposed controls: every published field cites a document; record status (VERIFI
 | 2. National read-only API | All Central and State/UT schemes on myScheme; change feed; GODL licence | Consumers onboarded (UMANG, at least one State portal, a CSC pilot) |
 | 3. UMANG integration (Option A) | Mera Haq in UMANG with optional DigiLocker-verified prefill | Usability testing with citizens; accessibility audit; multilingual UI |
 
-## 8. What we are asking for
+## 9. What we are asking for
 1. **Interim:** written authorisation (or a sandbox API key) to use myScheme scheme data in the Mera Haq POC. The POC respects the current Terms and does not scrape.
 2. A **review meeting** with the myScheme and UMANG product teams to validate the schema (`docs/api/openapi.yaml`) against myScheme's internal model.
 3. A **pilot partner State** (Maharashtra suggested, since 55 MahaDBT schemes are already modelled) and a nominated officer to review the dry-run results.
 4. A decision on the licence for published scheme data (GODL suggested).
 
-## 9. Measurable outcomes for a pilot (baselines to be set during the pilot)
+## 10. Measurable outcomes for a pilot (baselines to be set during the pilot)
 - Share of citizens who see at least one relevant scheme after 3 questions.
 - Median number of questions asked before a result is confirmed.
 - Hand-offs to official application portals.
 - Accuracy against officer review (false positives / false negatives per 100 assessments).
+- Change in utilisation (Actuals ÷ BE) of pilot schemes, compared with matched non-pilot districts or the previous year, to estimate A and B.
 - Data freshness: median days between a GR change and an updated record.
 
-## 10. Risks and mitigations
+## 11. Risks and mitigations
 
 | Risk | Mitigation |
 |---|---|
@@ -125,4 +163,4 @@ Proposed controls: every published field cites a document; record status (VERIFI
 | Misuse of the open data (fake "agents") | Mandatory source links and an official-domain allow-list for application links |
 
 ---
-*Appendices in the repository:* `ARCHITECTURE.md` (engine and data model), `DATA_SOURCE_INVENTORY.md` (access findings for each source), `DATA_QUALITY_REPORT.md` (coverage by State/UT), `TEST_REPORT.md` (accuracy testing), `SECURITY_AUDIT.md`.
+*Appendices in the repository:* `docs/POC_WALKTHROUGH.md` (illustrated tour of the POC), `ARCHITECTURE.md` (engine and data model), `DATA_SOURCE_INVENTORY.md` (access findings for each source), `DATA_QUALITY_REPORT.md` (coverage by State/UT), `TEST_REPORT.md` (accuracy testing), `SECURITY_AUDIT.md`.
