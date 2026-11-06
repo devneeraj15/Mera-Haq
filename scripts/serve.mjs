@@ -8,7 +8,7 @@ import { extname, join, normalize, resolve, sep } from "node:path";
 
 const ROOT = resolve(".");
 const PORT = Number(process.env.PORT || 4173);
-const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".json": "application/json; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".ico": "image/x-icon", ".txt": "text/plain; charset=utf-8" };
+const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".json": "application/json; charset=utf-8", ".svg": "image/svg+xml", ".png": "image/png", ".ico": "image/x-icon", ".txt": "text/plain; charset=utf-8", ".yaml": "text/yaml; charset=utf-8" };
 const BLOCKED = [/^\/\.git/, /^\/node_modules/, /^\/\.env/, /^\/data\/snapshots/, /^\/scripts/, /^\/tests/, /^\/hostel-management/];
 export const SECURITY_HEADERS = {
   "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests",

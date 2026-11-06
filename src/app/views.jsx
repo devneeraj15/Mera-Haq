@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Engine from "../engine/eligibility.js";
 import Locations from "../engine/locations.js";
-import { useApp } from "./store.jsx";
+import { apiBase, useApp } from "./store.jsx";
 import {
   Badge, CATEGORY_LABELS, Dialog, EmptyState, ENUM_LABELS, ErrorState, FieldInput, formatDate, formatINR,
   LevelBadge, LoadingList, locName, Notice, OUTCOME_UI, OutcomeBadge, VerificationBadge,
@@ -748,6 +748,7 @@ export function Resources() {
   }, [data.schemes]);
   return (
     <Page title="Government resources" subtitle="Official portals, and an honest view of what this dataset covers.">
+      <Notice tone="info">Building on this data? See the proposed <a href="#/mera-haq/developers">Open Data API</a>.</Notice>
       <section className="panel"><h2 className="h3">Official portals</h2>
         <ul className="source-list">{PORTALS.map(([n, u, p]) => <li key={u}><a href={u} target="_blank" rel="noopener noreferrer">{n}</a><span className="small muted">{p}</span></li>)}</ul>
       </section>
@@ -841,4 +842,74 @@ export function NotFound({ what = "page", inline }) {
     </EmptyState>
   );
   return inline ? body : <Page title={what === "scheme" ? "Scheme not found" : "Page not found"}>{body}</Page>;
+}
+
+// ---------------------------------------------------------------------------
+// Open Data API (proposal demo)
+// ---------------------------------------------------------------------------
+const API_ENDPOINTS = [
+  ["GET", "meta.json", "Dataset metadata, coverage per State/UT"],
+  ["GET", "schemes/index.json", "All schemes, eligibility-ready (official API: /schemes?level&jurisdiction&category&updatedSince&page)"],
+  ["GET", "schemes/{id}.json", "One scheme: criteria, evidence quotes, benefits, documents, sources, version"],
+  ["GET", "jurisdictions/index.json", "The 28 States and 8 UTs with scheme counts"],
+  ["GET", "jurisdictions/{code}/schemes.json", "Schemes applicable in a State/UT (Central + State/UT)"],
+  ["GET", "changes/index.json", "Change feed for incremental sync (official API: ?since=)"],
+  ["GET", "openapi.yaml", "OpenAPI 3.1 specification of this contract"],
+];
+
+export function Developers() {
+  const { data, profile } = useApp();
+  const base = apiBase();
+  const [meta, setMeta] = useState(null);
+  const [metaErr, setMetaErr] = useState(null);
+  const [code, setCode] = useState(profile.state || "MH");
+  useEffect(() => {
+    let live = true;
+    fetch(base + "meta.json", { cache: "no-cache", credentials: "omit" })
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
+      .then((m) => live && setMeta(m))
+      .catch((e) => live && setMetaErr(e.message));
+    return () => { live = false; };
+  }, [base]);
+  const sample = data.schemes.find((s) => s.id === "apy") || data.schemes[0];
+  const sampleText = sample ? JSON.stringify({ ...sample, sources: sample.sources.slice(0, 1), verification: { status: sample.verification.status, quotesTotal: sample.verification.quotesTotal, quotesFound: sample.verification.quotesFound } }, null, 2) : "";
+  const forCode = data.schemes.filter((s) => s.jurisdictions.includes("ALL") || s.jurisdictions.includes(code)).length;
+  return (
+    <Page title="Open Data API (proposal)" subtitle="Mera Haq reads scheme data only through this contract. If the government publishes it officially, UMANG, State portals, CSCs and civil society can build on one trusted, machine-readable source instead of scraping.">
+      <Notice tone="info" title="Proof of concept">This is <strong>not</strong> an official Government of India API. The POC serves the proposed contract as static files at <code>{base}</code>. Switching to an official endpoint is a one-line configuration change.</Notice>
+      <section className="panel" aria-labelledby="api-why"><h2 id="api-why" className="h3">Why an open schemes API</h2>
+        <ul>
+          <li><strong>Rules, not people:</strong> the API publishes eligibility rules. Citizens' answers are evaluated on their own device with the open reference engine, so no personal data is collected.</li>
+          <li><strong>Traceable:</strong> every rule carries the exact sentence from the official guideline or GR it came from.</li>
+          <li><strong>Versioned:</strong> a change feed lets every consumer stay current when a GR changes income limits or dates.</li>
+          <li><strong>Covers every State and UT:</strong> one schema for Central and State/UT schemes, keyed by ISO 3166-2:IN codes.</li>
+        </ul>
+      </section>
+      <section className="panel" aria-labelledby="api-ep"><h2 id="api-ep" className="h3">Endpoints</h2>
+        <div className="table-wrap"><table>
+          <thead><tr><th scope="col">Method</th><th scope="col">Path</th><th scope="col">Purpose</th></tr></thead>
+          <tbody>{API_ENDPOINTS.map(([m, p, d]) => (
+            <tr key={p}><td>{m}</td><td>{p.includes("{") ? <code>{p}</code> : <a href={base + p} target="_blank" rel="noopener noreferrer"><code>{p}</code></a>}</td><td>{d}</td></tr>
+          ))}</tbody>
+        </table></div>
+      </section>
+      <section className="panel" aria-labelledby="api-live"><h2 id="api-live" className="h3">Live from this deployment</h2>
+        {metaErr ? <Notice tone="danger">Could not load meta.json ({metaErr}).</Notice> : !meta ? <LoadingList count={1} /> : (
+          <ul className="plain-list">
+            <li>API version <code>{meta.apiVersion}</code>, schema v{meta.schemaVersion}, generated {formatDate(meta.generatedAt)}</li>
+            <li>{meta.count} schemes · {meta.coverage.ALL || 0} Central · State/UT-specific: {Object.entries(meta.coverage).filter(([k]) => k !== "ALL").map(([k, v]) => `${locName(k)} ${v}`).join(", ") || "none"}</li>
+          </ul>
+        )}
+        <div className="form-grid">
+          <FieldInput field="state" idPrefix="api" value={code} onChange={(v) => setCode(v || "MH")} />
+        </div>
+        <p><code>GET {base}jurisdictions/{code}/schemes.json</code>: <strong>{forCode}</strong> schemes. <a href={`${base}jurisdictions/${code}/schemes.json`} target="_blank" rel="noopener noreferrer">Open response</a></p>
+      </section>
+      <DataGate>
+        <section className="panel" aria-labelledby="api-sample"><h2 id="api-sample" className="h3">Sample record: {sample && sample.name}</h2>
+          <pre className="code-block" tabIndex={0} aria-label="Sample JSON record">{sampleText}</pre>
+        </section>
+      </DataGate>
+    </Page>
+  );
 }

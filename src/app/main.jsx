@@ -2,7 +2,7 @@ import { Component, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { AppProvider, useApp } from "./store.jsx";
 import {
-  Documents, Eligible, FindSchemes, Help, NotFound, Onboarding, Overview, Profile, Resources, Saved, SchemeDetail,
+  Developers, Documents, Eligible, FindSchemes, Help, NotFound, Onboarding, Overview, Profile, Resources, Saved, SchemeDetail,
   UmangPlaceholder, UmangSchemes,
 } from "./views.jsx";
 
@@ -15,6 +15,7 @@ const MERA_HAQ_NAV = [
   ["/mera-haq/documents", "Documents Checklist"],
   ["/mera-haq/resources", "Government Resources"],
   ["/mera-haq/help", "Help and FAQs"],
+  ["/mera-haq/developers", "Open Data API"],
 ];
 const UMANG_NAV = [["/home", "Home"], ["/services", "Services"], ["/digilocker", "DigiLocker"], ["/schemes", "Schemes"]];
 const UMANG_NAV_AFTER = [["/jobs", "Jobs"], ["/dashboard", "Dashboard"]];
@@ -79,6 +80,7 @@ function Routes() {
   if (p === "/mera-haq/documents") return <Documents />;
   if (p === "/mera-haq/resources") return <Resources />;
   if (p === "/mera-haq/help") return <Help />;
+  if (p === "/mera-haq/developers") return <Developers />;
   if (p === "/schemes") return <UmangSchemes />;
   if (PLACEHOLDER_TITLES[p]) return <UmangPlaceholder title={PLACEHOLDER_TITLES[p]} />;
   const m = p.match(/^\/mera-haq\/scheme\/([a-z0-9-]{1,120})$/);

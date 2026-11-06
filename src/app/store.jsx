@@ -122,15 +122,30 @@ function persist(state) {
 // ---------------------------------------------------------------------------
 // Dataset loading
 // ---------------------------------------------------------------------------
-const DATA_URL = "data/schemes.json";
+// The app reads scheme data ONLY through the (proposed) Open Government Schemes
+// API contract (docs/api/openapi.yaml). The POC serves it statically at api/v1/.
+// To use an official endpoint, change <meta name="merahaq-api-base"> and add its
+// origin to the CSP connect-src.
 const TIMEOUT_MS = 15000;
+
+export function apiBase() {
+  const el = typeof document !== "undefined" && document.querySelector('meta[name="merahaq-api-base"]');
+  const raw = (el && el.getAttribute("content")) || "api/v1/";
+  try {
+    const u = new URL(raw, window.location.href);
+    if (u.origin !== window.location.origin && u.protocol !== "https:") return "api/v1/";
+    return u.href.endsWith("/") ? u.href : u.href + "/";
+  } catch (e) {
+    return "api/v1/";
+  }
+}
 
 async function fetchDataset(signal) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
   if (signal) signal.addEventListener("abort", () => ctrl.abort());
   try {
-    const res = await fetch(DATA_URL, { signal: ctrl.signal, cache: "no-cache", credentials: "same-origin" });
+    const res = await fetch(apiBase() + "schemes/index.json", { signal: ctrl.signal, cache: "no-cache", credentials: "omit" });
     if (!res.ok) throw new Error(`The scheme dataset could not be loaded (HTTP ${res.status}).`);
     const json = await res.json();
     if (!json || !Array.isArray(json.schemes)) throw new Error("The scheme dataset is malformed.");

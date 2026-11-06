@@ -182,11 +182,11 @@ test("Flow 10: empty, invalid and error states", async ({ page }) => {
   await page.goto("#/mera-haq/eligible");
   await expect(page.getByText("Start with three quick questions")).toBeVisible();
   // API unavailable
-  await page.route("**/data/schemes.json", (r) => r.fulfill({ status: 503, body: "down" }));
+  await page.route("**/api/v1/schemes/index.json", (r) => r.fulfill({ status: 503, body: "down" }));
   await page.goto("#/mera-haq/find");
   await page.reload();
   await expect(page.getByRole("alert")).toContainText("HTTP 503");
-  await page.unroute("**/data/schemes.json");
+  await page.unroute("**/api/v1/schemes/index.json");
   await page.getByRole("button", { name: "Try again" }).click();
   await expect(page.getByRole("status").filter({ hasText: "found" })).toBeVisible();
 });
@@ -231,4 +231,17 @@ test("Accessibility basics: skip link, labelled controls, dialog focus", async (
   expect(inDialog).toBe(true);
   await page.getByRole("dialog").getByRole("button", { name: "Delete" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Find government schemes");
+});
+
+test("Open Data API page reads live metadata through the API contract", async ({ page }) => {
+  const requests = [];
+  page.on("request", (r) => requests.push(new URL(r.url()).pathname));
+  await page.goto("#/mera-haq/developers");
+  await expect(page.getByRole("heading", { level: 1, name: "Open Data API (proposal)" })).toBeVisible();
+  await expect(page.getByText(/API version/)).toContainText("1.0.0-poc");
+  await page.locator("#api-state").selectOption("KA");
+  await expect(page.getByText(/jurisdictions\/KA\/schemes\.json/).first()).toBeVisible();
+  await expect(page.getByLabel("Sample JSON record")).toContainText('"evidence"');
+  expect(requests).toContain("/api/v1/schemes/index.json");
+  expect(requests).not.toContain("/data/schemes.json");
 });
