@@ -37,3 +37,10 @@ jobs:
         run: npx playwright test
         env:
           PW_CHANNEL: chrome
+      - name: Upload Playwright failure context
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: test-results/
+          retention-days: 7

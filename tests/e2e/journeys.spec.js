@@ -69,6 +69,7 @@ test("Flows 3-6: discover, open scheme, enrich, save, saved list", async ({ page
   await page.getByRole("button", { name: "Clear all filters" }).click();
   await page.getByLabel("Government").selectOption("STATE");
   await expect(page).toHaveURL(/level=STATE/);
+  await expect(page.getByRole("status").filter({ hasText: "found" })).toContainText(/page 1 of \d+/);
   await page.getByRole("button", { name: "Next" }).click();
   await expect(page).toHaveURL(/page=2/);
   await page.goBack();
