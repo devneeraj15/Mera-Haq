@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "feat/**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: npm ci
+      - run: python -m pip install -r scripts/requirements.txt
+      - name: Dependency audit
+        run: npm audit --audit-level=moderate
+      - name: Rebuild dataset from committed snapshots (no network)
+        run: python scripts/pipeline/run_all.py --offline
+      - name: Unit + pipeline tests
+        run: npm test
+      - name: Real-data dry run (fails on oracle mismatch)
+        run: node scripts/dry-run.mjs && node -e "const r=require('./data/reports/dry-run.json'); if (r.summary.oracleMismatches||r.summary.failedEvaluations) process.exit(1)"
+      - name: Production build
+        run: npm run build
+      - name: End-to-end tests
+        run: npx playwright test
+        env:
+          PW_CHANNEL: chrome
