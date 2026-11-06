@@ -1,0 +1,37 @@
+[
+ {
+  "id": "mh-reimbursement-of-tuition-fee-and-examination-fee-for-girls-under-rajarshri-chhatrapati-sha",
+  "name": "Reimbursement of tuition fee and examination fee for girls under Rajarshri Chhatrapati Shahu Maharaj Tuition Fee Scholarship Scheme (100% Tuition Fee + Exam Fee).",
+  "status": "NEEDS_REVIEW",
+  "errors": [],
+  "missingEvidence": [],
+  "warnings": [
+   "no machine-checkable criteria: users must confirm eligibility on the official source",
+   "The scheme title says 'for girls', but neither the Eligibility section nor the Overview states a gender condition. Not inferred from the title. Needs review."
+  ],
+  "contradictions": []
+ },
+ {
+  "id": "mh-state-minority-scholarship-part-ii-dhe",
+  "name": "State Minority Scholarship Part II (DHE)",
+  "status": "NEEDS_REVIEW",
+  "errors": [],
+  "missingEvidence": [],
+  "warnings": [
+   "The page says the scheme is for 'minority students' but does not list the communities on this page, so the community list is not inferred. Needs review against the GR dated 14.10.2011."
+  ],
+  "contradictions": []
+ },
+ {
+  "id": "pm-svanidhi",
+  "name": "PM Street Vendor's AtmaNirbhar Nidhi (PM SVANidhi)",
+  "status": "NEEDS_REVIEW",
+  "errors": [],
+  "missingEvidence": [],
+  "warnings": [
+   "no required-documents list in source",
+   "The only eligibility source captured is an older FAQ that says 'The Scheme shall be implemented up to March, 2022.' The portal lists newer operational guidelines, but they are not yet ingested. Needs review before it can be shown as confirmed."
+  ],
+  "contradictions": []
+ }
+]

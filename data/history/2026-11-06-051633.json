@@ -1,0 +1,26 @@
+{
+ "syncedAt": "2026-11-06T05:16:33Z",
+ "added": [],
+ "changed": {
+  "mh-post-matric-tuition-fee-and-examination-fee-freeship": [
+   "criteria"
+  ],
+  "mh-post-matric-scholarship-scheme-government-of-india": [
+   "criteria"
+  ],
+  "mh-tuition-fee-exam-fee-for-tribal-students-freeship": [
+   "criteria"
+  ],
+  "mh-vocational-education-fee-reimbursement": [
+   "criteria"
+  ],
+  "mh-vocational-education-maintenance-allowance": [
+   "criteria"
+  ],
+  "mh-education-fee-reimbursement-for-open-category-students-affected-due-to-sebc-and-ews-reserv": [
+   "criteria"
+  ]
+ },
+ "keptPrevious": [],
+ "missingFromLatestRun": []
+}

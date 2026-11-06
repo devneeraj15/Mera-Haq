@@ -1,0 +1,658 @@
+{
+ "generatedAt": "2026-11-06T05:29:59Z",
+ "total": 66,
+ "byStatus": {
+  "PARTIALLY_VERIFIED": 56,
+  "NEEDS_REVIEW": 3,
+  "VERIFIED": 7
+ },
+ "duplicateIds": [],
+ "records": [
+  {
+   "id": "mh-government-of-india-post-matric-scholarship",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 16,
+   "quotesFound": 16,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-post-matric-tuition-fee-and-examination-fee-freeship",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 16,
+   "quotesFound": 16,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-maintenance-allowance-for-student-studying-in-professional-courses",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 10,
+   "quotesFound": 10,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-rajarshri-chhatrapati-shahu-maharaj-merit-scholarship",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 10,
+   "quotesFound": 10,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-post-matric-scholarship-for-persons-with-disability",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 22,
+   "quotesFound": 22,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-vocational-training-fee-reimbursement-for-the-students-belonging-to-scheduled-caste-catego",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 21,
+   "quotesFound": 21,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-post-matric-scholarship-scheme-government-of-india",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 9,
+   "quotesFound": 9,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-tuition-fee-exam-fee-for-tribal-students-freeship",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 9,
+   "quotesFound": 9,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-vocational-education-fee-reimbursement",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 7,
+   "quotesFound": 7,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-vocational-education-maintenance-allowance",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 10,
+   "quotesFound": 10,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-vocational-training-fee-reimbursement-for-the-students-belonging-to-scheduled-tribe-catego",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 23,
+   "quotesFound": 23,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-rajarshi-chhatrapati-shahu-maharaj-shikshan-shulkh-shishyavrutti-scheme-dhe",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 20,
+   "quotesFound": 20,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-assistance-to-meritorious-students-scholarship-dhe",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 16,
+   "quotesFound": 16,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-education-concession-to-the-children-of-ex-servicemen-dhe",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 7,
+   "quotesFound": 7,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-eklavya-scholarship-dhe",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 9,
+   "quotesFound": 9,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-state-government-open-merit-scholarship-dhe",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 8,
+   "quotesFound": 8,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-scholarship-to-meritorious-students-possessing-mathematics-physics-dhe",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 7,
+   "quotesFound": 7,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-government-vidyaniketan-scholarship-dhe",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 9,
+   "quotesFound": 9,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-state-government-daxshina-adhichatra-scholarship-dhe",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 10,
+   "quotesFound": 10,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-government-research-adhichatra-dhe",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 13,
+   "quotesFound": 13,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-education-concession-to-the-children-freedom-fighter-dhe",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 8,
+   "quotesFound": 8,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-jawaharlal-nehru-university-dhe",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 7,
+   "quotesFound": 7,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-assistance-to-meritorious-students-scholarship-senior-level-dhe",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 16,
+   "quotesFound": 16,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-dr-panjabrao-deshmukh-vasatigruh-nirvah-bhatta-yojna",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 22,
+   "quotesFound": 22,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-rajarshi-chhatrapati-shahu-maharaj-shikshan-shulkh-shishyavrutti-yojna",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 21,
+   "quotesFound": 21,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-dr-panjabrao-deshmukh-vasatigruh-nirvah-bhatta-yojna-2",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 18,
+   "quotesFound": 18,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-open-merit-scholarships-in-junior-college",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 7,
+   "quotesFound": 7,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-merit-scholarships-for-economically-backward-class-students",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 6,
+   "quotesFound": 6,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-post-matric-scholarship-to-vjnt-students",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 23,
+   "quotesFound": 23,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-tuition-fees-and-examination-fees-to-vjnt-students",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 38,
+   "quotesFound": 38,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-payment-of-maintenance-allowance-to-vjnt-and-sbc-students-studying-in-professional-courses",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 22,
+   "quotesFound": 22,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-rajarshi-chhatrapati-shahu-maharaj-merit-scholarship-for-students-studying-in-11th-12th-st",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 11,
+   "quotesFound": 11,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-post-matric-scholarship-to-obc-students",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 22,
+   "quotesFound": 22,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-post-matric-scholarship-to-sbc-students",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 22,
+   "quotesFound": 22,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-tuition-fees-and-examination-fees-to-obc-students",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 38,
+   "quotesFound": 38,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-tuition-fees-and-examination-fees-to-sbc-students",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 37,
+   "quotesFound": 37,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-vocational-training-fee-reimbursement-for-the-obc-sebc-vjnt-sbc-welfare-department-student",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 21,
+   "quotesFound": 21,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-post-matric-scholarship-to-the-girls-belonging-to-other-backward-classes-taking-admission-",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 22,
+   "quotesFound": 22,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-payment-of-tuition-fees-and-examination-fees-to-obc-girls-pursuing-professional-courses",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 19,
+   "quotesFound": 19,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-rajarshri-chhatrapati-shahu-maharaj-fee-reimbursement-scheme",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 12,
+   "quotesFound": 12,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-dr-panjabrao-deshmukh-hostel-maintenance-allowance",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 19,
+   "quotesFound": 19,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-education-fee-reimbursement-for-open-category-students-affected-due-to-sebc-and-ews-reserv",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 16,
+   "quotesFound": 16,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-reimbursement-of-tuition-fee-and-examination-fee-for-girls-under-rajarshri-chhatrapati-sha",
+   "status": "NEEDS_REVIEW",
+   "quotesTotal": 12,
+   "quotesFound": 12,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source",
+    "The scheme title says 'for girls', but neither the Eligibility section nor the Overview states a gender condition. Not inferred from the title. Needs review."
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-state-minority-scholarship-part-ii-dhe",
+   "status": "NEEDS_REVIEW",
+   "quotesTotal": 14,
+   "quotesFound": 14,
+   "errors": [],
+   "warnings": [
+    "The page says the scheme is for 'minority students' but does not list the communities on this page, so the community list is not inferred. Needs review against the GR dated 14.10.2011."
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-scholarship-scheme-for-state-minority-communities-pursuing-higher-professional-education-a",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 13,
+   "quotesFound": 13,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-minority-scholarship",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 28,
+   "quotesFound": 28,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-scholarship-for-student-communities-pursuing-higher-and-professional-courses-mcaer",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 18,
+   "quotesFound": 18,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-rajarshi-chhatrapati-shahu-maharaj-shikshan-shulkh-shishyavrutti-scheme",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 16,
+   "quotesFound": 16,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-dr-punjabrao-deshmukh-vasatigruh-nirvah-bhatta-yojna",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 19,
+   "quotesFound": 19,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-rajarshi-chhatrapati-shahu-maharaj-shikshan-shulkh-shishyavrutti-yojna-ebc-mcaer",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 19,
+   "quotesFound": 19,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-dr-panjabrao-deshmukh-vasatigruh-nirvah-bhatta-yojna-mcaer",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 19,
+   "quotesFound": 19,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-rajarshi-chhatrapati-shahu-maharaj-shikshan-shulkh-shishyavrutti-yojna-mafsu",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 22,
+   "quotesFound": 22,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-dr-panjabrao-deshmukh-vasatigruh-nirvah-bhatta-yojna-mafsu",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 24,
+   "quotesFound": 24,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-vocational-training-fee-reimbursement-for-the-students-belonging-to-socially-and-education",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 20,
+   "quotesFound": 20,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "mh-stipend-of-rs-500-per-month-for-trainees-in-craftsman-training-scheme-in-govt-iti",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 21,
+   "quotesFound": 21,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "pmuy-ujjwala",
+   "status": "VERIFIED",
+   "quotesTotal": 10,
+   "quotesFound": 10,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "pm-sym",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 5,
+   "quotesFound": 5,
+   "errors": [],
+   "warnings": [
+    "no required-documents list in source",
+    "Exclusion conditions in the PM-SYM FAQ (for example EPFO/ESIC/NPS membership) were not captured because maandhan.in/shramyogi returned HTTP 404. Confirm them on the official portal."
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "nps-traders",
+   "status": "VERIFIED",
+   "quotesTotal": 5,
+   "quotesFound": 5,
+   "errors": [],
+   "warnings": [
+    "no required-documents list in source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "apy",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 3,
+   "quotesFound": 3,
+   "errors": [],
+   "warnings": [
+    "no required-documents list in source",
+    "The DFS page does not list the bank-account or income-tax-payer conditions. Confirm them with your bank or post office before enrolling."
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "pmjjby",
+   "status": "VERIFIED",
+   "quotesTotal": 4,
+   "quotesFound": 4,
+   "errors": [],
+   "warnings": [
+    "no required-documents list in source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "pmsby",
+   "status": "VERIFIED",
+   "quotesTotal": 4,
+   "quotesFound": 4,
+   "errors": [],
+   "warnings": [
+    "no required-documents list in source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "pmjdy",
+   "status": "VERIFIED",
+   "quotesTotal": 4,
+   "quotesFound": 4,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source",
+    "no required-documents list in source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "pmmy-mudra",
+   "status": "VERIFIED",
+   "quotesTotal": 3,
+   "quotesFound": 3,
+   "errors": [],
+   "warnings": [
+    "no machine-checkable criteria: users must confirm eligibility on the official source",
+    "no required-documents list in source"
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "stand-up-india",
+   "status": "PARTIALLY_VERIFIED",
+   "quotesTotal": 5,
+   "quotesFound": 5,
+   "errors": [],
+   "warnings": [
+    "application window closed on 2025-03-31",
+    "no required-documents list in source",
+    "DFS says SUPI runs up to 31.03.2025 and a successor scheme was announced in Budget 2025-26. Shown as not currently open until a newer official notice is captured."
+   ],
+   "missingEvidence": []
+  },
+  {
+   "id": "pm-vishwakarma",
+   "status": "VERIFIED",
+   "quotesTotal": 8,
+   "quotesFound": 8,
+   "errors": [],
+   "warnings": [],
+   "missingEvidence": []
+  },
+  {
+   "id": "pm-svanidhi",
+   "status": "NEEDS_REVIEW",
+   "quotesTotal": 3,
+   "quotesFound": 3,
+   "errors": [],
+   "warnings": [
+    "no required-documents list in source",
+    "The only eligibility source captured is an older FAQ that says 'The Scheme shall be implemented up to March, 2022.' The portal lists newer operational guidelines, but they are not yet ingested. Needs review before it can be shown as confirmed."
+   ],
+   "missingEvidence": []
+  }
+ ]
+}

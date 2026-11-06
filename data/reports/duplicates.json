@@ -1,0 +1,75 @@
+{
+ "sameId": {},
+ "sameName": [
+  {
+   "name": "rajarshi chhatrapati shahu maharaj shikshan shulkh shishyavrutti scheme",
+   "jurisdictions": [
+    "MH"
+   ],
+   "records": [
+    {
+     "id": "mh-rajarshi-chhatrapati-shahu-maharaj-shikshan-shulkh-shishyavrutti-scheme-dhe",
+     "department": "Directorate of Higher Education (DHE)"
+    },
+    {
+     "id": "mh-rajarshi-chhatrapati-shahu-maharaj-shikshan-shulkh-shishyavrutti-scheme",
+     "department": "Directorate of Art"
+    }
+   ]
+  },
+  {
+   "name": "dr panjabrao deshmukh vasatigruh nirvah bhatta yojna",
+   "jurisdictions": [
+    "MH"
+   ],
+   "records": [
+    {
+     "id": "mh-dr-panjabrao-deshmukh-vasatigruh-nirvah-bhatta-yojna",
+     "department": "Higher and Technical Education ,Maharashtra State ,Scheme implemented by Technical Education,M.S , Mumbai"
+    },
+    {
+     "id": "mh-dr-panjabrao-deshmukh-vasatigruh-nirvah-bhatta-yojna-2",
+     "department": "Higher and Technical Education ,Maharashtra State ,Scheme implemented by Technical Education,M.S , Mumbai"
+    },
+    {
+     "id": "mh-dr-punjabrao-deshmukh-vasatigruh-nirvah-bhatta-yojna",
+     "department": "Directorate of Art"
+    },
+    {
+     "id": "mh-dr-panjabrao-deshmukh-vasatigruh-nirvah-bhatta-yojna-mcaer",
+     "department": "Maharashtra Council Of Agriculture Education And Research (MCAER)"
+    },
+    {
+     "id": "mh-dr-panjabrao-deshmukh-vasatigruh-nirvah-bhatta-yojna-mafsu",
+     "department": "Maharashtra Animal and Fishery Sciences University(MAFSU)"
+    }
+   ]
+  },
+  {
+   "name": "rajarshi chhatrapati shahu maharaj shikshan shulkh shishyavrutti yojna",
+   "jurisdictions": [
+    "MH"
+   ],
+   "records": [
+    {
+     "id": "mh-rajarshi-chhatrapati-shahu-maharaj-shikshan-shulkh-shishyavrutti-yojna",
+     "department": "Higher and Technical Education ,Maharashtra State ,Scheme implemented by Technical Education,M.S , Mumbai"
+    },
+    {
+     "id": "mh-rajarshi-chhatrapati-shahu-maharaj-shikshan-shulkh-shishyavrutti-yojna-ebc-mcaer",
+     "department": "Maharashtra Council of Agriculture Education and Research (MCAER)"
+    },
+    {
+     "id": "mh-rajarshi-chhatrapati-shahu-maharaj-shikshan-shulkh-shishyavrutti-yojna-mafsu",
+     "department": "Maharashtra Animal and Fishery Sciences University(MAFSU)"
+    }
+   ]
+  }
+ ],
+ "sameSourceText": [
+  [
+   "pm-sym",
+   "nps-traders"
+  ]
+ ]
+}
