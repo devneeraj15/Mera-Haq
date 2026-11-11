@@ -1,10 +1,10 @@
-Dry run on 2026-11-06 against dataset generated 2026-11-06T05:30:00Z (66 schemes).
+Dry run on 2026-11-06 against dataset generated 2026-11-11T09:33:58Z (66 schemes).
 
 | Persona | Profile | Evaluated (in location) | Likely | Potential | Check source | Need info | Not open | Not eligible | Oracle mismatches | Suspected FP |
 |---|---|---|---|---|---|---|---|---|---|---|
-| p01 | 23M, Maharashtra, graduate, salaried (prompt example; income not given) | 66 | 4 | 0 | 14 | 41 | 1 | 6 | 0 | 0 |
+| p01 | 23M, Maharashtra, graduate, salaried (prompt example; income not given) | 66 | 4 | 0 | 2 | 53 | 1 | 6 | 0 | 0 |
 | p02 | 19F, Maharashtra, Class 12 student, OBC, income 1.8L | 66 | 20 | 4 | 20 | 2 | 1 | 19 | 0 | 1 |
-| p03 | 36M, Maharashtra, farmer, OBC, income 1.4L | 66 | 18 | 3 | 20 | 1 | 0 | 24 | 0 | 1 |
+| p03 | 36M, Maharashtra, farmer, OBC, income 1.4L | 66 | 5 | 17 | 2 | 18 | 0 | 24 | 0 | 1 |
 | p04 | 24F, Bihar, homemaker, SC, income 1.2L | 11 | 5 | 1 | 2 | 1 | 1 | 1 | 0 | 0 |
 | p05 | 29M, Delhi, street vendor, General, income 2.2L | 11 | 5 | 0 | 3 | 0 | 0 | 3 | 0 | 0 |
 | p06 | 21F, Karnataka, diploma student, disability 45% | 11 | 5 | 1 | 2 | 1 | 1 | 1 | 0 | 1 |

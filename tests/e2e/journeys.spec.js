@@ -84,6 +84,7 @@ test("Flows 3-6: discover, open scheme, enrich, save, saved list", async ({ page
   await page.getByLabel(/I agree to answer optional sensitive questions/).check();
   await page.getByLabel("Annual family income (₹)").fill("250000");
   await page.locator("select[id$='-socialCategory']").selectOption("SC");
+  await page.locator("select[id$='-studentLevel']").selectOption("UNDERGRADUATE");
   await page.getByRole("button", { name: "Save answers" }).click();
   await expect(page.locator(".explanation")).toContainText("Likely eligible");
   // Preserves earlier answers
@@ -280,4 +281,36 @@ test("Regression: filters never reuse a stale query when hashchange is slow", as
   await expect(page).not.toHaveURL(/q=zzzz/);
   await expect(page.locator("#find-q")).toHaveValue("");
   await expect(page.getByRole("status").filter({ hasText: "found" })).toContainText(/page 1 of \d+/);
+});
+
+test("Scheme tiles: one-line summary and reason, direct link to the official page", async ({ page }) => {
+  await onboard(page, { age: "24" });
+  const apy = page.locator("article.scheme-card", { hasText: "Atal Pension Yojana (APY)" });
+  await expect(apy.locator(".scheme-card-summary")).toHaveText("Join at age 18–40 and contribute; guaranteed pension of ₹1,000–₹5,000 a month from age 60.");
+  await expect(apy.locator(".scheme-card-why")).toHaveText("You meet the 2 conditions we can check.");
+  const link = apy.getByRole("link", { name: /Open the official page for Atal Pension Yojana/ });
+  await expect(link).toHaveAttribute("href", "https://financialservices.gov.in/atal-pension-yojana-apy");
+  await expect(link).toHaveAttribute("target", "_blank");
+  await expect(link).toHaveAttribute("rel", "noopener noreferrer");
+  // Every tile: short text only, and an official link on a government domain
+  await page.goto("#/mera-haq/eligible?all=1");
+  await expect(page.locator("article.scheme-card").first()).toBeVisible();
+  const tiles = await page.locator("article.scheme-card").evaluateAll((els) => els.map((el) => ({
+    why: (el.querySelector(".scheme-card-why") || {}).textContent || "",
+    summary: el.querySelector(".scheme-card-summary").textContent,
+    href: (el.querySelector("a[target=_blank]") || {}).href || "",
+    height: el.getBoundingClientRect().height,
+  })));
+  expect(tiles.length).toBeGreaterThan(60);
+  for (const t of tiles) {
+    expect(t.why.length).toBeLessThanOrEqual(140);
+    expect(t.summary.length).toBeGreaterThan(10);
+    expect(t.href).toMatch(/^https:\/\/[a-z0-9.-]+\.(gov\.in|nic\.in)\/|^https:\/\/maandhan\.in\//);
+    expect(t.height).toBeLessThan(480); // bounded by line clamps (was 700+ px with full text)
+  }
+  // A person who is not studying is not matched to student scholarships
+  await page.goto("#/mera-haq/eligible");
+  await page.locator("select[id$='-studentLevel']").selectOption("NOT_STUDENT");
+  await page.getByRole("button", { name: "Save answers" }).click();
+  await expect(page.locator(".outcome-chip", { hasText: "Not eligible" })).toContainText(/5\d/);
 });

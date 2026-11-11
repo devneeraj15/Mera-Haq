@@ -281,7 +281,59 @@ test("location-only match with manual conditions is not reported as likely eligi
   ], { level: "STATE", jurisdictions: ["MH"] });
   const r = E.evaluateScheme(s, { state: "MH", domicileState: "MH" });
   assert.equal(r.outcome, "NEEDS_MANUAL_VERIFICATION");
-  assert.match(r.explanation, /location matches/);
+  assert.match(r.explanation, /basic conditions/);
   const r2 = E.evaluateScheme(fixture([...incomeCap, { id: "m", op: "manual", label: "x" }]), { annualFamilyIncome: 1 });
   assert.equal(r2.outcome, "LIKELY_ELIGIBLE");
+});
+
+test("gate condition (currently studying): non-students fail, students are not 'likely eligible' on the gate alone", () => {
+  const s = fixture([
+    { id: "g", field: "studentLevel", op: "notIn", value: ["NOT_STUDENT"], label: "Currently studying", gate: true },
+    { id: "m", op: "manual", label: "Admitted through CAP round" },
+  ]);
+  assert.equal(E.evaluateScheme(s, { studentLevel: "NOT_STUDENT" }).outcome, "NOT_ELIGIBLE");
+  assert.equal(E.evaluateScheme(s, { studentLevel: "UNDERGRADUATE" }).outcome, "NEEDS_MANUAL_VERIFICATION");
+  assert.equal(E.evaluateScheme(s, {}).outcome, "INSUFFICIENT_INFORMATION");
+  const withIncome = fixture([...s.criteria, ...incomeCap]);
+  assert.equal(E.evaluateScheme(withIncome, { studentLevel: "UNDERGRADUATE", annualFamilyIncome: 1 }).outcome, "LIKELY_ELIGIBLE");
+  assert.equal(E.evaluateScheme(withIncome, { studentLevel: "UNDERGRADUATE" }).outcome, "INSUFFICIENT_INFORMATION");
+});
+
+test("shortReason is one short sentence for every outcome", () => {
+  const s = fixture([...age18to40, ...incomeCap, { id: "m", op: "manual", label: "Has a bank account" }]);
+  assert.equal(E.evaluateScheme(s, { age: 24, annualFamilyIncome: 1 }).shortReason, "You meet the 3 conditions we can check. 1 more to confirm on the official page.");
+  assert.equal(E.evaluateScheme(s, { age: 24 }).shortReason, "Fits so far. To confirm, tell us your annual family income.");
+  assert.equal(E.evaluateScheme(s, {}).shortReason, "Tell us your age and annual family income to check this scheme.");
+  assert.equal(E.evaluateScheme(s, { age: 41, annualFamilyIncome: 999999 }).shortReason, "Not met: Age at most 40, and 1 more.");
+  assert.match(E.evaluateScheme(fixture([{ id: "m", op: "manual", label: "x" }]), {}).shortReason, /can't check this one automatically/);
+  assert.match(E.evaluateScheme(fixture(age18to40, { applicationWindow: { closes: "2020-01-01" } }), { age: 20 }).shortReason, /window has closed/);
+  for (const sch of DATA.schemes) for (const p of [{}, { age: 24, state: "MH" }, { age: 70, state: "DL", gender: "FEMALE" }]) {
+    const r = E.evaluateScheme(sch, p);
+    assert.ok(r.shortReason.length > 10 && r.shortReason.length <= 140, `${sch.id}: ${r.shortReason}`);
+  }
+});
+
+test("audienceLine is built only from machine criteria", () => {
+  assert.equal(E.audienceLine(fixture([...age18to40, ...incomeCap, { id: "m", op: "manual", label: "secret" }])), "age 18–40 · family income up to ₹2.5 lakh");
+  assert.equal(E.audienceLine(fixture([{ id: "a", field: "age", op: "gte", value: 18, label: "x" }, { id: "g", field: "gender", op: "in", value: ["FEMALE"], label: "x" }])), "age 18+ · women and girls");
+  assert.equal(E.audienceLine(fixture([{ id: "m", op: "manual", label: "only manual" }])), null);
+});
+
+test("pension and insurance age windows on real data: join at 18-40, cover to 50 / 70", () => {
+  const out = (id, age) => E.evaluateScheme(DATA.schemes.find((x) => x.id === id), { age }).eligibility;
+  for (const [id, lo, hi] of [["apy", 18, 40], ["pm-sym", 18, 40], ["pmjjby", 18, 50], ["pmsby", 18, 70]]) {
+    assert.equal(out(id, lo - 1), "NOT_ELIGIBLE", `${id} ${lo - 1}`);
+    assert.equal(out(id, lo), "LIKELY_ELIGIBLE", `${id} ${lo}`);
+    assert.equal(out(id, 24), "LIKELY_ELIGIBLE", `${id} 24`);
+    assert.equal(out(id, hi), "LIKELY_ELIGIBLE", `${id} ${hi}`);
+    assert.equal(out(id, hi + 1), "NOT_ELIGIBLE", `${id} ${hi + 1}`);
+  }
+  for (const s of DATA.schemes.filter((x) => x.category === "PENSION")) assert.match(s.summary, /from age 60/);
+});
+
+test("real data: a 24-year-old who is not studying is not matched to student scholarships", () => {
+  const r = E.evaluateAll(DATA.schemes, { age: 24, gender: "MALE", state: "MH", studentLevel: "NOT_STUDENT" });
+  const mh = r.filter((x) => x.schemeId.startsWith("mh-"));
+  assert.ok(mh.filter((x) => x.outcome === "NOT_ELIGIBLE").length >= 50);
+  assert.equal(mh.filter((x) => ["LIKELY_ELIGIBLE", "POTENTIAL_MATCH"].includes(x.outcome)).length, 0);
 });

@@ -120,6 +120,8 @@ def validate(rec: dict, now: datetime) -> dict:
         p = url_problem(rec.get(key))
         if p:
             errors.append(f"{key}: {p}")
+    if rec.get("summary") is not None and (not isinstance(rec["summary"], str) or not (10 <= len(rec["summary"]) <= 140)):
+        errors.append("summary must be 10-140 characters")
     if not rec.get("applicationUrl") and not rec.get("infoUrl"):
         errors.append("no official application or information URL")
     w = rec.get("applicationWindow") or {}

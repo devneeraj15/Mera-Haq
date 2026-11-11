@@ -34,7 +34,7 @@ Mera Haq is a working, tested prototype of a **profile-first discovery layer ins
 | Privacy by design | Answers stay on the device. Session-only storage by default. Consent before sensitive questions. No Aadhaar or document uploads |
 | Hands off to the official portal | Destination shown before leaving. Never claims to submit an application |
 | Works for all 28 States and 8 UTs | Canonical registry. State/UT data so far for Maharashtra (55 MahaDBT schemes) + 11 Central schemes |
-| Quality assurance | 77 automated tests (37 unit, 16 pipeline, 24 end-to-end on desktop and mobile), and a dry run of 18 personas × 66 schemes with 210 independently written expected outcomes (0 mismatches) |
+| Quality assurance | 86 automated tests (42 unit, 16 pipeline, 28 end-to-end on desktop and mobile), and a dry run of 18 personas × 66 schemes with 210 independently written expected outcomes (0 mismatches) |
 | Already speaks a proposed API | The app reads data only through `api/v1/` (OpenAPI 3.1, `docs/api/openapi.yaml`) |
 
 **What the POC cannot do alone:** national coverage. That needs the government's data, which is the point of this proposal.

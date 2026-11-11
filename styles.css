@@ -135,12 +135,12 @@ code { font-size: 0.9em; word-break: break-all; }
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
 .scheme-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; box-shadow: var(--shadow); }
 .scheme-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-.scheme-card-title { font-size: 1.05rem; margin: 4px 0; }
+.scheme-card-title { font-size: 1.05rem; margin: 4px 0 6px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
 .scheme-card-title a { color: var(--text); }
 .scheme-card-dept { color: var(--text-muted); font-size: 0.875rem; }
-.scheme-card-benefit { font-size: 0.925rem; }
-.scheme-card-why { font-size: 0.875rem; color: var(--text-muted); }
-.scheme-card-actions { margin-top: auto; padding-top: 8px; }
+.scheme-card-summary { font-size: 0.95rem; margin-bottom: 10px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+.scheme-card-why { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 4px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+.scheme-card-actions { margin-top: auto; padding-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; }
 .save-btn { background: none; border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; color: var(--text-muted); cursor: pointer; font: inherit; font-size: 0.85rem; white-space: nowrap; min-height: 32px; }
 .save-btn.is-saved { color: var(--accent); border-color: var(--accent); font-weight: 700; }
 .outcome-summary { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }

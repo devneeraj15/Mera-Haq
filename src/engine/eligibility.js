@@ -263,7 +263,7 @@
     const passed = [], failed = [], unknown = [], manual = [], optional = [];
     for (const c of criteria) {
       const r = evaluateCriterion(c, profile);
-      const entry = { id: c.id, label: c.label, field: c.field || null, result: r, evidence: c.evidence || null };
+      const entry = { id: c.id, label: c.label, field: c.field || null, result: r, evidence: c.evidence || null, gate: c.gate === true };
       if (c.mandatory === false) { optional.push(entry); continue; }
       if (r === PASS) passed.push(entry);
       else if (r === FAIL) failed.push(entry);
@@ -275,9 +275,10 @@
     const verification = (scheme.verification && scheme.verification.status) || "NEEDS_REVIEW";
     const machineCriteria = passed.length + failed.length + unknown.length;
 
-    // Location-only matches (State/UT, domicile) do not count as substantive evidence.
+    // Location matches (State/UT, domicile) and broad "gate" conditions (for example
+    // "currently studying") do not count as substantive evidence of eligibility.
     const LOCATION_FIELDS = ["state", "domicileState"];
-    const substantivePassed = passed.filter((p) => !p.id.startsWith("_") && !LOCATION_FIELDS.includes(p.field)).length;
+    const substantivePassed = passed.filter((p) => !p.id.startsWith("_") && !p.gate && !LOCATION_FIELDS.includes(p.field)).length;
 
     let eligibility;
     if (failed.length) eligibility = OUTCOMES.NOT_ELIGIBLE;
@@ -308,6 +309,7 @@
       missingFields,
       contradictions,
       explanation: explain({ eligibility, outcome, availability, passed, failed, unknown, manual, verification, contradictions, machineCriteria, substantivePassed }),
+      shortReason: shortReason({ eligibility, outcome, availability, passed, failed, manual, missingFields }),
       sources: (scheme.sources || []).map((s) => ({ title: s.title, url: s.url, publisher: s.publisher, retrievedAt: s.retrievedAt })),
     };
   }
@@ -316,6 +318,78 @@
     const labels = items.map((i) => i.label);
     if (labels.length <= 1) return labels.join("");
     return labels.slice(0, -1).join("; ") + " and " + labels[labels.length - 1];
+  }
+
+  const FIELD_SHORT = Object.freeze({
+    age: "age", gender: "gender", state: "State/UT", domicileState: "State/UT of domicile", annualFamilyIncome: "annual family income",
+    socialCategory: "social category", religion: "religion", disability: "disability status", disabilityPercent: "disability percentage",
+    educationLevel: "highest qualification", studentLevel: "current studies", employmentStatus: "employment status", occupation: "occupation",
+    residence: "rural or urban residence", maritalStatus: "marital status", isIncomeTaxPayer: "income-tax status",
+  });
+
+  /** One short sentence for scheme tiles. The full explanation stays on the detail page. */
+  function shortReason(r) {
+    const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
+    const fields = r.missingFields.map((f) => FIELD_SHORT[f] || f);
+    const need = fields.length > 2 ? `${fields.slice(0, 2).join(", ")} and ${fields.length - 2} more` : fields.join(" and ");
+    if (r.outcome === OUTCOMES.SCHEME_NOT_CURRENTLY_OPEN) {
+      return r.availability === "INACTIVE" ? "This scheme is marked inactive." : "The published application window has closed.";
+    }
+    switch (r.eligibility) {
+      case OUTCOMES.LIKELY_ELIGIBLE:
+        return `You meet the ${plural(r.passed.length, "condition")} we can check.` + (r.manual.length ? ` ${r.manual.length} more to confirm on the official page.` : "");
+      case OUTCOMES.POTENTIAL_MATCH:
+        return `Fits so far. To confirm, tell us your ${need}.`;
+      case OUTCOMES.INSUFFICIENT_INFORMATION:
+        return `Tell us your ${need} to check this scheme.`;
+      case OUTCOMES.NOT_ELIGIBLE:
+        return `Not met: ${r.failed[0].label}` + (r.failed.length > 1 ? `, and ${r.failed.length - 1} more.` : ".");
+      default:
+        return "We can't check this one automatically. Read the conditions on the official page.";
+    }
+  }
+
+  const inr = (n) => (n >= 100000 ? `₹${+(n / 100000).toFixed(2)} lakh` : `₹${Number(n).toLocaleString("en-IN")}`);
+  const TITLE = (s) => s.toLowerCase().replace(/_/g, " ");
+
+  /**
+   * "Who it's for" in one line, built only from the scheme's machine-checkable
+   * criteria (so it can never say more than the verified record does).
+   */
+  function audienceLine(scheme) {
+    const parts = [];
+    let ageMin = null, ageMax = null;
+    for (const c of scheme.criteria || []) {
+      if (c.mandatory === false || c.op === "manual") continue;
+      if (Array.isArray(c.anyOf)) { parts.push(c.label); continue; }
+      const v = c.value;
+      switch (c.field) {
+        case "age":
+          if (c.op === "gte" || c.op === "gt") ageMin = c.op === "gt" ? v + 1 : v;
+          if (c.op === "lte" || c.op === "lt") ageMax = c.op === "lt" ? v - 1 : v;
+          break;
+        case "gender": parts.push(v.includes("FEMALE") && v.length === 1 ? "women and girls" : v.map(TITLE).join(" / ")); break;
+        case "socialCategory": parts.push(v.map((x) => (x === "GENERAL" ? "General/Open" : x)).join(" / ") + " category"); break;
+        case "religion": parts.push("notified minority communities"); break;
+        case "annualFamilyIncome":
+          parts.push(c.op === "gt" || c.op === "gte" ? `family income above ${inr(v)}` : `family income ${c.op === "lt" ? "below" : "up to"} ${inr(v)}`);
+          break;
+        case "domicileState": parts.push(`${v.map((x) => Locations.locationName(x) || x).join(" / ")} domicile`); break;
+        case "state": parts.push(`${v.map((x) => Locations.locationName(x) || x).join(" / ")} residents`); break;
+        case "disability": parts.push("persons with disability"); break;
+        case "disabilityPercent": parts.push(`disability ${v}% or more`); break;
+        case "studentLevel": parts.push(c.op === "notIn" ? "current students" : v.map(TITLE).join(" / ")); break;
+        case "occupation": case "employmentStatus": case "residence": case "maritalStatus":
+          parts.push(Array.isArray(v) ? v.map(TITLE).join(" / ") : c.label);
+          break;
+        default: parts.push(c.label);
+      }
+    }
+    if (ageMin !== null && ageMax !== null) parts.unshift(`age ${ageMin}–${ageMax}`);
+    else if (ageMin !== null) parts.unshift(`age ${ageMin}+`);
+    else if (ageMax !== null) parts.unshift(`up to age ${ageMax}`);
+    const unique = [...new Set(parts)];
+    return unique.length ? unique.join(" · ") : null;
   }
 
   function explain(r) {
@@ -334,7 +408,7 @@
       case OUTCOMES.NEEDS_MANUAL_VERIFICATION:
         if (r.contradictions.length) parts.push("The published conditions for this scheme conflict with each other, so it needs manual checking.");
         else if (r.machineCriteria === 0) parts.push("This scheme's conditions cannot be checked automatically. Read the official source to confirm eligibility.");
-        else if (r.substantivePassed === 0) parts.push(`Your location matches (${listLabels(r.passed)}), but the scheme's other conditions cannot be checked automatically.`);
+        else if (r.substantivePassed === 0) parts.push(`You meet the basic conditions (${listLabels(r.passed)}), but the scheme's other conditions cannot be checked automatically.`);
         else parts.push(`Your profile meets the listed conditions, but the scheme record has verification status "${r.verification}". Confirm the details on the official source.`);
         break;
       case OUTCOMES.LIKELY_ELIGIBLE:
@@ -404,6 +478,6 @@
     ENUMS, FIELD_META, EDUCATION_RANK, OUTCOMES, OUTCOME_ORDER,
     validateProfile, evaluateCriterion, evaluateScheme, evaluateAll,
     findContradictions, applicationAvailability, isRelevantToLocation,
-    suggestNextQuestions, officialUrlInfo,
+    suggestNextQuestions, officialUrlInfo, audienceLine,
   });
 });

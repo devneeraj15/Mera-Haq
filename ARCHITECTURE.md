@@ -75,6 +75,8 @@ A government domain alone never makes a record VERIFIED. The quoted sentence has
   4. record not VERIFIED/PARTIALLY_VERIFIED, or no machine criteria, or only location criteria passed while manual conditions remain → `NEEDS_MANUAL_VERIFICATION`
   5. otherwise → `LIKELY_ELIGIBLE` (manual conditions are listed as "confirm yourself")
   6. separately, a `CLOSED` / `INACTIVE` window turns any non-failing outcome into `SCHEME_NOT_CURRENTLY_OPEN`. The `eligibility` field keeps the personal result.
+- **Gate conditions:** a criterion with `gate: true` (for example "currently studying") must pass, but passing it alone is not treated as evidence of eligibility, in the same way as location.
+- **Tile text:** `shortReason` (one sentence per result) and `audienceLine(scheme)` ("who it's for", built only from machine criteria). Curated records also carry a one-line `summary` (max 140 characters) that paraphrases quoted text.
 - **Explainability:** each result lists passed, failed, unknown and manual criteria with their evidence quotes, plus `missingFields` and the sources. There are no match percentages.
 - **Progressive profiling:** `suggestNextQuestions` ranks missing fields by how many outcomes they would change.
 

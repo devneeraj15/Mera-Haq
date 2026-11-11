@@ -6,7 +6,6 @@
   "errors": [],
   "missingEvidence": [],
   "warnings": [
-   "no machine-checkable criteria: users must confirm eligibility on the official source",
    "The scheme title says 'for girls', but neither the Eligibility section nor the Overview states a gender condition. Not inferred from the title. Needs review."
   ],
   "contradictions": []

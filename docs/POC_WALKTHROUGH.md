@@ -21,6 +21,7 @@ A guided tour of the working prototype, to share with [PROPOSAL.md](./PROPOSAL.m
 ![Results: outcome counts, progressive questions, scheme cards](./img/02-results.png)
 
 - 66 real schemes (11 Central, 55 Maharashtra) are evaluated on the device in about 2 ms.
+- Each tile has a **one-line summary**, a **one-line reason** and a button straight to the **official scheme page**. The full explanation is one click away under "Why this result".
 - Outcomes: *Likely eligible*, *Potential match*, *Check on official source*, *More information needed*, *Not currently open*, *Not eligible*.
 - **"These questions affect your results"** asks only the questions that would change outcomes, ranked by how many schemes they affect. Sensitive questions need explicit consent.
 
@@ -77,4 +78,4 @@ A guided tour of the working prototype, to share with [PROPOSAL.md](./PROPOSAL.m
 6. Open **Impact** and enter a scheme's BE and Actuals for the ministry in the room (screen 6).
 
 ## Quality evidence
-77 automated tests: 37 unit (engine, API contract, impact model), 16 pipeline and 24 end-to-end on desktop and mobile. The real-data dry run checks 18 personas × 66 schemes against 210 hand-written expected outcomes, with 0 mismatches. Details: [TEST_REPORT.md](../TEST_REPORT.md).
+86 automated tests: 42 unit (engine, API contract, impact model), 16 pipeline and 28 end-to-end on desktop and mobile. The real-data dry run checks 18 personas × 66 schemes against 210 hand-written expected outcomes, with 0 mismatches. Details: [TEST_REPORT.md](../TEST_REPORT.md).
