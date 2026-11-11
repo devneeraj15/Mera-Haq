@@ -63,6 +63,7 @@ def mahadbt_sections(text: str) -> dict | None:
     return {"name": name, **body}
 
 
+STUDENT_LINE = re.compile(r"\b(students?|studying|admission|admitted|trainees?|bonafide)\b", re.I)
 _DEPT_SUFFIX = re.compile(r"\(([A-Z]{2,6})\)\s*$")
 
 
@@ -95,12 +96,23 @@ def from_mahadbt(item: dict) -> dict | None:
             n += 1
             criteria.append({"id": f"c{n}", "op": "manual", "label": line, "mandatory": True, "evidence": evidence, "extraction": "VERBATIM"})
 
+    # Every MahaDBT scholarship states its conditions in terms of students,
+    # admission or courses. When a line says so explicitly, record ONE
+    # machine-checkable "currently studying" condition (evidence = that line),
+    # so people who are not students are not shown these as matches.
+    student_line = next((l for l in sec.get("Eligibility", []) if STUDENT_LINE.search(l)), None)
+    if student_line:
+        n += 1
+        criteria.append({"id": f"c{n}", "field": "studentLevel", "op": "notIn", "value": ["NOT_STUDENT"], "label": "Currently studying (enrolled in a course)",
+                         "mandatory": True, "gate": True, "evidence": {"source": 0, "quote": student_line}, "extraction": "AUTO_PATTERN"})
+
     gr = [l for l in sec.get("Eligibility", []) if re.match(r"^\(?\s*as per gr", l, re.I)]
     benefits_text = [l for l in sec.get("Benefits", []) if l]
     return {
         "id": sid,
         "name": name,
         "altNames": [],
+        "summary": None,
         "description": " ".join(sec.get("Overview", [])) or None,
         "category": "EDUCATION_SCHOLARSHIP",
         "subcategory": None,

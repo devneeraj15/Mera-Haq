@@ -204,6 +204,7 @@ components:
           type: array
           items: { $ref: "#/components/schemas/Criterion" }
         mandatory: { type: boolean, default: true }
+        gate: { type: boolean, description: Broad precondition (e.g. currently studying). Passing it alone is not evidence of eligibility }
         evidence: { $ref: "#/components/schemas/Evidence" }
     Source:
       type: object
@@ -223,6 +224,7 @@ components:
         id: { type: string }
         name: { type: string }
         altNames: { type: array, items: { type: string } }
+        summary: { type: [string, "null"], maxLength: 140, description: One-line plain-language paraphrase of quoted benefits and criteria }
         description: { type: [string, "null"] }
         category: { type: string }
         level: { $ref: "#/components/schemas/Level" }

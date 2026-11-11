@@ -26,7 +26,7 @@ HISTORY = ROOT / "data" / "history"
 TRACKED = ["name", "description", "criteria", "benefits", "documents", "applicationUrl", "infoUrl", "applicationWindow", "status", "jurisdictions", "department"]
 GOOD = {"VERIFIED", "PARTIALLY_VERIFIED"}
 
-PUBLIC_KEYS = ["id", "name", "altNames", "description", "category", "subcategory", "level", "jurisdictions", "ministry", "department",
+PUBLIC_KEYS = ["id", "name", "altNames", "summary", "description", "category", "subcategory", "level", "jurisdictions", "ministry", "department",
                "implementingAuthority", "targetBeneficiaries", "criteria", "benefits", "documents", "renewal", "applicationProcess",
                "applicationMode", "applicationUrl", "applicationUrlEvidence", "infoUrl", "guidelinesUrl", "governmentOrderRef", "applicationWindow",
                "contact", "status", "sources", "verification", "lastVerified", "extractedAt", "provenance", "version", "staleSince", "missingFromLatestRun"]

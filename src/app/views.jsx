@@ -71,7 +71,11 @@ function NeedsProfile({ children }) {
 export function SchemeCard({ scheme, result, showOutcome = true }) {
   const { saved, toggleSave } = useApp();
   const isSaved = saved.includes(scheme.id);
-  const benefit = scheme.benefits[0];
+  // One line on what the scheme is. Curated records carry a summary; for the
+  // rest we show who it is for, built from the verified criteria.
+  const audience = Engine.audienceLine(scheme);
+  const summary = scheme.summary || (audience ? `For: ${audience}` : "Conditions are listed on the official scheme page.");
+  const official = Engine.officialUrlInfo(scheme.infoUrl || (scheme.sources[0] && scheme.sources[0].url));
   return (
     <article className="scheme-card" aria-labelledby={`sc-${scheme.id}`}>
       <div className="scheme-card-top">
@@ -84,16 +88,20 @@ export function SchemeCard({ scheme, result, showOutcome = true }) {
           {isSaved ? "★ Saved" : "☆ Save"}
         </button>
       </div>
-      <h3 className="scheme-card-title" id={`sc-${scheme.id}`}><a href={`#/mera-haq/scheme/${scheme.id}`}>{scheme.name}</a></h3>
-      <p className="scheme-card-dept">{scheme.department || scheme.ministry || "Department not stated in source"}</p>
-      {benefit && <p className="scheme-card-benefit">{benefit.text.split("\n")[0].slice(0, 180)}{benefit.text.length > 180 ? "…" : ""}</p>}
+      <h3 className="scheme-card-title" id={`sc-${scheme.id}`} title={scheme.name}><a href={`#/mera-haq/scheme/${scheme.id}`}>{scheme.name}</a></h3>
+      <p className="scheme-card-summary" title={summary}>{summary}</p>
       <div className="badge-row">
         {showOutcome && result && <OutcomeBadge outcome={result.outcome} />}
         <VerificationBadge status={scheme.verification.status} />
       </div>
-      {showOutcome && result && <p className="scheme-card-why">{result.explanation}</p>}
+      {showOutcome && result && <p className="scheme-card-why" title={result.shortReason}>{result.shortReason}</p>}
       <div className="scheme-card-actions">
-        <a className="btn btn-secondary btn-sm" href={`#/mera-haq/scheme/${scheme.id}`}>View details & eligibility</a>
+        {official.ok && (
+          <a className="btn btn-primary btn-sm" href={official.href} target="_blank" rel="noopener noreferrer" aria-label={`Open the official page for ${scheme.name} on ${official.host} (opens in a new tab)`}>
+            Official scheme page ↗
+          </a>
+        )}
+        <a className="btn btn-secondary btn-sm" href={`#/mera-haq/scheme/${scheme.id}`} aria-label={`Why this result for ${scheme.name}`}>{showOutcome && result ? "Why this result" : "Details"}</a>
       </div>
     </article>
   );

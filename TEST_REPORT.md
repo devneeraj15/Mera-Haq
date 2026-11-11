@@ -6,9 +6,9 @@ Run on 2026-11-06 on Windows 11, Node 22.11.0, Python 3.11.4, Chrome (stable cha
 
 | Suite | Command | Result |
 |---|---|---|
-| Engine, API contract and impact-model unit tests | `npm run test:unit` | **37 / 37 passed** (26 engine, 6 API contract, 5 impact model) |
+| Engine, API contract and impact-model unit tests | `npm run test:unit` | **42 / 42 passed** (31 engine, 6 API contract, 5 impact model) |
 | Pipeline unit tests | `npm run test:pipeline` | **16 / 16 passed** (includes CAG quote verification) |
-| End-to-end (Playwright, desktop 1280×800 + Pixel 5 mobile) | `npx playwright test` | **26 / 26 passed** (13 journeys × 2 viewports) |
+| End-to-end (Playwright, desktop 1280×800 + Pixel 5 mobile) | `npx playwright test` | **28 / 28 passed** (14 journeys × 2 viewports) |
 | Real-data dry run (18 personas × 66 schemes) | `npm run dryrun` | **210 oracle checks, 0 mismatches, 0 failed evaluations**. 5 suspected false positives flagged, reviewed and found to be heuristic false alarms |
 | Production build | `npm run build` | passes. `app.js` 213.6 KiB (67.2 KiB gzip) |
 | Data pipeline (offline) | `npm run data:offline` | 66 records: 978 / 978 evidence quotes found in source snapshots (7 VERIFIED, 56 PARTIALLY_VERIFIED, 3 NEEDS_REVIEW) |
@@ -81,6 +81,10 @@ The first runs found **real errors**. They were fixed at the source (extractor o
 | FP-4 | Freeship "income above Rs. 250000 to unlimited" was not enforced (p17 at exactly ₹2,50,000 matched) | Lower bounds were left as manual | Extractor: explicit "income above X" → `gt X`. Tribal Freeship override from its Overview |
 | FN/FP-5 | "less than or equal to Rs. 2,50,000" was parsed as strictly less than | Pattern order | Inclusive wording is checked first. Unit-tested |
 | FP-6 | "For Non Professional Courses … upto 1 lakh" became a mandatory ceiling for every course | Conditional statements | Conditional / OR / cross-scheme lines stay manual |
+
+| FP-7 | A working 24-year-old was shown student scholarships as possible matches (found in user testing) | "Must be a student" was only in free-text lines | Extractor adds one "currently studying" gate condition per MahaDBT scheme, quoting the official line (53 of 55 schemes). Non-students now get "Not eligible"; passing the gate alone never gives "Likely eligible" |
+
+**Pension schemes at age 24 are correct, not a bug.** APY, PM-SYM and NPS-Traders are joined between 18 and 40 and pay from age 60 (official text: "The minimum age of joining APY is 18 years and maximum age is 40 years"). Boundary tests cover 17/18/24/40/41 for the pension schemes and 50/51 and 70/71 for the two insurance schemes. Tiles now say "Join at age 18–40 … from age 60" so the reason is clear.
 
 ### Remaining flags (reviewed, not false positives)
 - `pmuy-ujjwala` for OBC and General women (p02, p06): the PMUY household list also includes "Poor Household as per 14-point declaration", so caste is not required. The condition is shown as "confirm yourself".

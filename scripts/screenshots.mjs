@@ -23,7 +23,7 @@ await page.goto(base + "#/mera-haq/scheme/mh-government-of-india-post-matric-sch
 await page.getByLabel(/I agree to answer optional sensitive questions/).check();
 await page.getByLabel("Annual family income (₹)").fill("200000");
 await page.locator("select[id$='-socialCategory']").selectOption("SC");
-await page.getByLabel("State/UT of domicile").selectOption("MH").catch(() => {});
+await page.locator("select[id$='-studentLevel']").selectOption("UNDERGRADUATE");
 await page.getByRole("button", { name: "Save answers" }).click();
 await page.locator("details.evidence").first().evaluate((d) => { d.open = true; });
 await page.evaluate(() => { const el = document.querySelector("#elig-h").closest("section"); window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 76); });
